@@ -10,14 +10,14 @@ public class EmitterScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        deviceIndex = SteamVR_Controller.GetDeviceIndex(deviceRelation);
+        deviceIndex = (int)GetComponent<SteamVR_TrackedObject>().index;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         if(deviceIndex == -1)
-            deviceIndex = SteamVR_Controller.GetDeviceIndex(deviceRelation);
+            deviceIndex = (int)GetComponent<SteamVR_TrackedObject>().index;
 
         if (deviceIndex != -1)
         {
