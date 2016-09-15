@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum MagicType
+{
+    None = 0,
+    Fire,
+    Water,
+    Lightning
+};
+
 public class MagicTypeChooser : MonoBehaviour
 {
 
@@ -16,6 +24,7 @@ public class MagicTypeChooser : MonoBehaviour
 
     private int m_iDeviceIndexThis = -1; //The deviceindex of the offhandcontroller. Is calculated at the beginning of the game.
 
+    MagicType activeMagic = MagicType.None;
     
 	// Use this for initialization
 	void Start ()
@@ -26,15 +35,31 @@ public class MagicTypeChooser : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	    
+        if (m_iDeviceIndexThis == -1)
+            m_iDeviceIndexThis = (int)GetComponent<SteamVR_TrackedObject>().index;
+
+        var device = SteamVR_Controller.Input(m_iDeviceIndexThis);
+        Vector2 touchaxis = device.GetAxis();
+        if (touchaxis.x < 0)
+        {
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1, 0.5f);
+            activeMagic = MagicType.Water;
+        }
+        else if(touchaxis.x > 0)
+        {
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(1, 0, 0, 0.5f);
+            activeMagic = MagicType.Fire;
+        }
+            
 	}
 
     public void OnTriggerEnter(Collider _coll)
     {
-        if(_coll.CompareTag(m_goMainHandController.tag))
+        Debug.Log("trigger was entered");
+        if(_coll.CompareTag("Wand"))
         {
             Debug.Log("Wand has entered the magic sphere. Now transferring power");
-
+            m_goMainHandController.GetComponent<WandScript>().LoadMagic(activeMagic);
         }
     }
 }
