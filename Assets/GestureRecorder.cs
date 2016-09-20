@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -17,10 +18,15 @@ public class GestureRecorder : MonoBehaviour {
     [Range(1, 10)]
     private int m_iRequiredNumber = 5;
 
+    // Debug Texts
+    [SerializeField]
+    private Text m_textCharPntNr;
+
     private List<Vector3> m_arrPoints = new List<Vector3>(); // just for the line renderer
     private List<Vector2> m_arrPoints2D = new List<Vector2>();
     private List<Vector2> m_arrCharPoints = new List<Vector2>();
-    private List<Vector2> m_arrAddedPoints = new List<Vector2>();
+    private List<Vector2> m_arrAddedPoints = new List<Vector2>(); // debug
+    private List<Vector2> m_arrRemovedPoints = new List<Vector2>(); // debug
 
     private LineRenderer line;
     private bool newLine = true;
@@ -34,6 +40,8 @@ public class GestureRecorder : MonoBehaviour {
     /// Drawing and recording gestures!
     /// </summary>
 	void Update () {
+        Debug();
+
         if (Input.GetMouseButton(0))
         {
             if (newLine)
@@ -63,6 +71,14 @@ public class GestureRecorder : MonoBehaviour {
             newLine = true;
         }
 	}
+
+    void Debug()
+    {
+        if (m_textCharPntNr != null)
+        {
+            m_textCharPntNr.text = "CharPoints: " + m_arrCharPoints.Count;
+        }
+    }
 
     /// <summary>
     /// Takes in an array of 2D points and returns
@@ -106,36 +122,89 @@ public class GestureRecorder : MonoBehaviour {
             float dist = Vector2.Distance(lastCharPoint, lastPoint);
             if (dist < m_fMinimalDistance)
                 result[result.Count - 1] = lastPoint;
+            else
+                result.Add(lastPoint);
         }
 
-        m_arrAddedPoints.Clear(); // TAKE THIS OUT
+        m_arrAddedPoints.Clear(); // DEBUG LINE
+        m_arrRemovedPoints.Clear(); // DEBUG LINE
 
         /* Step 2: Increase points? */
         if (result.Count < requiredNr)
         {
             int diff = requiredNr - result.Count;
-            print("Adding " + diff + " points");
             AddPointsToLongestSegments(ref result, diff);
         }
         /* Step 3: Decrease points? */
         else if (result.Count > requiredNr)
         {
-            // erase some
+            int diff = result.Count - requiredNr;
+            print("Removing " + diff + " points");
+            RemovePointsFromGesture(ref result, diff);
         }
-
 
         // Last Step: Assign the result
         charp = result.ToArray();
     }
 
     /// <summary>
-    /// Itieratively adds points to the longest segmets
-    /// (probably can be optimized!)
+    /// iteratively remove points from Result with the shortest sum
+    /// of the segments, but preserve the points: start and end
+    /// </summary>
+    /// <param name="p"></param>
+    /// <param name="number"></param>
+    void RemovePointsFromGesture(ref List<Vector2> p, int number)
+    {
+        /**
+         * There could be a better way to remove them,
+         * because with algorithm does not take a angle in account.
+         * If it makes trouble, this might be a good start
+         **/
+
+        // Check for traps
+        if (p.Count <= 2)
+        {
+            print("Algorithm needs at least 2 segments to reduce points.");
+            return;
+        }
+        
+        for (int n=0; n<number; ++n)
+        {
+            // init
+            float minSumOfDistance = float.MaxValue;
+            int index = -1;
+
+            // find the point with the shortest sum of segment-lengths
+            for (int i=1; i < p.Count-1; ++i)
+            {
+                float sum = Vector2.Distance(p[i - 1], p[i]); // distance of the first adjacent segment
+                sum += Vector2.Distance(p[i], p[i + 1]); // distance of the second adjacet segment
+                if (sum < minSumOfDistance)
+                {
+                    minSumOfDistance = sum;
+                    index = i;
+                }
+            }
+
+            m_arrRemovedPoints.Add(p[index]); // DEBUG
+
+            p.RemoveAt(index);
+        }
+    }
+
+    /// <summary>
+    /// Iteratively adds points to the longest segmets
     /// </summary>
     /// <param name="p">The point list where points will be added</param>
     /// <param name="number">The number of points that shall be added</param>
     void AddPointsToLongestSegments(ref List<Vector2> p, int number)
     {
+        /**
+         * This could also be done better.
+         * Add points by using the "velocity"/tangents of the segments
+         * before and after (just like Catmull Rom or alike)
+         **/
+
         // Check for traps
         if (p.Count <= 1)
         {
@@ -164,12 +233,10 @@ public class GestureRecorder : MonoBehaviour {
             // add a single point
             Vector2 newPoint = Vector2.Lerp(p[segmentStart], p[segmentStart + 1], 0.5f);
 
-            m_arrAddedPoints.Add(newPoint);
+            m_arrAddedPoints.Add(newPoint); // DEBUG LINE
 
             p.Insert(segmentStart + 1, newPoint);
         }
-
-        print("Total of " + p.Count + " points after adding");
     }
 
     // Drawing Spheres where characteristic Points are
@@ -194,10 +261,17 @@ public class GestureRecorder : MonoBehaviour {
             b += colorStep;
         }
 
-        // Draw the added points
+        // Draw the added points DEBUG
+        Gizmos.color = Color.red;
         foreach (Vector3 p in m_arrAddedPoints)
         {
-            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(new Vector3(p.x, p.y, 0), m_fSphereRadius + 0.2f);
+        }
+
+        // Draw the removes points DEBUG
+        Gizmos.color = Color.blue;
+        foreach (Vector3 p in m_arrRemovedPoints)
+        {
             Gizmos.DrawSphere(new Vector3(p.x, p.y, 0), m_fSphereRadius + 0.2f);
         }
     }
