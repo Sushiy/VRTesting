@@ -3,21 +3,21 @@ using System.Collections;
 
 namespace gesture
 {
-    enum MeasureType
+    public enum MeasureType
     {
         EUKLIDIAN_MEASURE,
         MANHATTEN_MEASURE   
     }
 
-    public class GestureSimilarity : MonoBehaviour
+    public class GestureSimilarity
     {
-        float CompareGestures(Vector2[] g1, Vector2[] g2, MeasureType type, bool rootIt)
+        public static float CompareGestures(Vector2[] g1, Vector2[] g2, MeasureType type, bool rootIt)
         {
             // Check for traps
             int n = g1.Length;
             if (n != g2.Length)
             {
-                print("The gestures to compare have different counts of points! Make sure both gestures have the same number of points");
+                //print("The gestures to compare have different counts of points! Make sure both gestures have the same number of points");
                 return -1;
             }
 
@@ -40,13 +40,13 @@ namespace gesture
         }
 
         // returns the Euklidian Measure of two Vectors
-        float EuklidianMeasure(Vector2 a, Vector2 b)
+        static float EuklidianMeasure(Vector2 a, Vector2 b)
         {
             return Vector2.Distance(a, b);
         }
 
         // returns the ManhattenMeasure of two Vectors
-        float ManhattenMeasure(Vector2 a, Vector2 b)
+        static float ManhattenMeasure(Vector2 a, Vector2 b)
         {
             return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
         }

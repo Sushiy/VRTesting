@@ -36,7 +36,6 @@ namespace gesture
         private List<Vector2> m_arrCharPoints = new List<Vector2>();
         private List<Vector2> m_arrAddedPoints = new List<Vector2>(); // debug
         private List<Vector2> m_arrRemovedPoints = new List<Vector2>(); // debug
-        private Vector2 m_vec2Center = new Vector2();
 
         private LineRenderer line;
         private bool newLine = true;
@@ -155,7 +154,6 @@ namespace gesture
             else if (result.Count > requiredNr)
             {
                 int diff = result.Count - requiredNr;
-                print("Removing " + diff + " points");
                 RemovePointsFromGesture(ref result, diff);
             }
 
@@ -263,53 +261,55 @@ namespace gesture
         /// <param name="size"></param>
         void MakeGestureUniform(ref Vector2[] p, float size)
         {
-            // First, calculate the center of the gesture
-            Vector2 center = CalcCenterOfGesture(ref p);
-            m_vec2Center = center; // DEBUG
+            Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+            Vector2 max = new Vector2(float.MinValue, float.MinValue);
 
-            // Find the points that is farthest from the center
-            float distance = float.MinValue;
-            Vector2 farthestPoint = Vector2.zero;
-            for (int i=0; i<p.Length; ++i)
+            // find min and max of the bounding box of this gesture
+            for (int i = 0; i < p.Length; ++i)
             {
-                float distanceFromCenter = Vector2.Distance(p[i], center);
-                if (distanceFromCenter > distance)
-                {
-                    distance = distanceFromCenter;
-                    farthestPoint = p[i];
-                }
+                if (p[i].x < min.x)
+                    min.x = p[i].x;
+                if (p[i].x > max.x)
+                    max.x = p[i].x;
+                if (p[i].y < min.y)
+                    min.y = p[i].y;
+                if (p[i].y > max.y)
+                    max.y = p[i].y;
             }
 
-            // Find the scale
-            float scale = size / distance;
-
-            // Transform them
-            for (int i=0; i<p.Length; ++i)
+            // scale to the right size
+            Rect box = new Rect(min.x, min.y, max.x - min.x, max.y - min.y);
+            float scaleX = size / box.width;
+            float scaleY = size / box.height;
+            Vector2 center = new Vector2(box.center.x * scaleX, box.center.y* scaleY);
+            for (int i = 0; i < p.Length; ++i)
             {
-                // translate to center
-                p[i] -= center;
                 // scale
-                p[i] *= scale;
+                p[i].x *= scaleX;
+                p[i].y *= scaleY;
+                // translate
+                p[i].x -= center.x;
+                p[i].y -= center.y;
             }
         }
 
-        Vector2 CalcCenterOfGesture(ref Vector2[] p)
-        {
-            float averageX = 0f;
-            float averageY = 0f;
+        //Vector2 CalcCenterOfGesture(ref Vector2[] p)
+        //{
+        //    float averageX = 0f;
+        //    float averageY = 0f;
 
-            foreach(Vector2 v in p)
-            {
-                averageX += v.x;
-                averageY += v.y;
-            }
+        //    foreach(Vector2 v in p)
+        //    {
+        //        averageX += v.x;
+        //        averageY += v.y;
+        //    }
 
-            float n = (float) p.Length;
-            averageX /= n;
-            averageY /= n;
+        //    float n = (float) p.Length;
+        //    averageX /= n;
+        //    averageY /= n;
 
-            return new Vector2(averageX, averageY);
-        }
+        //    return new Vector2(averageX, averageY);
+        //}
 
 
         // Drawing Spheres where characteristic Points are
@@ -348,16 +348,16 @@ namespace gesture
             //    Gizmos.DrawSphere(new Vector3(p.x, p.y, 0), m_fSphereRadius + 0.2f);
             //}
 
-            // Mark the Center
-            Gizmos.color = Color.red;
-            if (m_vec2Center != Vector2.zero)
-            {
-                Gizmos.DrawWireSphere(new Vector3(m_vec2Center.x, m_vec2Center.y, 0), m_fSphereRadius);
-            }
-
             // Mark the Space where the gesture should get drawn then
             Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(Vector3.zero, 1f);
+            Gizmos.DrawLine(Vector2.zero + 0.5f * Vector2.up - 0.5f * Vector2.left,
+                Vector2.zero + 0.5f * Vector2.up - 0.5f * Vector2.right);
+            Gizmos.DrawLine(Vector2.zero + 0.5f * Vector2.down - 0.5f * Vector2.left,
+                Vector2.zero + 0.5f * Vector2.down - 0.5f * Vector2.right);
+            Gizmos.DrawLine(Vector2.zero + 0.5f * Vector2.up - 0.5f * Vector2.left,
+                Vector2.zero + 0.5f * Vector2.down - 0.5f * Vector2.left);
+            Gizmos.DrawLine(Vector2.zero + 0.5f * Vector2.up - 0.5f * Vector2.right,
+                Vector2.zero + 0.5f * Vector2.down - 0.5f * Vector2.right);
         }
     }
 
