@@ -5,10 +5,10 @@ using System.Collections;
  */
 public class WireMissileScript : Projectiles
 {
-    public float m_fMaximumRange = 20f;
-    public float m_fBasicSpeed = 100f;
-    public float m_fMaxSteerForce = 20f;
-    public float m_fMaxSteerDistance = 20f;
+    public static float m_fMaxRange = 20f;
+    public static float m_fBasicSpeed = 30f;
+    public static float m_fMaxSteerForce = 200f;
+    public static float m_fMaxSteerDistance = 5f;
     public AnimationCurve m_curveSteeringForce;
 
     private Quaternion m_qTargetRotation;
@@ -34,15 +34,18 @@ public class WireMissileScript : Projectiles
         {
             crystal.material.color = Color.blue;
             //This is the basic Force, which is pushing the missile forward at a constant speed (?)
-            m_rigidThis.AddForce(transform.forward * m_fBasicSpeed * Time.fixedDeltaTime, ForceMode.Acceleration);
-            
-            //if(Vector3.Distance(transform.position, m_transWand.position) <= m_fMaximumRange)
+            //m_rigidThis.AddForce(m_transWand.forward * m_fBasicSpeed * Time.fixedDeltaTime, ForceMode.Acceleration);
+            float fDistanceToWand = Vector3.Distance(transform.position, m_transWand.position);
+            if ( fDistanceToWand <= m_fMaxRange)
             {
                 CalculateTargetVector();
-                float fMissileSteeringdistance = Vector3.Distance(m_v3TargetPosition, m_rigidThis.position);
-                float fActiveSteeringForce = m_fMaxSteerForce * m_curveSteeringForce.Evaluate(fMissileSteeringdistance / m_fMaxSteerDistance);
+                float fActiveMaxSteerDistance = m_fMaxSteerDistance * m_curveSteeringForce.Evaluate(Mathf.Clamp(fDistanceToWand / m_fMaxRange, 0, 1)); ;
+                float fMissileSteerDistance = Vector3.Distance(m_v3TargetPosition, m_rigidThis.position);
+                float fActiveSteerCoef = m_curveSteeringForce.Evaluate(Mathf.Clamp(fMissileSteerDistance / fActiveMaxSteerDistance, 0.1f, 1));
+                WandScript.m_instanceThis.textPanel.text = "Distance: " + fMissileSteerDistance.ToString("F2") + "/" + fActiveMaxSteerDistance.ToString("F2") + "\n"
+                                                           + "Force: " + fActiveSteerCoef.ToString("F2") + "/" + 1;
                 Vector3 targetDirection = m_v3TargetPosition - m_rigidThis.position;
-                m_rigidThis.AddForce( targetDirection * m_fMaxSteerForce * Time.fixedDeltaTime, ForceMode.Acceleration);
+                m_rigidThis.AddForce( ((targetDirection * fActiveSteerCoef * m_fMaxSteerForce) + (m_transWand.forward * (1.0f- fActiveSteerCoef) * m_fBasicSpeed )) * Time.fixedDeltaTime, ForceMode.Acceleration);
             }
 
         }
@@ -59,15 +62,15 @@ public class WireMissileScript : Projectiles
             m_rigidThis.AddForce(m_transWand.forward * 3f, ForceMode.Impulse);
         }
 
-        StartCoroutine(ExplodeAfter(3f));
+        StartCoroutine(ExplodeAfter(5f));
     }
 
     private void CalculateTargetVector()
     {
         //Wands position is A, wands position at maximum range is B, missile position is P
-        Vector3 v3futurePos = m_rigidThis.position + m_rigidThis.velocity * Time.fixedDeltaTime * 2;
+        Vector3 v3futurePos = m_rigidThis.position;
         Vector3 v3AP = v3futurePos - m_transWand.position;
-        Vector3 v3AB = m_transWand.forward * m_fMaximumRange;
+        Vector3 v3AB = m_transWand.forward * m_fMaxRange;
 
         float fSqrMagAP = v3AB.sqrMagnitude;
 
@@ -75,8 +78,7 @@ public class WireMissileScript : Projectiles
 
         float t = fAPdotAB / fSqrMagAP;
 
-        m_v3TargetPosition = m_transWand.position + v3AB * t;
-
+        m_v3TargetPosition = m_transWand.position + v3AB * t + m_transWand.forward * Time.deltaTime * 5.0f;
     }
 
     public IEnumerator ExplodeAfter(float f)

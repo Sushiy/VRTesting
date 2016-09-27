@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class WandScript : MonoBehaviour
@@ -17,6 +18,9 @@ public class WandScript : MonoBehaviour
     public ParticleSystem ice;
 
     public static WandScript m_instanceThis;
+
+    public LineRenderer m_linerendererRange;
+    public Text textPanel;
     // Use this for initialization
     void Awake ()
     {
@@ -41,6 +45,9 @@ public class WandScript : MonoBehaviour
             fire.Stop();
             ice.Stop();
         }
+
+        m_linerendererRange.SetPosition(0, transform.position);
+        m_linerendererRange.SetPosition(1, transform.position + (transform.forward * WireMissileScript.m_fMaxRange));
 	}
 
     public void LoadMagic(MagicType _type)
