@@ -24,18 +24,15 @@ public class ShieldScript : MonoBehaviour
             switch(MagicTypeChooser.s_Instance.activeMagic)
             {
                 case MagicType.Fire:
-                    shield.layer = 11;
                     shield.GetComponent<MeshRenderer>().material.color = new Color(1, 0, 0, 0.6f);
-                    shield.SetActive(true);
                     break;
                 case MagicType.Ice:
-                    shield.layer = 12;
                     shield.GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1, 0.6f);
-                    shield.SetActive(true);
                     break;
                 default:
                     break;
             }
+            shield.SetActive(true);
         }
         else if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
             shield.SetActive(false);

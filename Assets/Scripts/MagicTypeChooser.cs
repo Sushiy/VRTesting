@@ -33,7 +33,7 @@ public class MagicTypeChooser : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-	    
+        s_Instance = this;
 	}
 	
 	// Update is called once per frame

@@ -31,7 +31,7 @@ public class ViveGestureTracker : MonoBehaviour {
         }
         else if (tracking)
         {
-            dataset.points = points.ToArray();
+            dataset.setPoints(points.ToArray());
             points.Clear();
             tracking = false;
         }
