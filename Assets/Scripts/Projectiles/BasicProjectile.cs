@@ -14,6 +14,13 @@ public class BasicProjectile : Projectiles
     {
         base.Fire();
         print("firebasic!");
-        m_rigidThis.AddForce(m_transWand.forward * m_fShotPower, ForceMode.Impulse);
+        if(m_rigidThis == null)
+            m_rigidThis = GetComponent<Rigidbody>();
+        m_rigidThis.AddForce(transform.forward * m_fShotPower, ForceMode.Impulse);
+    }
+
+    public override float GetRange()
+    {
+        return base.GetRange();
     }
 }

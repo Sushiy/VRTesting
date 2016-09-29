@@ -13,7 +13,8 @@ public class StickyProjectileScript : MonoBehaviour
     {
         if( m_layermask == (m_layermask | (1 << _coll.gameObject.layer)))
         {
-            GetComponent<Rigidbody>().isKinematic = true;
+            if(_coll.gameObject.layer != 10)
+                GetComponent<Rigidbody>().isKinematic = true;
             StartCoroutine(ExplodeAfter(boomDelay));
         }
     }

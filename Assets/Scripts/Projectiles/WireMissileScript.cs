@@ -6,9 +6,9 @@ using System.Collections;
 public class WireMissileScript : Projectiles
 {
     public static float m_fMaxRange = 20f;
-    public static float m_fBasicSpeed = 30f;
-    public static float m_fMaxSteerForce = 200f;
-    public static float m_fMaxSteerDistance = 5f;
+    public static float m_fBasicSpeed = 150f;
+    public static float m_fMaxSteerForce = 300f;
+    public static float m_fMaxSteerDistance = 3f;
     public AnimationCurve m_curveSteeringForce;
 
     private Quaternion m_qTargetRotation;
@@ -92,5 +92,10 @@ public class WireMissileScript : Projectiles
         }
 
         Destroy(this.gameObject);
+    }
+
+    public override float GetRange()
+    {
+        return m_fMaxRange;
     }
 }

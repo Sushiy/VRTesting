@@ -5,22 +5,26 @@ using System.Collections;
 public class WandScript : MonoBehaviour
 {
     private int m_iDeviceIndexThis = -1;
-    MagicType loadedType = MagicType.None;
+    MagicType m_magictypeLoaded = MagicType.None;
     
-    bool isMagicLoaded = false;
+    bool m_bIsMagicLoaded = false;
 
-    GameObject projectile;
-    public GameObject projectileIce;
-    public GameObject projectileFire;
-    float ShotPower = 15f;
+    GameObject m_goSpell;
+    public GameObject[] m_goSpellsIce;
+    public GameObject[] m_goSpellsFire;
+    public GameObject[] m_goSpellsLight;
+    float m_fShotPower = 15f;
 
-    public ParticleSystem fire;
-    public ParticleSystem ice;
+    public ParticleSystem m_psIdleFire;
+    public ParticleSystem m_psIdleIce;
 
     public static WandScript m_instanceThis;
 
     public LineRenderer m_linerendererRange;
     public Text textPanel;
+    public Text debugText2;
+
+    public ParticleSystem m_psFail;
     // Use this for initialization
     void Awake ()
     {
@@ -34,38 +38,107 @@ public class WandScript : MonoBehaviour
             m_iDeviceIndexThis = (int)GetComponent<SteamVR_TrackedObject>().index;
         var device = SteamVR_Controller.Input(m_iDeviceIndexThis);
 
-        if (isMagicLoaded && (device.GetPressDown(SteamVR_Controller.ButtonMask.Grip))|| device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+        Vector2 touchaxis = device.GetAxis();
+        if(device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            Projectiles newProjectile = Instantiate(projectile).GetComponent<Projectiles>();
+            debugText2.text = "pressed";
+            if (touchaxis.x < 0.0f)
+            {
+                ChooseSpellform(0);
+            }
+            else if (touchaxis.x > 0.0f)
+            {
+                ChooseSpellform(1);
+            }
+
+        }
+        
+
+
+        if (m_bIsMagicLoaded && device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+        {
+            Projectiles newProjectile = Instantiate(m_goSpell).GetComponent<Projectiles>();
             newProjectile.transform.rotation = transform.rotation;
             newProjectile.transform.position = transform.GetChild(1).position;
             newProjectile.SetWand(transform);
             newProjectile.Fire();
-            isMagicLoaded = false;
-            fire.Stop();
-            ice.Stop();
+            m_bIsMagicLoaded = false;
+            m_psIdleFire.Stop();
+            m_psIdleIce.Stop();
         }
+        if(m_goSpell != null)
+        {
+            float fSpellrange = m_goSpell.GetComponent<Projectiles>().GetRange();
+            if (fSpellrange != -1)
+            {
+                m_linerendererRange.SetPosition(0, transform.position);
+                m_linerendererRange.SetPosition(1, transform.position + (transform.forward * fSpellrange));
+            }
 
-        m_linerendererRange.SetPosition(0, transform.position);
-        m_linerendererRange.SetPosition(1, transform.position + (transform.forward * WireMissileScript.m_fMaxRange));
+        }
 	}
 
-    public void LoadMagic(MagicType _type)
+    public void ChargeMagicType(MagicType _type)
     {
-        loadedType = _type;
-        isMagicLoaded = true;
-        if (loadedType == MagicType.Fire)
+        m_magictypeLoaded = _type;
+        if (m_magictypeLoaded == MagicType.Fire)
         {
-            fire.Play();
-            ice.Stop();
-            projectile = projectileFire;
+            m_psIdleFire.Play();
+            m_psIdleIce.Stop();
+            //projectile = projectileFire;
         }
-        if (loadedType == MagicType.Water)
+        if (m_magictypeLoaded == MagicType.Ice)
         {
-            ice.Play();
-            fire.Stop();
-            projectile = projectileIce;
+            m_psIdleIce.Play();
+            m_psIdleFire.Stop();
+            //projectile = projectileIce;
+        }
+        if(m_magictypeLoaded == MagicType.Lightning)
+        {
+            //TODO: Lightningstuff
         }
 
+    }
+
+    public void ChooseSpellform(int _iSpellform)
+    {
+        switch(m_magictypeLoaded)
+        {
+            case MagicType.Fire:
+                if (m_goSpellsFire.Length >= _iSpellform)
+                {
+                    m_goSpell = m_goSpellsFire[_iSpellform];
+                }
+                CheckMagicLoaded();
+                break;
+            case MagicType.Ice:
+                if(m_goSpellsIce.Length >= _iSpellform)
+                {
+                    m_goSpell = m_goSpellsIce[_iSpellform];
+                }
+                CheckMagicLoaded();
+                break;
+            case MagicType.Lightning:
+                m_goSpell = m_goSpellsLight[_iSpellform];
+                CheckMagicLoaded();
+                break;
+            default:
+                print("There is no correct MagicType loaded");
+                break;
+        }
+    }
+
+    private void CheckMagicLoaded()
+    {
+        if(m_magictypeLoaded != MagicType.None && m_goSpell != null)
+        {
+            debugText2.text = m_magictypeLoaded.ToString() + "//" + m_goSpell.name;
+            m_bIsMagicLoaded = true;
+        }
+        else
+        {
+            m_bIsMagicLoaded = false;
+            m_psFail.Play();
+        }
     }
 }

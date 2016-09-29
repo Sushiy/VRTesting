@@ -13,4 +13,9 @@ public class Projectiles : MonoBehaviour
     {
         m_transWand = _trans;
     }
+
+    public virtual float GetRange()
+    {
+        return -1;
+    }
 }

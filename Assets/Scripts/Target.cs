@@ -6,6 +6,7 @@ public class Target : MonoBehaviour
     [SerializeField]
     private ParticleSystem m_psExplosion;
 
+    public bool DestroyMe = false;
 	public void OnCollisionEnter(Collision _coll)
     {
         if (_coll.gameObject.layer == 9)
@@ -23,7 +24,7 @@ public class Target : MonoBehaviour
             yield return null;
 
         }
-
-        Destroy(this.gameObject);
+        if(DestroyMe)
+            Destroy(this.gameObject);
     }
 }
