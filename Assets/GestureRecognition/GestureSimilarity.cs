@@ -17,8 +17,7 @@ namespace gesture
             int n = g1.Length;
             if (n != g2.Length)
             {
-                //print("The gestures to compare have different counts of points! Make sure both gestures have the same number of points");
-                return -1;
+                return -1; // ERROR
             }
 
             // Compare each
