@@ -26,6 +26,8 @@ namespace gesture
         [SerializeField]
         [Range(1, 10)]
         private int m_iRequiredNumber = 5;
+        [SerializeField]
+        private float m_fSize = 1f;
 
         // Debug Texts
         [SerializeField]
@@ -87,6 +89,16 @@ namespace gesture
             }
         }
 
+        public gesture CreateGestureFromViveData(ref Vector3[] p, ref Vector3 lookAt)
+        {
+            gesture g = new gesture();
+            Vector2[] points2D;
+            Transform3DData(ref p, ref lookAt, out points2D);
+            IdentifyCharPoints(ref points2D, out g.points, m_iRequiredNumber);
+            MakeGestureUniform(ref g.points, m_fSize);
+            return g;
+        }
+
         public Vector2[] getCurrentGesture()
         {
             return m_arrCharPoints.ToArray();
@@ -97,6 +109,17 @@ namespace gesture
             if (m_textCharPntNr != null)
             {
                 m_textCharPntNr.text = "CharPoints: " + m_arrCharPoints.Count;
+            }
+        }
+
+        void Transform3DData(ref Vector3[] p, ref Vector3 lookAt, out Vector2[] gesturePoints)
+        {
+            ProjectOnPlane(ref p, ref lookAt);
+            RotateToXYPlane(ref p, ref lookAt);
+            gesturePoints = new Vector2[p.Length];
+            for (int i=0; i<p.Length; ++i)
+            {
+                gesturePoints[i] = p[i];
             }
         }
 
