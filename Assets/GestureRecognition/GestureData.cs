@@ -53,25 +53,5 @@ namespace gesture
         {
             return gestures[(int)type];
         }
-
-        // prints out, how many gestures have been recorded for each gesture
-        //public string PrintData()
-        //{
-        //    string[] names = System.Enum.GetNames(typeof(gestureTypes));
-        //    string result = "";
-        //    for (int i=0; i<names.Length; ++i)
-        //    {
-        //        int zeroCount = 0;
-        //        for (int j=0; j<pointsPerGesture; ++j)
-        //        {
-        //            if (gestures[i][j] == Vector2.zero) zeroCount++;
-        //        }
-        //        int gesturesRecorded = ((samplesPerGesture * pointsPerGesture) - zeroCount) / 4;
-
-        //        result += "Number of " + names[i] + ": " + gesturesRecorded;
-        //    }
-
-        //    return result;
-        //}
     }
 }
