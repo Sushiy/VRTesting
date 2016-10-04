@@ -57,18 +57,15 @@ public class WandScript : MonoBehaviour
 
         if (m_bIsMagicLoaded && device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            Projectiles newProjectile = Instantiate(m_goSpell).GetComponent<Projectiles>();
+            Projectile newProjectile = Instantiate(m_goSpell).GetComponent<Projectile>();
             newProjectile.transform.rotation = transform.rotation;
             newProjectile.transform.position = transform.GetChild(1).position;
             newProjectile.SetWand(transform);
             newProjectile.Fire();
-            m_bIsMagicLoaded = false;
-            m_psIdleFire.Stop();
-            m_psIdleIce.Stop();
         }
         if(m_goSpell != null)
         {
-            float fSpellrange = m_goSpell.GetComponent<Projectiles>().GetRange();
+            float fSpellrange = m_goSpell.GetComponent<Projectile>().GetRange();
             if (fSpellrange != -1)
             {
                 m_linerendererRange.SetPosition(0, transform.position);
@@ -140,5 +137,13 @@ public class WandScript : MonoBehaviour
             m_bIsMagicLoaded = false;
             m_psFail.Play();
         }
+    }
+
+    private void ResetWand()
+    {
+        m_magictypeLoaded = MagicType.None;
+        m_bIsMagicLoaded = false;
+        m_psIdleFire.Stop();
+        m_psIdleIce.Stop();
     }
 }

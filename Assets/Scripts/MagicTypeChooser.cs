@@ -65,8 +65,35 @@ public class MagicTypeChooser : MonoBehaviour
     {
         if(_coll.CompareTag("Wand"))
         {
-            //Debug.Log("Wand has entered the magic sphere. Now transferring power");
+            Debug.Log("Wand has entered the magic sphere. Now transferring power");
             m_goMainHandController.GetComponent<WandScript>().ChargeMagicType(activeMagic);
         }
+    }
+
+    public int DecideMagicWinner(MagicType _magicProjectile)
+    {
+        //This compares the three magictypes
+        //If the shield wins, this returns 1
+        //If the projectile wins, this returns 0
+        //if there is a draw, this returns 2
+        //if there is no result this returns -1
+        if (_magicProjectile == activeMagic)
+        {
+            return 2;
+        }
+        else if ((activeMagic == MagicType.Fire && _magicProjectile == MagicType.Ice) ||
+            (activeMagic == MagicType.Ice && _magicProjectile == MagicType.Lightning) ||
+            (activeMagic == MagicType.Lightning && _magicProjectile == MagicType.Fire))
+        {
+            return 1;
+        }
+        else if ((activeMagic == MagicType.Fire && _magicProjectile == MagicType.Lightning) ||
+            (activeMagic == MagicType.Ice && _magicProjectile == MagicType.Fire) ||
+            (activeMagic == MagicType.Lightning && _magicProjectile == MagicType.Ice))
+        {
+            return 0;
+        }
+
+        return -1;
     }
 }

@@ -5,7 +5,7 @@ public class Target : MonoBehaviour
 {
     [SerializeField]
     private ParticleSystem m_psExplosion;
-
+    public int Lifes = 3;
     public bool DestroyMe = false;
 	public void OnCollisionEnter(Collision _coll)
     {
@@ -25,6 +25,10 @@ public class Target : MonoBehaviour
 
         }
         if(DestroyMe)
-            Destroy(this.gameObject);
+        {
+            Lifes--;
+            if(Lifes <= 0)
+                Destroy(this.gameObject);
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 /*This Script enables a missile to be controlled by the player via wand
  */
-public class WireMissileScript : Projectiles
+public class WireMissileScript : Projectile
 {
     public static float m_fMaxRange = 20f;
     public static float m_fBasicSpeed = 150f;
@@ -97,5 +97,11 @@ public class WireMissileScript : Projectiles
     public override float GetRange()
     {
         return m_fMaxRange;
+    }
+
+    public override void DestroyThis()
+    {
+        base.DestroyThis();
+        StartCoroutine(ExplodeAfter(0.0f));
     }
 }
