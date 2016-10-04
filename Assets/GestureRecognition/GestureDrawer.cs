@@ -37,21 +37,12 @@ namespace gesture
         private List<Vector2> m_arrAddedPoints = new List<Vector2>(); // debug
         private List<Vector2> m_arrRemovedPoints = new List<Vector2>(); // debug
 
-        private List<Vector3> m_arrTiltedPoints = new List<Vector3>();
-        private List<Vector3> m_arrProjectedPoints = new List<Vector3>();
-        private Quaternion m_qRotation;
-        private Vector3 m_v3Offset;
-        private Vector3 m_normal;
-
         private LineRenderer line;
         private bool newLine = true;
 
         void Awake()
         {
             line = GetComponent<LineRenderer>();
-
-            m_v3Offset = Vector3.left * 2f;
-            m_qRotation = Quaternion.Euler(new Vector3(40f, 60f, 0f));
         }
 
         /// <summary>
@@ -68,7 +59,6 @@ namespace gesture
                     m_arrPoints.Clear();
                     m_arrPoints2D.Clear();
                     m_arrCharPoints.Clear();
-                    m_arrTiltedPoints.Clear(); // tilted points
                     newLine = false;
                 }
 
@@ -78,7 +68,6 @@ namespace gesture
                 Vector3 p = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10));
                 m_arrPoints.Add(p);
                 m_arrPoints2D.Add(p);
-                m_arrTiltedPoints.Add((m_qRotation * p) + m_v3Offset); // tilted points
 
                 // draw the line
                 line.SetVertexCount(m_arrPoints.Count);
@@ -95,16 +84,6 @@ namespace gesture
                 MakeGestureUniform(ref charp, 1f);
                 m_arrCharPoints.AddRange(charp);
                 newLine = true;
-
-                Vector3[] tiltedPoints = m_arrTiltedPoints.ToArray();
-                m_normal = IdentifyPlane(ref tiltedPoints, 3, 30f);
-                ProjectOnPlane(ref tiltedPoints, ref m_normal);
-                m_arrTiltedPoints.Clear();
-                m_arrTiltedPoints.AddRange(tiltedPoints);
-                RotateToXYPlane(ref tiltedPoints, ref m_normal);
-                m_arrProjectedPoints.Clear();
-                m_arrProjectedPoints.AddRange(tiltedPoints);
-                
             }
         }
 
@@ -119,32 +98,6 @@ namespace gesture
             {
                 m_textCharPntNr.text = "CharPoints: " + m_arrCharPoints.Count;
             }
-        }
-
-        Vector3 IdentifyPlane(ref Vector3[] p, int iterations, float minAngle)
-        {
-            Vector3 normal = Vector3.zero;
-            for (int i=0; i<iterations; ++i)
-            {
-                bool again = false;
-                int count = 0;
-                Vector3 line1, line2;
-                do
-                {
-                    count++;
-                    int random1 = Random.Range(0, p.Length - 1);
-                    int random2 = Random.Range(0, p.Length - 1);
-                    int random3 = Random.Range(0, p.Length - 1);
-                    line1 = (p[random2] - p[random1]).normalized;
-                    line2 = (p[random3] - p[random1]).normalized;
-                    if (Vector3.Angle(line1, line2) < minAngle)
-                        again = true;
-                    if (count > iterations)
-                        break;
-                } while (again == false);
-                normal += Vector3.Cross(line1, line2).normalized;
-            }
-            return normal.normalized;
         }
 
         void ProjectOnPlane(ref Vector3[] p, ref Vector3 normal)
@@ -363,25 +316,6 @@ namespace gesture
             }
         }
 
-        //Vector2 CalcCenterOfGesture(ref Vector2[] p)
-        //{
-        //    float averageX = 0f;
-        //    float averageY = 0f;
-
-        //    foreach(Vector2 v in p)
-        //    {
-        //        averageX += v.x;
-        //        averageY += v.y;
-        //    }
-
-        //    float n = (float) p.Length;
-        //    averageX /= n;
-        //    averageY /= n;
-
-        //    return new Vector2(averageX, averageY);
-        //}
-
-
         // Drawing Spheres where characteristic Points are
         void OnDrawGizmos()
         {
@@ -394,24 +328,6 @@ namespace gesture
 
             float colorStep = 1f / ((float)m_arrCharPoints.Count - 2);
 
-            // Draw the tilted points in space
-            foreach (Vector3 p in m_arrTiltedPoints)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(p, m_fSphereRadius / 5f);
-                if (m_normal != null)
-                {
-                    Gizmos.DrawLine(p, p + m_normal);
-                }
-            }
-
-            // Draw the projected points in space
-            foreach (Vector3 p in m_arrProjectedPoints)
-            {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(p, m_fSphereRadius / 5f);
-            }
-
             // Draw the characteristic points
             foreach (Vector3 p in m_arrCharPoints)
             {
@@ -421,20 +337,6 @@ namespace gesture
                 g += colorStep;
                 b += colorStep;
             }
-
-            //// Draw the added points DEBUG
-            //Gizmos.color = Color.red;
-            //foreach (Vector3 p in m_arrAddedPoints)
-            //{
-            //    Gizmos.DrawSphere(new Vector3(p.x, p.y, 0), m_fSphereRadius + 0.2f);
-            //}
-
-            //// Draw the removes points DEBUG
-            //Gizmos.color = Color.blue;
-            //foreach (Vector3 p in m_arrRemovedPoints)
-            //{
-            //    Gizmos.DrawSphere(new Vector3(p.x, p.y, 0), m_fSphereRadius + 0.2f);
-            //}
 
             // Mark the Space where the gesture should get drawn then
             Gizmos.color = Color.white;
