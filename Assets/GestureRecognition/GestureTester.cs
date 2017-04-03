@@ -7,8 +7,6 @@ namespace gesture
 {
     public class GestureTester : MonoBehaviour
     {
-
-
         private GestureDrawer drawer;
         private GestureMatch matcher;
 
