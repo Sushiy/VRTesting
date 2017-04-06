@@ -7,19 +7,19 @@ namespace gesture
 {
     public class GestureTester : MonoBehaviour
     {
-        private GestureDrawer drawer;
-        private GestureMatch matcher;
+        private GestureConverter drawer;
+        private GestureMatcher matcher;
 
         private List<KeyValuePair<float, gesture>> testResult;
 
         void Awake()
         {
-            drawer = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureDrawer>();
-            matcher = drawer.GetComponent<GestureMatch>();
+            drawer = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureConverter>();
+            matcher = drawer.GetComponent<GestureMatcher>();
 
             // assert refs
-            Assert.IsNotNull<GestureDrawer>(drawer);
-            Assert.IsNotNull<GestureMatch>(matcher);
+            Assert.IsNotNull<GestureConverter>(drawer);
+            Assert.IsNotNull<GestureMatcher>(matcher);
         }
 
         void Update()

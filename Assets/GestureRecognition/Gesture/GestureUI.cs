@@ -5,7 +5,10 @@ using System.Collections;
 
 namespace gesture
 {
-
+    /// <summary>
+    /// Creates and manages UI elements to record gestures to fill a
+    /// gesture-daraset
+    /// </summary>
     public class GestureUI : MonoBehaviour
     {
         [SerializeField]
@@ -23,7 +26,7 @@ namespace gesture
 
         private Transform indexPanel;
         private Transform typePanel;
-        private GestureRecorder recorder;
+        private GestureDataRecorder recorder;
         private GestureData dataset;
 
         private Image[] gesturePanels;
@@ -43,13 +46,13 @@ namespace gesture
 
             indexPanel = transform.GetChild(0);
             typePanel = transform.GetChild(1);
-            recorder = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureRecorder>();
-            dataset = recorder.dataset;
+            recorder = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureDataRecorder>();
+            dataset = recorder.Dataset;
 
             // assert
             Assert.IsNotNull<Transform>(indexPanel);
             Assert.IsNotNull<Transform>(typePanel);
-            Assert.IsNotNull<GestureRecorder>(recorder);
+            Assert.IsNotNull<GestureDataRecorder>(recorder);
             Assert.IsNotNull<GestureData>(dataset);
         }
 

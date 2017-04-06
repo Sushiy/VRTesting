@@ -10,7 +10,13 @@ namespace gesture
         public Vector2[] points;
     }
 
-    public class GestureMatch : MonoBehaviour
+    /// <summary>
+    /// GestureMatch
+    /// 
+    /// Takes a given gesture dataset and a gesture and tries to match the gesture
+    /// against the dataset using the kNN (k-nearest-neighbor) algorithm.
+    /// </summary>
+    public class GestureMatcher : MonoBehaviour
     {
         [SerializeField]
         private GestureData dataObject;
@@ -24,6 +30,10 @@ namespace gesture
 
         private gesture[] Dataset; // has to be filled now
 
+        /// <summary>
+        /// takes the data from the GestureData-dataObject and converts it into
+        /// a gesture-Array "Dataset" so its easier to access for the kNN algorithm
+        /// </summary>
         void Awake()
         {
             if (dataObject == null)
@@ -56,7 +66,12 @@ namespace gesture
             }
         }
 
-        // The KNN
+        /// <summary>
+        /// The kNN algorithm.
+        /// </summary>
+        /// <param name="input">The gesture to find the k-nearest neighbors to</param>
+        /// <param name="k">The number of neighbors to find (should be odd)</param>
+        /// <returns>List of k-many (distance/gesture) tuples</returns>
         private List<KeyValuePair<float, gesture>> FindNearestNeighbors(gesture input, int k)
         {
             // check for traps
@@ -79,7 +94,10 @@ namespace gesture
             return neighbors.OrderBy(n => n.Key).Take(k).ToList();
         }
 
-        // Right now: Just prints out a probability table
+        /// <summary>
+        /// Prints out a probability table of the given gesture.
+        /// </summary>
+        /// <param name="input"></param>
         public void AnalyseNearestNeighbors(gesture input)
         {
             var nearestNeighbors = FindNearestNeighbors(input, m_k);

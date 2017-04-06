@@ -9,8 +9,21 @@ namespace gesture
         MANHATTEN_MEASURE   
     }
 
+    /// <summary>
+    /// GestureSimilarity
+    /// A class that basically measures the similarity by either
+    /// euklidian or manhatten measure.
+    /// </summary>
     public class GestureSimilarity
     {
+        /// <summary>
+        /// Compares Gestures
+        /// </summary>
+        /// <param name="g1">The first gesture</param>
+        /// <param name="g2">The second gesture</param>
+        /// <param name="type">The type of measurement</param>
+        /// <param name="rootIt">Whether or not the result should get square-rooted (performance)</param>
+        /// <returns></returns>
         public static float CompareGestures(Vector2[] g1, Vector2[] g2, MeasureType type, bool rootIt)
         {
             // Check for traps
@@ -38,13 +51,23 @@ namespace gesture
             return result;
         }
 
-        // returns the Euklidian Measure of two Vectors
+        /// <summary>
+        /// returns the Euklidian Measure of two Vectors
+        /// </summary>
+        /// <param name="a">First Vector</param>
+        /// <param name="b">Second Vector</param>
+        /// <returns>Euklidian Distance of the vectors</returns>
         static float EuklidianMeasure(Vector2 a, Vector2 b)
         {
             return Vector2.Distance(a, b);
         }
 
-        // returns the ManhattenMeasure of two Vectors
+        /// <summary>
+        /// returns the ManhattenMeasure of two Vectors
+        /// </summary>
+        /// <param name="a">First Vector</param>
+        /// <param name="b">Second Vector</param>
+        /// <returns>Manhatten Distance of the vectors</returns>
         static float ManhattenMeasure(Vector2 a, Vector2 b)
         {
             return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);

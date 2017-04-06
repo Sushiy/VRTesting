@@ -3,16 +3,22 @@ using System.Collections;
 
 namespace gesture
 {
-    public class GestureRecorder : MonoBehaviour
+    /// <summary>
+    /// Fills a given dataset with data.
+    /// </summary>
+    public class GestureDataRecorder : MonoBehaviour
     {
-        public GestureData dataset;
-        public GestureUI ui;
+        [SerializeField]
+        private GestureData dataset;
+        [SerializeField]
+        private GestureUI ui;
 
-        private GestureDrawer drawer;
+        private GestureConverter drawer;
+        public GestureData Dataset {get { return dataset; } }
 
         void Awake()
         {
-            drawer = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureDrawer>();
+            drawer = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureConverter>();
         }
 
         void Start()
@@ -20,13 +26,16 @@ namespace gesture
             dataset.Init();
         }
 
+        /// <summary>
+        /// TODO könnte noch ein bisschen besser gelöst werden können
+        /// </summary>
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 gesture g = new gesture();
                 g.type = (gestureTypes)ui.selectedGesture;
-                g.points = drawer.getCurrentGesture();
+                g.points = drawer.getCurrentGesture(); //TODO sollte sich das woanders herholen!
                 SetGesture(g);
             }
         }

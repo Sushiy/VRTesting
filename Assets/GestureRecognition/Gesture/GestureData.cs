@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace gesture
 {
+    /// <summary>
+    /// Vordefinierte Gesten, zwischen denen unterschieden werden soll
+    /// </summary>
     public enum gestureTypes
     {
         N_GESTURE,
@@ -12,6 +15,10 @@ namespace gesture
         TRIANGLE
     }
 
+    /// <summary>
+    /// Gesture Data
+    /// Ist ein Scriptable Object und enthält die Trainingsdaten, nach denen dann gematched wird
+    /// </summary>
     [CreateAssetMenu(fileName = "GestureDataset_", menuName = " Gesture/Dataset", order = 1)]
     public class GestureData : ScriptableObject
     {
@@ -24,10 +31,13 @@ namespace gesture
         
         public int samplesPerGesture = 4; // how many samples of one gesture?
         public int pointsPerGesture = 4; // points per gesture
-        public bool initialise = true;
+        public bool initialise = true; // makes it a new blank dataset
         public int NumberOfGestureTypes { get { return System.Enum.GetValues(typeof(gestureTypes)).Length; } }
 
-        //  has to be called at least once
+        /// <summary>
+        /// has to be called at least once to be able to fill it
+        /// the initialise flag has to be set to be able to fill it again
+        /// </summary>
         public void Init()
         {
             gestures = new Vector2[NumberOfGestureTypes][];
@@ -48,7 +58,11 @@ namespace gesture
             initialise = false;
         }
 
-        // returns the gestures of a single type
+        /// <summary>
+        /// returns the gestures of a single type
+        /// </summary>
+        /// <param name="type">returns the gestureDatas of this type</param>
+        /// <returns></returns>
         public Vector2[] GetGesturesOfOneType(gestureTypes type)
         {
             return gestures[(int)type];

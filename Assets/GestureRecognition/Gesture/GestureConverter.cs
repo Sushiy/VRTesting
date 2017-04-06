@@ -6,14 +6,13 @@ using System.Collections.Generic;
 namespace gesture
 {
     /// <summary>
-    /// Records the raw gesture material (points array)
-    /// and transforms it into data (characteristic points)
+    /// Transforms any raw data to usable/matchable gesture data
     /// that can be further processed.
     /// The characteristic points will be matched with
     /// the gesture data.
     /// </summary>
     [RequireComponent(typeof(LineRenderer))]
-    public class GestureDrawer : MonoBehaviour
+    public class GestureConverter : MonoBehaviour
     {
         [SerializeField]
         private float m_fSphereRadius = 0.3f;
@@ -36,8 +35,8 @@ namespace gesture
         private List<Vector3> m_arrPoints = new List<Vector3>(); // just for the line renderer
         private List<Vector2> m_arrPoints2D = new List<Vector2>();
         private List<Vector2> m_arrCharPoints = new List<Vector2>();
-        private List<Vector2> m_arrAddedPoints = new List<Vector2>(); // debug
-        private List<Vector2> m_arrRemovedPoints = new List<Vector2>(); // debug
+        //private List<Vector2> m_arrAddedPoints = new List<Vector2>(); // debug
+        //private List<Vector2> m_arrRemovedPoints = new List<Vector2>(); // debug
 
         private LineRenderer line;
         private bool newLine = true;
@@ -49,6 +48,7 @@ namespace gesture
 
         /// <summary>
         /// Drawing and recording gestures!
+        /// TODO Das Drawen und recorden wegverlagern. Diese Klasse soll nur transformen.
         /// </summary>
         void Update()
         {
@@ -89,11 +89,18 @@ namespace gesture
             }
         }
 
-        public gesture CreateGestureFromViveData(ref Vector3[] p, ref Vector3 lookAt)
+        /// <summary>
+        /// Converts 3D Points to a gesture given a plane the points were supposed to be drawn on
+        /// </summary>
+        /// <param name="p">3D Point data of a gesture</param>
+        /// <param name="normal">The normal of the plane the points are supposed to be drawn on</param>
+        /// <returns>the gesture</returns>
+        [System.Obsolete("This method is obsolete and not used by the latest GDD")]
+        public gesture CreateGestureFrom3DData(ref Vector3[] p, ref Vector3 normal)
         {
             gesture g = new gesture();
             Vector2[] points2D;
-            Transform3DData(ref p, ref lookAt, out points2D);
+            Transform3DData(ref p, ref normal, out points2D);
             IdentifyCharPoints(ref points2D, out g.points, m_iRequiredNumber);
             MakeGestureUniform(ref g.points, m_fSize);
             return g;
@@ -112,10 +119,18 @@ namespace gesture
             }
         }
 
-        void Transform3DData(ref Vector3[] p, ref Vector3 lookAt, out Vector2[] gesturePoints)
+        /// <summary>
+        /// Transforms the 3D Data to 2D Data on the XY Plane
+        /// </summary>
+        /// <param name="p">3D Vectors to Transform</param>
+        /// <param name="normal">The plane to transform the 3d data to. In the end the
+        /// 3D Points will be projected onto this plane and then rotated to the XY Plane afterwards</param>
+        /// <param name="gesturePoints">Out Parameter. There the gesturePoints will be stored. They can then be used
+        /// to match and further process</param>
+        void Transform3DData(ref Vector3[] p, ref Vector3 normal, out Vector2[] gesturePoints)
         {
-            ProjectOnPlane(ref p, ref lookAt);
-            RotateToXYPlane(ref p, ref lookAt);
+            ProjectOnPlane(ref p, ref normal);
+            RotateToXYPlane(ref p, ref normal);
             gesturePoints = new Vector2[p.Length];
             for (int i=0; i<p.Length; ++i)
             {
@@ -123,6 +138,11 @@ namespace gesture
             }
         }
 
+        /// <summary>
+        /// Projects an array of points on a plane with a given normal
+        /// </summary>
+        /// <param name="p">Array of Points to be projected</param>
+        /// <param name="normal">The normal of the projection plane</param>
         void ProjectOnPlane(ref Vector3[] p, ref Vector3 normal)
         {
             for (int i=0; i<p.Length; ++i)
@@ -132,6 +152,11 @@ namespace gesture
             }
         }
 
+        /// <summary>
+        /// Rotates all points so they face the XY Plane
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="normal"></param>
         void RotateToXYPlane(ref Vector3[] p, ref Vector3 normal)
         {
             Quaternion rotation = Quaternion.FromToRotation(normal, Vector3.forward);
@@ -187,8 +212,8 @@ namespace gesture
                     result.Add(lastPoint);
             }
 
-            m_arrAddedPoints.Clear(); // DEBUG LINE
-            m_arrRemovedPoints.Clear(); // DEBUG LINE
+            //m_arrAddedPoints.Clear(); // DEBUG LINE
+            //m_arrRemovedPoints.Clear(); // DEBUG LINE
 
             /* Step 2: Increase points? */
             if (result.Count < requiredNr)
@@ -246,7 +271,7 @@ namespace gesture
                     }
                 }
 
-                m_arrRemovedPoints.Add(p[index]); // DEBUG
+                //m_arrRemovedPoints.Add(p[index]); // DEBUG
 
                 p.RemoveAt(index);
             }
@@ -293,7 +318,7 @@ namespace gesture
                 // add a single point
                 Vector2 newPoint = Vector2.Lerp(p[segmentStart], p[segmentStart + 1], 0.5f);
 
-                m_arrAddedPoints.Add(newPoint); // DEBUG LINE
+                //m_arrAddedPoints.Add(newPoint); // DEBUG LINE
 
                 p.Insert(segmentStart + 1, newPoint);
             }
@@ -339,7 +364,9 @@ namespace gesture
             }
         }
 
-        // Drawing Spheres where characteristic Points are
+        /// <summary>
+        /// Drawing Spheres where characteristic Points are
+        /// </summary>
         void OnDrawGizmos()
         {
             if (m_arrCharPoints.Count == 0)
@@ -371,8 +398,6 @@ namespace gesture
                 Vector2.zero + 0.5f * Vector2.down - 0.5f * Vector2.left);
             Gizmos.DrawLine(Vector2.zero + 0.5f * Vector2.up - 0.5f * Vector2.right,
                 Vector2.zero + 0.5f * Vector2.down - 0.5f * Vector2.right);
-
-
         }
     }
 
