@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class MP_PlayerController : NetworkBehaviour
 {
     public GameObject bulletPrefab;
+
     public Transform bulletSpawn;
 
     void Update()
