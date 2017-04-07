@@ -27,6 +27,8 @@ namespace gesture
         [Tooltip("Should be an odd number!")]
         [SerializeField]
         private int m_k = 3;
+        [SerializeField]
+        private TextMesh debug_text; //debug
 
         private GestureObject[] Dataset; // has to be filled now
 
@@ -170,7 +172,12 @@ namespace gesture
             // set the matched type
             matchedType = (gestureTypes)matchIndex;
             // is the average distance low enough?
-            return (votes[matchIndex].y <= avgDistanceThreshold) ? true : false;
+            bool valid = (votes[matchIndex].y <= avgDistanceThreshold) ? true : false;
+
+            // write out debug text
+            if (debug_text != null) debug_text.text = "This gesture is: " + matchedType.ToString() + " and it is valid: " + valid;
+
+            return valid;
         }
     }
 }

@@ -95,8 +95,7 @@ namespace primitive
 
             // match the gesture
             gestureTypes type;
-            bool valid = m_matcher.Match(g, out type);
-            print("This gesture is: " + type.ToString() + " and it is valid: " + valid); //debug
+            m_matcher.Match(g, out type);
 
             // clear the lines
             points.Clear();
