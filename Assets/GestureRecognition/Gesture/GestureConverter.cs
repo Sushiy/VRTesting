@@ -215,7 +215,7 @@ namespace gesture
 
             /* Step 1: Find the characteristic points */
 
-            for (int i = 1; i < m_arrPoints.Count - 1; ++i)
+            for (int i = 1; i < p.Length - 1; ++i)
             {
                 // Pass the minimal distance test?
                 float distance = Vector2.Distance(p[i], lastCharPoint);

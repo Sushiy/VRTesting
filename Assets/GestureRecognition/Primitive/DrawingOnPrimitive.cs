@@ -17,7 +17,7 @@ namespace primitive
         private Transform m_transform;
         private Transform m_transBeginning;
         private Transform m_transEnd;
-        private FixedSizeQueue<Vector3> debug_points;
+        private FixedSizeQueue<Vector3> points;
         private Vector3 m_v3LastPoint;
 
         private GestureConverter m_converter;
@@ -33,7 +33,7 @@ namespace primitive
             m_transEnd = m_transform.FindChild("endPoint");
             Assert.IsNotNull<Transform>(m_transEnd);
 
-            debug_points = new FixedSizeQueue<Vector3>(m_iNumberOfPoints);
+            points = new FixedSizeQueue<Vector3>(m_iNumberOfPoints);
 
             m_v3LastPoint = Vector3.zero;
 
@@ -65,54 +65,41 @@ namespace primitive
                 if (Vector3.Distance(hit.point, m_v3LastPoint) > m_fMinimumDistance)
                 {
                     // add to the debug queue
-                    debug_points.Enqueue(hit.point);
+                    points.Enqueue(hit.point);
                     m_v3LastPoint = hit.point;
 
                     LineRenderer line = c.gameObject.GetComponent<LineRenderer>();
                     if (line != null)
                     {
-                        line.positionCount = debug_points.Count;
-                        line.SetPositions(debug_points.ToArray());
+                        line.positionCount = points.Count;
+                        line.SetPositions(points.ToArray());
                     }
                 }
-            }
-            else
-            {
-                print("there is something wrong. the raycast didnt hit. whats up?");
             }
         }
 
         void OnTriggerExit(Collider c)
         {
-            //// create and match the gestures
-            Vector3[] rawPoints = debug_points.ToArray();
+            // convert 3D points to 2D points on the plane
+            Vector3[] rawPoints = points.ToArray();
             Vector2[] points2D = new Vector2[rawPoints.Length];
             Matrix4x4 matrix = c.transform.worldToLocalMatrix;
             for (int i = 0; i < rawPoints.Length; ++i)
             {
                 Vector3 localPoint = matrix * rawPoints[i];
-                points2D[i] = new Vector2(localPoint.x, -localPoint.z);
-                print(points2D[i]);
+                points2D[i] = new Vector2(localPoint.x, localPoint.z);
             }
+
+            // convert 2D points to a gesture
             GestureObject g = m_converter.CreateGestureFrom2DData(ref points2D);
-            print("gesturepoints: " + g.points.Length);
 
-            /*
-             * next steps:
-             * draw the 2d lines in 3d space to debug stuff
-             * why is the line stuff not working at all!?
-             * debug all the things ToT
-             */
-
-            //Vector3 normal = c.transform.up;
-            //GestureObject g = m_converter.CreateGestureFrom3DDataFromPrimitive(ref rawPoints, ref normal);
-            //print("gesturepoints " + g.points.Length);
+            // match the gesture
             gestureTypes type;
             bool valid = m_matcher.Match(g, out type);
-            print("This gesture is: " + type.ToString() + " and it is valid: " + valid);
+            print("This gesture is: " + type.ToString() + " and it is valid: " + valid); //debug
 
             // clear the lines
-            debug_points.Clear();
+            points.Clear();
             LineRenderer line = c.gameObject.GetComponent<LineRenderer>();
             if (line != null)
             {
