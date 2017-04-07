@@ -14,7 +14,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public Valve.VR.InteractionSystem.Hand m_handRight;
     public Valve.VR.InteractionSystem.Hand m_handLeft;
-
+    public MP_VR_NetworkHand m_mpvrhand1;
+    public MP_VR_NetworkHand m_mpvrhand2;
     public Transform hand1Spawn;
     public Transform hand2Spawn;
 	
@@ -75,6 +76,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
         {
             m_handRight = m_vrplayerThis.rightHand;
             m_handLeft = m_vrplayerThis.leftHand;
+            m_mpvrhand1.m_transVRHand = m_handRight.transform;
+            m_mpvrhand2.m_transVRHand = m_handLeft.transform;
+
         }
     }
 }
