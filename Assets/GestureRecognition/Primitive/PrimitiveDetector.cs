@@ -13,6 +13,7 @@ namespace primitive
     /// TODO detect edges and count them
     /// TODO check if edges "overlapped" and see if the thing is big enough
     /// </summary>
+    [RequireComponent(typeof(LineRenderer))]
     public class PrimitiveDetector : MonoBehaviour
     {
         [SerializeField]
@@ -26,11 +27,13 @@ namespace primitive
         [SerializeField]
         [Range(0f, 1f)]
         private float m_fRadiusTolerance = 0.25f; // minimum radius tolerance of a circle shape
-
+        [SerializeField]
+        private bool m_trackVR = false;
 
         private FixedSizeQueue<Vector3> points;
         private Vector3 lastPoint;
         private LineRenderer trail;
+        private Transform m_transform;
 
         //private Vector3 debug_center = Vector3.zero;
 
@@ -38,6 +41,8 @@ namespace primitive
         {
             points = new FixedSizeQueue<Vector3>(m_iPointCount);
             trail = GetComponent<LineRenderer>();
+            Assert.IsNotNull<LineRenderer>(trail);
+            m_transform = GetComponent<Transform>();
         }
 
         void Start()
@@ -164,9 +169,17 @@ namespace primitive
         void TrackPoints()
         {
             // new point
-            float x = Input.mousePosition.x;
-            float y = Input.mousePosition.y;
-            Vector3 p = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10));
+            Vector3 p;
+            if (m_trackVR)
+            {
+                p = m_transform.position;
+            }
+            else
+            {
+                float x = Input.mousePosition.x;
+                float y = Input.mousePosition.y;
+                p = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10));
+            }
 
             // has the mouse moved significantly enough?
             if (Vector3.Distance(p, lastPoint) > m_fMinimumDistance)
