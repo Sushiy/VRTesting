@@ -7,6 +7,12 @@ using gesture;
 
 namespace primitive
 {
+    /// <summary>
+    /// Drawing On Primitive
+    /// - saves the points drawn on the primitive
+    /// - when the wand lifts off the primitive,
+    ///   the painting is converted to a gesture and matched
+    /// </summary>
     public class DrawingOnPrimitive : MonoBehaviour
     {
         [SerializeField]
@@ -49,6 +55,10 @@ namespace primitive
             OnTriggerStay(c);
         }
 
+        /// <summary>
+        /// "draws" points on the primitive
+        /// </summary>
+        /// <param name="c">Plane Collider</param>
         void OnTriggerStay(Collider c)
         {
             // only for primitives
@@ -66,7 +76,6 @@ namespace primitive
                 {
                     // add to the debug queue
                     points.Enqueue(hit.point);
-                    m_v3LastPoint = hit.point;
 
                     LineRenderer line = c.gameObject.GetComponent<LineRenderer>();
                     if (line != null)
@@ -78,6 +87,11 @@ namespace primitive
             }
         }
 
+        /// <summary>
+        /// Converts the 3D points to 2D (on the plane)
+        /// Creates a gesture and matches the gesture
+        /// </summary>
+        /// <param name="c"></param>
         void OnTriggerExit(Collider c)
         {
             // convert 3D points to 2D points on the plane

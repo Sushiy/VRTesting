@@ -9,34 +9,30 @@ namespace primitive
     /// <summary>
     /// Records the movements of the desired object (mouse, wand)
     /// and detects if simple primitives were drawn (big enough)
-    /// 
-    /// TODO make a queue of points with the last few seconds/hundred
-    /// points
+    ///
     /// TODO detect edges and count them
     /// TODO check if edges "overlapped" and see if the thing is big enough
     /// </summary>
     public class PrimitiveDetector : MonoBehaviour
     {
         [SerializeField]
-        private float m_fDequeueInterval = 0.5f;
+        private float m_fDequeueInterval = 0.5f; // how fast are points dequeued again
         [SerializeField]
-        private int m_iPointCount = 256;
+        private int m_iPointCount = 256; // how many points can the queue hold?
         [SerializeField]
-        private float m_fMinimumDistance = 0.25f;
+        private float m_fMinimumDistance = 0.25f; // minimum distance between recorded points
         [SerializeField]
-        private int m_iMinimumIndexDiff = 40;
+        private int m_iMinimumIndexDiff = 40; // minimum number of points of shapes (length)
         [SerializeField]
         [Range(0f, 1f)]
-        private float m_fRadiusTolerance = 0.25f;
-        //[SerializeField]
-        //[Range(0f, 3f)]
-        //private float m_fCircleErrorThreshold = 0.5f;
+        private float m_fRadiusTolerance = 0.25f; // minimum radius tolerance of a circle shape
+
 
         private FixedSizeQueue<Vector3> points;
         private Vector3 lastPoint;
         private LineRenderer trail;
 
-        private Vector3 debug_center = Vector3.zero;
+        //private Vector3 debug_center = Vector3.zero;
 
         void Awake()
         {
@@ -55,6 +51,10 @@ namespace primitive
             DetectCircle();
         }
 
+        /// <summary>
+        /// Constantly dequeues points to make the trail "vanish"
+        /// </summary>
+        /// <returns></returns>
         IEnumerator ConstantlyDequeue()
         {
             while (true)
@@ -65,15 +65,19 @@ namespace primitive
             }
         }
 
+        /// <summary>
+        /// Tries to detect a circle in the queue
+        /// </summary>
         void DetectCircle()
         {
+            // is the shape/circle "long enough" ?
             if (points.Count < m_iMinimumIndexDiff)
                 return;
 
             Vector3[] p = points.ToArray();
             var possibleIndices = new List<int>();
 
-            // check if lastPoint is close enough to another point "crossing"
+            // check if lastPoint is close enough to another point to detect "crossing"
             for (int i=0; i<p.Length-1; ++i)
             {
                 float distance = Vector2.Distance(p[i], lastPoint);
@@ -83,8 +87,10 @@ namespace primitive
                 }
             }
 
+            // no crossings detected. end here.
             if (possibleIndices.Count < 1) return;
-
+            
+            // for every possible circle do the following:
             float radius = 0f;
             Vector3 center = Vector3.zero;
             bool circleFound = false;
@@ -110,16 +116,16 @@ namespace primitive
                 radius /= p.Length - index;
 
                 // calc error
-                float avgError = 0f;
-                float radius100 = radius / 100f;
-                for (int i = index; i < p.Length; ++i)
-                {
-                    float radiusDiff = Mathf.Abs(radius - radiusArr[i]);
-                    avgError += radius100 * radiusDiff;
-                }
-                avgError /= p.Length - index;
-                avgError /= radius;
-                avgError *= 100f;
+                //float avgError = 0f;
+                //float radius100 = radius / 100f;
+                //for (int i = index; i < p.Length; ++i)
+                //{
+                //    float radiusDiff = Mathf.Abs(radius - radiusArr[i]);
+                //    avgError += radius100 * radiusDiff;
+                //}
+                //avgError /= p.Length - index;
+                //avgError /= radius;
+                //avgError *= 100f;
 
                 // every radius must be roughly the same radius
                 float minRadius = radius * (1 - m_fRadiusTolerance);
@@ -146,11 +152,15 @@ namespace primitive
             if (circleFound)
             {
                 print("new circle found with radius=" + radius);
-                debug_center = center;
+                //debug_center = center;
             }
-
         }
 
+        /// <summary>
+        /// Tracks the mouse and stores the points in to the queue.
+        /// 
+        /// TODO make it able to track a wand as well!
+        /// </summary>
         void TrackPoints()
         {
             // new point
@@ -161,16 +171,12 @@ namespace primitive
             // has the mouse moved significantly enough?
             if (Vector3.Distance(p, lastPoint) > m_fMinimumDistance)
             {
+                // store the point
                 lastPoint = p;
                 points.Enqueue(p);
             }
-            // if not, throw another point away as well
-            else
-            {
-                //if (points.Count > 0)
-                //    points.Dequeue();
-            }
 
+            // draw the trail
             if (trail != null)
             {
                 trail.positionCount = points.Count;
@@ -178,10 +184,10 @@ namespace primitive
             }
         }
 
-        void OnDrawGizmos()
-        {
-            Gizmos.color = new Color(1, 0, 1);
-            Gizmos.DrawCube(debug_center, Vector3.one * 0.5f);
-        }
+        //void OnDrawGizmos()
+        //{
+        //    Gizmos.color = new Color(1, 0, 1);
+        //    Gizmos.DrawCube(debug_center, Vector3.one * 0.5f);
+        //}
     }
 }

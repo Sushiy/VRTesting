@@ -95,7 +95,7 @@ namespace gesture
         }
 
         /// <summary>
-        /// Converts 3D Points to a gesture given a plane the points were supposed to be drawn on
+        /// Converts 3D Points to a gesture given a plane the points were supposed to be drawn on (UNTESTED)
         /// </summary>
         /// <param name="p">3D Point data of a gesture</param>
         /// <param name="normal">The normal of the plane the points are supposed to be drawn on</param>
@@ -110,6 +110,11 @@ namespace gesture
             return g;
         }
 
+        /// <summary>
+        /// Takes 2D points and converts them into a a gesture
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public GestureObject CreateGestureFrom2DData(ref Vector2[] p)
         {
             GestureObject g = new GestureObject();
@@ -122,25 +127,7 @@ namespace gesture
             return g;
         }
 
-        public GestureObject CreateGestureFrom3DDataFromPrimitive(ref Vector3[] p, ref Vector3 normal)
-        {
-            GestureObject g = new GestureObject();
-            RotateToXYPlane(ref p, ref normal);
-
-            Vector2[] points2D = new Vector2[p.Length];
-            for (int i = 0; i < p.Length; ++i)
-            {
-                points2D[i] = p[i];
-                print(p[i]);
-            }
-
-            IdentifyCharPoints(ref points2D, out g.points, m_iRequiredNumber);
-            MakeGestureUniform(ref g.points, m_fSize);
-            m_arrCharPoints.Clear();
-            m_arrCharPoints.AddRange(g.points);
-            return g;
-        }
-
+        //TODO should be removed!
         public Vector2[] getCurrentGesture()
         {
             return m_arrCharPoints.ToArray();
