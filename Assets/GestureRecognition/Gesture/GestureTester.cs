@@ -27,7 +27,7 @@ namespace gesture
             if (Input.GetKeyDown(KeyCode.M))
             {
                 //testResult = null;
-                gesture g = new gesture();
+                GestureObject g = new GestureObject();
                 g.points = drawer.getCurrentGesture();
                 gestureTypes type;
                 bool valid = matcher.Match(g, out type);

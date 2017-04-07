@@ -27,6 +27,8 @@ namespace gesture
         private int m_iRequiredNumber = 5;
         [SerializeField]
         private float m_fSize = 1f;
+        [SerializeField]
+        private bool m_bDrawWithMouse = false;
 
         // Debug Texts
         [SerializeField]
@@ -53,6 +55,9 @@ namespace gesture
         void Update()
         {
             Debug();
+
+            if (!m_bDrawWithMouse)
+                return;
 
             if (Input.GetMouseButton(0))
             {
@@ -95,14 +100,44 @@ namespace gesture
         /// <param name="p">3D Point data of a gesture</param>
         /// <param name="normal">The normal of the plane the points are supposed to be drawn on</param>
         /// <returns>the gesture</returns>
-        [System.Obsolete("This method is obsolete and not used by the latest GDD")]
-        public gesture CreateGestureFrom3DData(ref Vector3[] p, ref Vector3 normal)
+        public GestureObject CreateGestureFrom3DData(ref Vector3[] p, ref Vector3 normal)
         {
-            gesture g = new gesture();
+            GestureObject g = new GestureObject();
             Vector2[] points2D;
             Transform3DData(ref p, ref normal, out points2D);
             IdentifyCharPoints(ref points2D, out g.points, m_iRequiredNumber);
             MakeGestureUniform(ref g.points, m_fSize);
+            return g;
+        }
+
+        public GestureObject CreateGestureFrom2DData(ref Vector2[] p)
+        {
+            GestureObject g = new GestureObject();
+            IdentifyCharPoints(ref p, out g.points, m_iRequiredNumber);
+            MakeGestureUniform(ref g.points, m_fSize);
+            //debug
+            m_arrCharPoints.Clear();
+            m_arrCharPoints.AddRange(g.points);
+            //debugend
+            return g;
+        }
+
+        public GestureObject CreateGestureFrom3DDataFromPrimitive(ref Vector3[] p, ref Vector3 normal)
+        {
+            GestureObject g = new GestureObject();
+            RotateToXYPlane(ref p, ref normal);
+
+            Vector2[] points2D = new Vector2[p.Length];
+            for (int i = 0; i < p.Length; ++i)
+            {
+                points2D[i] = p[i];
+                print(p[i]);
+            }
+
+            IdentifyCharPoints(ref points2D, out g.points, m_iRequiredNumber);
+            MakeGestureUniform(ref g.points, m_fSize);
+            m_arrCharPoints.Clear();
+            m_arrCharPoints.AddRange(g.points);
             return g;
         }
 

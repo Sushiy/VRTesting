@@ -33,14 +33,14 @@ namespace gesture
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                gesture g = new gesture();
+                GestureObject g = new GestureObject();
                 g.type = (gestureTypes)ui.selectedGesture;
                 g.points = drawer.getCurrentGesture(); //TODO sollte sich das woanders herholen!
                 SetGesture(g);
             }
         }
 
-        void SetGesture(gesture g)
+        void SetGesture(GestureObject g)
         {
             // check if the gesture is too long
             if (g.points.Length != dataset.pointsPerGesture)

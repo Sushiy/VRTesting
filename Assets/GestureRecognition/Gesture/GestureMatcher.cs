@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace gesture
 {
-    public struct gesture
+    public struct GestureObject
     {
         public gestureTypes type;
         public Vector2[] points;
@@ -28,7 +28,7 @@ namespace gesture
         [SerializeField]
         private int m_k = 3;
 
-        private gesture[] Dataset; // has to be filled now
+        private GestureObject[] Dataset; // has to be filled now
 
         /// <summary>
         /// takes the data from the GestureData-dataObject and converts it into
@@ -41,7 +41,7 @@ namespace gesture
             else
                 dataObject.Init();
 
-            Dataset = new gesture[dataObject.NumberOfGestureTypes * dataObject.samplesPerGesture];
+            Dataset = new GestureObject[dataObject.NumberOfGestureTypes * dataObject.samplesPerGesture];
 
             // convert GestureData to a gesture array
             // go through every gesture type
@@ -50,7 +50,7 @@ namespace gesture
                 // iterate over the number of samples per type
                 for (int sampleIndex = 0; sampleIndex < dataObject.samplesPerGesture; ++sampleIndex)
                 {
-                    gesture g = new gesture();
+                    GestureObject g = new GestureObject();
                     g.type = (gestureTypes)typeIndex;
                     g.points = new Vector2[dataObject.pointsPerGesture];
 
@@ -72,24 +72,25 @@ namespace gesture
         /// <param name="input">The gesture to find the k-nearest neighbors to</param>
         /// <param name="k">The number of neighbors to find (should be odd)</param>
         /// <returns>List of k-many (distance/gesture) tuples</returns>
-        private List<KeyValuePair<float, gesture>> FindNearestNeighbors(gesture input, int k)
+        private List<KeyValuePair<float, GestureObject>> FindNearestNeighbors(GestureObject input, int k)
         {
             // check for traps
             if (input.points.Length != dataObject.pointsPerGesture)
             {
-                Debug.LogError("The gestures to compare have different counts of points! Make sure both gestures have the same number of points");
+                Debug.LogError("The gestures to compare have different counts of points! Make sure both gestures have the same number of points."+
+                    "Input length: " + input.points.Length + "; needed nr of points: "+dataObject.pointsPerGesture);
                 return null;
             }
 
-            var neighbors = new List<KeyValuePair<float, gesture>>();
-            foreach(gesture g in Dataset)
+            var neighbors = new List<KeyValuePair<float, GestureObject>>();
+            foreach(GestureObject g in Dataset)
             {
                 float distance = GestureSimilarity.CompareGestures(input.points, g.points, MeasureType.EUKLIDIAN_MEASURE, false);
                 if (distance == -1)
                 {
                     print("The gestures to compare have different counts of points! Make sure both gestures have the same number of points");
                 }
-                neighbors.Add(new KeyValuePair<float, gesture>(distance, g));
+                neighbors.Add(new KeyValuePair<float, GestureObject>(distance, g));
             }
             return neighbors.OrderBy(n => n.Key).Take(k).ToList();
         }
@@ -98,7 +99,7 @@ namespace gesture
         /// Prints out a probability table of the given gesture.
         /// </summary>
         /// <param name="input"></param>
-        public void AnalyseNearestNeighbors(gesture input)
+        public void AnalyseNearestNeighbors(GestureObject input)
         {
             var nearestNeighbors = FindNearestNeighbors(input, m_k);
 
@@ -108,7 +109,7 @@ namespace gesture
             float[] avgDistances = new float[gestureCount];
 
             // Get in the votes
-            foreach(KeyValuePair<float, gesture> neighbor in nearestNeighbors)
+            foreach(KeyValuePair<float, GestureObject> neighbor in nearestNeighbors)
             {
                 votes[(int)neighbor.Value.type]++;
                 avgDistances[(int)neighbor.Value.type] += neighbor.Key;
@@ -131,15 +132,21 @@ namespace gesture
         /// <param name="input">The input gesture</param>
         /// <param name="matchedType">out goes the matched type, the result of the match whether its valid or not</param>
         /// <returns>Returns true if its valid (against the threshold), otherwise false</returns>
-        public bool Match(gesture input, out gestureTypes matchedType)
+        public bool Match(GestureObject input, out gestureTypes matchedType)
         {
             var nearestNeighbors = FindNearestNeighbors(input, m_k);
+            if (nearestNeighbors == null)
+            {
+                matchedType = gestureTypes.N_GESTURE;
+                return false;
+            }
+
             int gestureCount = dataObject.NumberOfGestureTypes;
 
             Vector2[] votes = new Vector2[dataObject.NumberOfGestureTypes];
 
             // Get in the votes
-            foreach (KeyValuePair<float, gesture> neighbor in nearestNeighbors)
+            foreach (KeyValuePair<float, GestureObject> neighbor in nearestNeighbors)
             {
                 votes[(int)neighbor.Value.type].x++;
                 votes[(int)neighbor.Value.type].y += neighbor.Key;
