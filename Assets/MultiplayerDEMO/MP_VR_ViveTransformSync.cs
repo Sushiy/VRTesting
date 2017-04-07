@@ -25,12 +25,6 @@ public class MP_VR_ViveTransformSync : NetworkBehaviour
 
     private float m_fUpdateInterval;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
