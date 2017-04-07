@@ -22,7 +22,7 @@ namespace primitive
         void Update()
         {
             Vector3 mousePos = Input.mousePosition;
-            transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, m_fDepth));
+            m_Transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, m_fDepth));
         }
     }
 

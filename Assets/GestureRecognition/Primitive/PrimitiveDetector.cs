@@ -28,9 +28,9 @@ namespace primitive
         [SerializeField]
         [Range(0f, 1f)]
         private float m_fRadiusTolerance = 0.25f;
-        [SerializeField]
-        [Range(0f, 3f)]
-        private float m_fCircleErrorThreshold = 0.5f;
+        //[SerializeField]
+        //[Range(0f, 3f)]
+        //private float m_fCircleErrorThreshold = 0.5f;
 
         private FixedSizeQueue<Vector3> points;
         private Vector3 lastPoint;

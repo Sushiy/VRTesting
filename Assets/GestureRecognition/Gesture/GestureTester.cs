@@ -10,7 +10,7 @@ namespace gesture
         private GestureConverter drawer;
         private GestureMatcher matcher;
 
-        private List<KeyValuePair<float, gesture>> testResult;
+        //private List<KeyValuePair<float, gesture>> testResult;
 
         void Awake()
         {
@@ -26,7 +26,7 @@ namespace gesture
         {
             if (Input.GetKeyDown(KeyCode.M))
             {
-                testResult = null;
+                //testResult = null;
                 gesture g = new gesture();
                 g.points = drawer.getCurrentGesture();
                 gestureTypes type;
