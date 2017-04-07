@@ -23,6 +23,8 @@ namespace primitive
         [SerializeField]
         private float m_fMinimumDistance = 0.25f; // minimum distance between recorded points
         [SerializeField]
+        private float m_fMinimumDistanceCrossing = 0.25f; // minimum distance between points to be considered "crossing"
+        [SerializeField]
         private int m_iMinimumIndexDiff = 40; // minimum number of points of shapes (length)
         [SerializeField]
         [Range(0f, 1f)]
@@ -34,6 +36,9 @@ namespace primitive
         private Vector3 lastPoint;
         private LineRenderer trail;
         private Transform m_transform;
+
+        private int debugCount = 0; //debug
+        public TextMesh debug_text; //debug
 
         //private Vector3 debug_center = Vector3.zero;
 
@@ -83,10 +88,10 @@ namespace primitive
             var possibleIndices = new List<int>();
 
             // check if lastPoint is close enough to another point to detect "crossing"
-            for (int i=0; i<p.Length-1; ++i)
+            for (int i=0; i<p.Length-m_iMinimumIndexDiff; ++i)
             {
                 float distance = Vector2.Distance(p[i], lastPoint);
-                if (distance < m_fMinimumDistance)
+                if (distance < m_fMinimumDistanceCrossing)
                 {
                     possibleIndices.Add(i);
                 }
@@ -156,6 +161,7 @@ namespace primitive
             
             if (circleFound)
             {
+                if (debug_text != null) debug_text.text = "Circles found: " + debugCount++;
                 print("new circle found with radius=" + radius);
                 //debug_center = center;
             }
