@@ -13,6 +13,7 @@ namespace primitive
     /// - when the wand lifts off the primitive,
     ///   the painting is converted to a gesture and matched
     /// </summary>
+    [RequireComponent(typeof(MagicWand))]
     public class DrawingOnPrimitive : MonoBehaviour
     {
         [SerializeField]
@@ -20,6 +21,7 @@ namespace primitive
         [SerializeField]
         private float m_fMinimumDistance = 0.3f;
 
+        private MagicWand m_magicWand;
         private Transform m_transform;
         private Transform m_transBeginning;
         private Transform m_transEnd;
@@ -48,6 +50,9 @@ namespace primitive
 
             m_matcher = m_converter.GetComponent<GestureMatcher>();
             Assert.IsNotNull<GestureMatcher>(m_matcher);
+
+            m_magicWand = GetComponent<MagicWand>();
+            Assert.IsNotNull<MagicWand>(m_magicWand);
         }
 
         void OnTriggerEnter(Collider c)
@@ -94,6 +99,10 @@ namespace primitive
         /// <param name="c"></param>
         void OnTriggerExit(Collider c)
         {
+            // only for primitives
+            if (!c.CompareTag("Primitive"))
+                return;
+
             // convert 3D points to 2D points on the plane
             Vector3[] rawPoints = points.ToArray();
             Vector2[] points2D = new Vector2[rawPoints.Length];
@@ -110,6 +119,12 @@ namespace primitive
             // match the gesture
             gestureTypes type;
             bool valid = m_matcher.Match(g, out type);
+            
+            // charge wand if valid
+            if (valid)
+            {
+                m_magicWand.LoadWand(SpellType.FIREBALL);
+            }
 
             // reduce one try
             Primitive primitive = c.GetComponent<Primitive>();
