@@ -6,10 +6,6 @@ public class MP_VR_NetworkHand : MonoBehaviour
 {
     public Transform m_transVRHand;
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (m_transVRHand != null)
