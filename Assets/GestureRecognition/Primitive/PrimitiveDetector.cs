@@ -57,8 +57,12 @@ namespace primitive
 
         void Update()
         {
-            TrackPoints();
-            DetectCircle();
+            // only if no primitive is in the scene, there are new primitives to detect!
+            if (Primitive.PrimitiveCount == 0)
+            {
+                TrackPoints();
+                DetectCircle();
+            }
         }
 
         /// <summary>
