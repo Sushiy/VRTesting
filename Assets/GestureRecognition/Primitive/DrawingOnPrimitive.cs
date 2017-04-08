@@ -109,7 +109,15 @@ namespace primitive
 
             // match the gesture
             gestureTypes type;
-            m_matcher.Match(g, out type);
+            bool valid = m_matcher.Match(g, out type);
+
+            // reduce one try
+            Primitive primitive = c.GetComponent<Primitive>();
+            if (primitive == null) Debug.LogError("This primitive needs a primitive script!");
+            else
+            {
+                primitive.reduceTry(valid);
+            }
 
             // clear the lines
             points.Clear();

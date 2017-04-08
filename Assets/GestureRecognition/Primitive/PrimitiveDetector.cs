@@ -31,6 +31,8 @@ namespace primitive
         private float m_fRadiusTolerance = 0.25f; // minimum radius tolerance of a circle shape
         [SerializeField]
         private bool m_trackVR = false;
+        [SerializeField]
+        private GameObject prefab_Circle;
 
         private FixedSizeQueue<Vector3> points;
         private Vector3 lastPoint;
@@ -48,6 +50,7 @@ namespace primitive
             trail = GetComponent<LineRenderer>();
             Assert.IsNotNull<LineRenderer>(trail);
             m_transform = GetComponent<Transform>();
+            Assert.IsNotNull<GameObject>(prefab_Circle);
         }
 
         void Start()
@@ -62,6 +65,10 @@ namespace primitive
             {
                 TrackPoints();
                 DetectCircle();
+            }else
+            {
+                if (points.Count > 0)
+                    points.Dequeue();
             }
         }
 
@@ -108,10 +115,13 @@ namespace primitive
             float radius = 0f;
             Vector3 center = Vector3.zero;
             bool circleFound = false;
+            Vector3 firstPoint = Vector3.zero, quarterPoint = Vector3.zero;
             foreach (int index in possibleIndices)
             {
-                // calc center of circle
+                // is the circle big enough?
                 if (p.Length - index < m_iMinimumIndexDiff) return;
+
+                // calc center of circle
                 center = Vector3.zero;
                 for (int i = index; i < p.Length; ++i)
                 {
@@ -159,6 +169,8 @@ namespace primitive
 
                 if (circleFound)
                 {
+                    firstPoint = p[index];
+                    quarterPoint = p[index + (p.Length - index) / 4];
                     break;
                 }
             }
@@ -166,9 +178,28 @@ namespace primitive
             if (circleFound)
             {
                 if (debug_text != null) debug_text.text = "Circles found: " + debugCount++;
-                print("new circle found with radius=" + radius);
-                //debug_center = center;
+                //print("new circle found with radius=" + radius);
+                InstantiateCircle(firstPoint, quarterPoint, center, radius);
             }
+        }
+
+        void InstantiateCircle(Vector3 firstPoint, Vector3 quarterPoint, Vector3 center, float radius)
+        {
+            // calculate normal
+            Vector3 normal = Vector3.Cross(firstPoint - center, quarterPoint - center).normalized;
+
+            // instantiate circle
+            GameObject circle = Instantiate<GameObject>(prefab_Circle);
+            Primitive primitive = circle.GetComponent<Primitive>();
+
+            // check for traps
+            if (primitive == null)
+            {
+                Debug.LogError("When instantiating this circle, there was no Primitive Component attached!");
+            }
+
+            // set position
+            primitive.setPosition(normal, center, radius);
         }
 
         /// <summary>
@@ -206,11 +237,5 @@ namespace primitive
                 trail.SetPositions(points.ToArray());
             }
         }
-
-        //void OnDrawGizmos()
-        //{
-        //    Gizmos.color = new Color(1, 0, 1);
-        //    Gizmos.DrawCube(debug_center, Vector3.one * 0.5f);
-        //}
     }
 }

@@ -196,6 +196,12 @@ namespace gesture
         /// <param name="charp">The returned characteristic points</param>
         void IdentifyCharPoints(ref Vector2[] p, out Vector2[] charp, int requiredNr)
         {
+            if (p == null || p.Length < 1)
+            {
+                charp = null;
+                return;
+            }
+
             List<Vector2> result = new List<Vector2>();
             Vector2 lastCharPoint = p[0];
             result.Add(lastCharPoint);
@@ -354,6 +360,8 @@ namespace gesture
         /// <param name="size"></param>
         void MakeGestureUniform(ref Vector2[] p, float size)
         {
+            if (p == null || p.Length < 1) return;
+
             Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
             Vector2 max = new Vector2(float.MinValue, float.MinValue);
 
