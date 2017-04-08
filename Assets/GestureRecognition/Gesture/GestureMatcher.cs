@@ -21,6 +21,7 @@ namespace gesture
         [SerializeField]
         private GestureData dataObject;
         [Range(0f, 3f)]
+        [Tooltip("Wie \"unähnlich\" darf eine Geste sein, um weiterhin erkannt zu werden?")]
         [SerializeField]
         private float avgDistanceThreshold = 1f;
         [Range(0, 15)]
