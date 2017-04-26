@@ -32,8 +32,8 @@ public class IKHandling : MonoBehaviour {
         {
             avatar.SetIKPositionWeight(AvatarIKGoal.LeftHand, leftIKWeight);
             avatar.SetIKPositionWeight(AvatarIKGoal.RightHand, rightIKWeight);
-            avatar.SetIKWeight(AvatarIKGoal.LeftHand, leftIKWeight);
-            avatar.SetIKWeight(AvatarIKGoal.RightHand, rightIKWeight);
+            avatar.SetIKRotationWeight(AvatarIKGoal.LeftHand, leftIKWeight);
+            avatar.SetIKRotationWeight(AvatarIKGoal.RightHand, rightIKWeight);
 
             avatar.SetIKPosition(AvatarIKGoal.LeftHand, leftIKTarget.position);
             avatar.SetIKPosition(AvatarIKGoal.RightHand, rightIKTarget.position);
