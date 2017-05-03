@@ -1,4 +1,6 @@
-﻿Shader "Particles/AlphaBlendEmissive"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Particles/AlphaBlendEmissive"
 {
 	Properties
 	{
@@ -42,7 +44,7 @@
 	v2f vert(appdata v)
 	{
 		v2f o;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		o.color = v.color;
 		o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 
