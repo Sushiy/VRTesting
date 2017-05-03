@@ -80,7 +80,7 @@ namespace gesture
             // check for traps
             if (input.points.Length != dataObject.pointsPerGesture)
             {
-                Debug.LogError("The gestures to compare have different counts of points! Make sure both gestures have the same number of points."+
+                Debug.LogWarning("The gestures to compare have different counts of points! Make sure both gestures have the same number of points."+
                     "Input length: " + input.points.Length + "; needed nr of points: "+dataObject.pointsPerGesture);
                 return null;
             }

@@ -31,6 +31,11 @@ public class ForceRecorder : MonoBehaviour {
         Assert.IsNotNull<ParticleSystem>(m_flickParticles);
     }
 
+    void Start()
+    {
+        transform.SetParent(null); // unparented
+    }
+
 	void FixedUpdate()
     {
         // check if velocity is high enough
@@ -62,7 +67,9 @@ public class ForceRecorder : MonoBehaviour {
         if (m_flickParticles.isPlaying)
             m_flickParticles.Stop();
         m_flickParticles.transform.position = transform.position;
-        m_flickParticles.Play();
+
+        if (m_MagicWand.IsWandLoaded())
+            m_flickParticles.Play();
         m_MagicWand.FireSpell(m_rigid.velocity);
     }
 }
