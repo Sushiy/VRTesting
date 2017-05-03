@@ -61,7 +61,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1347013570240114, guid: 0b316328f89b6a141b107093bfdcc364,
+  m_PlayerPrefab: {fileID: 1322237559393726, guid: 2392aa3bd14b12646bb909a14b13fc15,
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 1
   m_UseSimulator: 0
   m_SimulatedLatency: 1
