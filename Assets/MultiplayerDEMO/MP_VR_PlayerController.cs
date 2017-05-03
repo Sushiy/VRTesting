@@ -76,8 +76,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
         {
             m_handRight = m_vrplayerThis.rightHand;
             m_handLeft = m_vrplayerThis.leftHand;
-            m_mpvrhand1.m_transVRHand = m_handRight.transform;
-            m_mpvrhand2.m_transVRHand = m_handLeft.transform;
+            if(m_mpvrhand1 != null && m_mpvrhand2s != null)
+                m_mpvrhand1.m_transVRHand = m_handRight.transform;
+                m_mpvrhand2.m_transVRHand = m_handLeft.transform;
 
         }
     }
