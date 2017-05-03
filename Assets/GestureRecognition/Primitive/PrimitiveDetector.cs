@@ -170,7 +170,7 @@ namespace primitive
                 if (circleFound)
                 {
                     firstPoint = p[index];
-                    quarterPoint = p[index + (p.Length - index) / 4];
+                    quarterPoint = p[index + (p.Length - index) / 3];
                     break;
                 }
             }
@@ -198,8 +198,24 @@ namespace primitive
                 Debug.LogError("When instantiating this circle, there was no Primitive Component attached!");
             }
 
+            // try to find out if circle is clockwise or counterclockwise
+            bool clockwise = isClockwise(center, firstPoint, quarterPoint);
+
             // set position
-            primitive.setPosition(normal, center, radius);
+            float turnAround = (clockwise) ? -1f : 1f;
+            primitive.setPosition(turnAround * normal, center, radius);
+        }
+
+        /*
+         * A                 
+           |\     // A = Rotation Center
+           | \    // B = Previous Frame Position
+           |  C   // C = Current Frame Position
+           B
+         */
+        bool isClockwise(Vector2 center, Vector2 firstPoint, Vector2 quarterPoint)
+        {
+            return ((firstPoint.x - center.x) * (quarterPoint.y - center.y) - (firstPoint.y - center.y) * (quarterPoint.x - center.x)) > 0;
         }
 
         /// <summary>

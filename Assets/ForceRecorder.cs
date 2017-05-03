@@ -38,7 +38,7 @@ public class ForceRecorder : MonoBehaviour {
         if (val > m_fHighestValue)
         {
             m_fHighestValue = val;
-            print("New Highest Value: " + val);
+            //print("New Highest Value: " + val);
         }
 
         // prevent that flicks get detected to often in one motion
