@@ -20,11 +20,15 @@ public class ForceRecorder : MonoBehaviour {
     private float m_fTimer = 0f;
 
     private Rigidbody m_rigid;
+    private ParticleSystem m_flickParticles;
     
     void Awake()
     {
         m_rigid = GetComponent<Rigidbody>();
         Assert.IsNotNull<MagicWand>(m_MagicWand);
+
+        m_flickParticles = GetComponentInChildren<ParticleSystem>();
+        Assert.IsNotNull<ParticleSystem>(m_flickParticles);
     }
 
 	void FixedUpdate()
@@ -55,6 +59,10 @@ public class ForceRecorder : MonoBehaviour {
     // function gets called once a flick is detected
     void FlickDetected()
     {
+        if (m_flickParticles.isPlaying)
+            m_flickParticles.Stop();
+        m_flickParticles.transform.position = transform.position;
+        m_flickParticles.Play();
         m_MagicWand.FireSpell(m_rigid.velocity);
     }
 }

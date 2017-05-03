@@ -53,6 +53,8 @@ namespace primitive
 
             m_magicWand = GetComponent<MagicWand>();
             Assert.IsNotNull<MagicWand>(m_magicWand);
+
+            
         }
 
         void OnTriggerEnter(Collider c)
