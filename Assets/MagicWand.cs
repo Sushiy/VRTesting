@@ -18,11 +18,29 @@ public class MagicWand : MonoBehaviour {
     private Transform m_SpawnPoint;
 
     private SpellType m_enumLoadedSpell = SpellType.FIREBALL;
+    private ParticleSystem m_loadedParticles;
 
     void Awake()
     {
         Assert.IsNotNull<Transform>(m_SpawnPoint);
         Assert.IsNotNull<GameObject>(prefab_Fireball);
+        m_loadedParticles = GetComponentInChildren<ParticleSystem>();
+        Assert.IsNotNull<ParticleSystem>(m_loadedParticles);
+    }
+
+    void Update()
+    {
+        // is loaded?
+        if (m_enumLoadedSpell != SpellType.NONE)
+        {
+            // play the particle effect
+            if (!m_loadedParticles.isPlaying) m_loadedParticles.Play();
+        }
+        // not loaded
+        else
+        {
+            if (m_loadedParticles.isPlaying) m_loadedParticles.Stop();
+        }
     }
 
     public void LoadWand(SpellType spell)
