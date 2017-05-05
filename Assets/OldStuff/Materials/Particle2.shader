@@ -57,7 +57,7 @@ Shader "Particles/AlphaBlendEmissive"
 		fixed4 col;
 	fixed4 tex = tex2D(_MainTex, i.texcoord);
 	
-	col.rgb = i.color.rgb * 10 * tex.rgb;
+	col.rgb = i.color.rgb * 20 * tex.rgb;
 	col.a = i.color.a * tex.a;
 	return col;
 
