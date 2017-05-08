@@ -21,6 +21,8 @@ public class ForceRecorder : MonoBehaviour {
 
     private Rigidbody m_rigid;
     private ParticleSystem m_flickParticles;
+
+    private bool m_bFire = false;
     
     void Awake()
     {
@@ -70,6 +72,19 @@ public class ForceRecorder : MonoBehaviour {
 
         if (m_MagicWand.IsWandLoaded())
             m_flickParticles.Play();
-        m_MagicWand.FireSpell(m_rigid.velocity);
+        //m_MagicWand.FireSpell(m_rigid.velocity);
+
+        m_bFire = true;
+    }
+
+    public bool isFiring()
+    {
+        if (m_bFire)
+        {
+            m_bFire = false;
+            return true;
+        }
+        else
+            return false;
     }
 }

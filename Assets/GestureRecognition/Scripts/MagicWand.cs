@@ -19,6 +19,7 @@ public class MagicWand : MonoBehaviour {
 
     private SpellType m_enumLoadedSpell = SpellType.FIREBALL;
     private ParticleSystem m_loadedParticles;
+    public SpellType LoadedSpell { get { return m_enumLoadedSpell; } }
 
     void Awake()
     {
