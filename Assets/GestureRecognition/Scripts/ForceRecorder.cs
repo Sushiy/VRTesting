@@ -21,7 +21,10 @@ public class ForceRecorder : MonoBehaviour {
 
     private Rigidbody m_rigid;
     private ParticleSystem m_flickParticles;
-    
+
+    private bool m_bFire = false;
+    public Vector3 m_v3velocity;
+
     void Awake()
     {
         m_rigid = GetComponent<Rigidbody>();
@@ -31,7 +34,7 @@ public class ForceRecorder : MonoBehaviour {
         Assert.IsNotNull<ParticleSystem>(m_flickParticles);
     }
 
-    void Start()
+    public void RemoveFromParent()
     {
         transform.SetParent(null); // unparented
     }
@@ -70,6 +73,19 @@ public class ForceRecorder : MonoBehaviour {
 
         if (m_MagicWand.IsWandLoaded())
             m_flickParticles.Play();
-        m_MagicWand.FireSpell(m_rigid.velocity);
+        //m_MagicWand.FireSpell(m_rigid.velocity);
+        m_v3velocity = m_rigid.velocity;
+        m_bFire = true;
+    }
+
+    public bool isFiring()
+    {
+        if (m_bFire)
+        {
+            m_bFire = false;
+            return true;
+        }
+        else
+            return false;
     }
 }

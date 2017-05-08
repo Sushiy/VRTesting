@@ -13,9 +13,9 @@ public class MagicWand : MonoBehaviour {
     [SerializeField]
     private float m_fVelocityMultiplier = 3f;
     [SerializeField]
-    private GameObject prefab_Fireball;
+    public GameObject prefab_Fireball;
     [SerializeField]
-    private Transform m_SpawnPoint;
+    public Transform m_SpawnPoint;
 
     private SpellType m_enumLoadedSpell = SpellType.FIREBALL;
     private ParticleSystem m_loadedParticles;

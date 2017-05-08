@@ -18,6 +18,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public MP_VR_NetworkHand m_mpvrhand2;
     public Transform hand1Spawn;
     public Transform hand2Spawn;
+
+    private ForceRecorder m_forcerecThis;
+    private MagicWand m_magicwandThis;
 	
 	// Update is called once per frame
 	void Update ()
@@ -34,6 +37,10 @@ public class MP_VR_PlayerController : NetworkBehaviour
         if (m_handLeft != null && m_handLeft.controller != null && m_handLeft.controller.GetHairTriggerDown())
         {
             CmdFire(hand2Spawn.transform.position, hand2Spawn.transform.rotation);
+        }
+        if(m_forcerecThis.isFiring())
+        {
+            CmdFireSpell(m_forcerecThis.m_v3velocity);
         }
     }
 
@@ -56,16 +63,45 @@ public class MP_VR_PlayerController : NetworkBehaviour
         Destroy(bullet, 2.0f);
     }
 
+    [Command] //Command is called on client and executed on the server
+    void CmdFireSpell(Vector3 velocity)
+    {
+        GameObject spell;
+        if (m_magicwandThis.LoadedSpell == SpellType.NONE) return;
+
+        if (m_magicwandThis.LoadedSpell == SpellType.FIREBALL)
+        {
+            spell = Instantiate<GameObject>(m_magicwandThis.prefab_Fireball);
+            spell.transform.position = m_magicwandThis.m_SpawnPoint.position;
+            spell.GetComponent<Rigidbody>().velocity = (velocity * 3.0f);
+
+            // Spawn the bullet on the Clients
+            NetworkServer.Spawn(spell);
+            // Destroy the bullet after 2 seconds
+            Destroy(spell, 2.0f);
+        }
+
+        m_magicwandThis.LoadWand(SpellType.NONE);
+
+
+    }
+
     public override void OnStartLocalPlayer()
     {
         m_vrplayerThis = GameObject.Instantiate(m_prefabVRStation,transform.position, transform.rotation).GetComponent< Valve.VR.InteractionSystem.Player>();
         m_handRight = m_vrplayerThis.rightHand;
         m_handLeft = m_vrplayerThis.leftHand;
         CheckHands();
-
-        hand1Spawn.GetComponent<MeshRenderer>().material.color = Color.blue;
-        hand2Spawn.GetComponent<MeshRenderer>().material.color = Color.blue;
+        InitSpellComponents();
     }
+
+    private void InitSpellComponents()
+    {
+        m_forcerecThis = m_vrplayerThis.GetComponentInChildren<ForceRecorder>();
+        if (m_forcerecThis != null)
+            m_forcerecThis.RemoveFromParent();
+        m_magicwandThis = m_vrplayerThis.GetComponentInChildren<MagicWand>();
+    } 
 
     private void CheckHands()
     {
