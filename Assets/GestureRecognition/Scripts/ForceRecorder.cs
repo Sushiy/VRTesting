@@ -29,8 +29,11 @@ public class ForceRecorder : MonoBehaviour {
 
         m_flickParticles = GetComponentInChildren<ParticleSystem>();
         Assert.IsNotNull<ParticleSystem>(m_flickParticles);
+    }
 
-        transform.SetParent(null);
+    void Start()
+    {
+        transform.SetParent(null); // unparented
     }
 
 	void FixedUpdate()
@@ -64,7 +67,9 @@ public class ForceRecorder : MonoBehaviour {
         if (m_flickParticles.isPlaying)
             m_flickParticles.Stop();
         m_flickParticles.transform.position = transform.position;
-        m_flickParticles.Play();
+
+        if (m_MagicWand.IsWandLoaded())
+            m_flickParticles.Play();
         m_MagicWand.FireSpell(m_rigid.velocity);
     }
 }
