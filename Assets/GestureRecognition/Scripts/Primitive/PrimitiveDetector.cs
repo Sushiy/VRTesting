@@ -16,6 +16,8 @@ namespace primitive
     [RequireComponent(typeof(LineRenderer))]
     public class PrimitiveDetector : MonoBehaviour
     {
+        public LineRenderer debug_lineRenderer;
+
         [SerializeField]
         private float m_fDequeueInterval = 0.5f; // how fast are points dequeued again
         [SerializeField]
@@ -65,7 +67,8 @@ namespace primitive
             {
                 TrackPoints();
                 DetectCircle();
-            }else
+            }
+            else
             {
                 if (points.Count > 0)
                     points.Dequeue();
@@ -99,7 +102,7 @@ namespace primitive
             var possibleIndices = new List<int>();
 
             // check if lastPoint is close enough to another point to detect "crossing"
-            for (int i=0; i<p.Length-m_iMinimumIndexDiff; ++i)
+            for (int i = 0; i < p.Length - m_iMinimumIndexDiff; ++i)
             {
                 float distance = Vector2.Distance(p[i], lastPoint);
                 if (distance < m_fMinimumDistanceCrossing)
@@ -110,7 +113,7 @@ namespace primitive
 
             // no crossings detected. end here.
             if (possibleIndices.Count < 1) return;
-            
+
             // for every possible circle do the following:
             float radius = 0f;
             Vector3 center = Vector3.zero;
@@ -161,7 +164,6 @@ namespace primitive
                     if (cur > maxRadius ||
                         cur < minRadius)
                     {
-                        //print("This is not a \"circle\"");
                         circleFound = false;
                         break;
                     }
@@ -169,12 +171,25 @@ namespace primitive
 
                 if (circleFound)
                 {
+                    // debug ausgabe
+                    if (debug_lineRenderer != null)
+                    {
+                        print("Detected a circle. Will debug draw now.");
+                        debug_lineRenderer.positionCount = p.Length - index;
+                        for (int j = index; j < debug_lineRenderer.positionCount; ++j)
+                        {
+                            debug_lineRenderer.SetPosition(j, p[j]);
+                        }
+                        print("Ended Drawing the Circle");
+                    }
+                    // debug end
+
                     firstPoint = p[index];
                     quarterPoint = p[index + (p.Length - index) / 3];
                     break;
                 }
             }
-            
+
             if (circleFound)
             {
                 if (debug_text != null) debug_text.text = "Circles found: " + debugCount++;
