@@ -164,11 +164,14 @@ namespace primitive
                     {
                         print(string.Format("Detected a circle. Will debug draw now.\n" +
                             "index={0}, length={1}, p-length={2}",index,p.Length-index,p.Length));
-                        debug_lineRenderer.positionCount = p.Length - index;
-                        for (int j = index; j < debug_lineRenderer.positionCount; ++j)
-                        {
-                            debug_lineRenderer.SetPosition(j-index, p[j]);
-                        }
+                        //debug_lineRenderer.positionCount = p.Length - index;
+                        //for (int j = index; j < debug_lineRenderer.positionCount; ++j)
+                        //{
+                        //    debug_lineRenderer.SetPosition(j-index, p[j]);
+                        //}
+                        debug_lineRenderer.positionCount = 2;
+                        debug_lineRenderer.SetPosition(0, p[index]);
+                        debug_lineRenderer.SetPosition(1, p[index+1]);
                         print("Ended Drawing the Circle");
                     }
                     // debug end
