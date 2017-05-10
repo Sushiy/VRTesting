@@ -25,11 +25,24 @@ public class MP_VR_PlayerController : NetworkBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        //Check if you are a local Player
         if (!isLocalPlayer)
         {
             return;
         }
-        CheckHands();
+        //Check if you have found your ForceRecorder
+        if(m_forcerecThis == null)
+        { 
+            InitSpellComponents();
+            return;
+        }
+        //Check if you have found your hands
+        if (m_handLeft == null || m_handRight == null)
+        {
+            CheckHands();
+            return;
+        }
+
         if (m_handRight != null && m_handRight.controller != null && m_handRight.controller.GetHairTriggerDown())
         {
             CmdFire(hand1Spawn.transform.position, hand1Spawn.transform.rotation);
@@ -78,7 +91,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
             // Spawn the bullet on the Clients
             NetworkServer.Spawn(spell);
             // Destroy the bullet after 2 seconds
-            Destroy(spell, 2.0f);
+            Destroy(spell, 5.0f);
         }
 
         m_magicwandThis.LoadWand(SpellType.NONE);
@@ -97,6 +110,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     private void InitSpellComponents()
     {
+        if (m_forcerecThis != null && m_magicwandThis != null)
+            return;
+
         m_forcerecThis = m_vrplayerThis.GetComponentInChildren<ForceRecorder>();
         if (m_forcerecThis != null)
             m_forcerecThis.RemoveFromParent();

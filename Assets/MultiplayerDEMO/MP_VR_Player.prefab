@@ -71,7 +71,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1120310116913338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,6 +1920,7 @@ MonoBehaviour:
   m_fVelocityThreshold: 50
   m_fTimeBetweenFlicks: 1
   m_MagicWand: {fileID: 114870149424163124}
+  m_v3velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &114574033844658274
 MonoBehaviour:
   m_ObjectHideFlags: 1
