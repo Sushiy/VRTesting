@@ -321,7 +321,7 @@ namespace gesture
             // Check for traps
             if (p.Count <= 1)
             {
-                print("Not a single segment to add points to! Please record more points!");
+                //print("Not a single segment to add points to! Please record more points!");
                 return;
             }
 
