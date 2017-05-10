@@ -79,7 +79,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //If the forcerecorder wants us to fire spells, do it
         if(m_forcerecThis.isFiring())
         {
+            Debug.Log("A Player is firing");
             CmdFireSpell(m_forcerecThis.m_v3velocity);
+            CmdFire(hand1Spawn.transform.position, hand1Spawn.transform.rotation);
         }
 
         /******** This fires debug bullets*****/
@@ -97,6 +99,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFire(Vector3 p, Quaternion q)
     {
+        
         // Create the Bullet from the Bullet Prefab
         GameObject bullet = (GameObject)Instantiate(
             m_prefabBullet,
@@ -116,6 +119,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(Vector3 velocity)
     {
+        Debug.Log("The Server is firing the spell");
         //if you haven't loaded a Spell, return
         if (m_magicwandThis.LoadedSpell == SpellType.NONE) return;
         
