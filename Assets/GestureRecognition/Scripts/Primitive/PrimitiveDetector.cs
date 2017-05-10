@@ -118,7 +118,7 @@ namespace primitive
             float radius = 0f;
             Vector3 center = Vector3.zero;
             bool circleFound = false;
-            Vector3 firstPoint = Vector3.zero, quarterPoint = Vector3.zero;
+            Vector3 firstQuarterPoint = Vector3.zero, secondQuarterPoint = Vector3.zero;
             foreach (int index in possibleIndices)
             {
                 // is the circle big enough?
@@ -142,18 +142,6 @@ namespace primitive
                 }
                 radius /= p.Length - index;
 
-                // calc error
-                //float avgError = 0f;
-                //float radius100 = radius / 100f;
-                //for (int i = index; i < p.Length; ++i)
-                //{
-                //    float radiusDiff = Mathf.Abs(radius - radiusArr[i]);
-                //    avgError += radius100 * radiusDiff;
-                //}
-                //avgError /= p.Length - index;
-                //avgError /= radius;
-                //avgError *= 100f;
-
                 // every radius must be roughly the same radius
                 float minRadius = radius * (1 - m_fRadiusTolerance);
                 float maxRadius = radius * (1 + m_fRadiusTolerance);
@@ -174,18 +162,20 @@ namespace primitive
                     // debug ausgabe
                     if (debug_lineRenderer != null)
                     {
-                        print("Detected a circle. Will debug draw now.");
+                        print(string.Format("Detected a circle. Will debug draw now.\n" +
+                            "index={0}, length={1}, p-length={2}",index,p.Length-index,p.Length));
                         debug_lineRenderer.positionCount = p.Length - index;
                         for (int j = index; j < debug_lineRenderer.positionCount; ++j)
                         {
-                            debug_lineRenderer.SetPosition(j, p[j]);
+                            debug_lineRenderer.SetPosition(j-index, p[j]);
                         }
                         print("Ended Drawing the Circle");
                     }
                     // debug end
 
-                    firstPoint = p[index];
-                    quarterPoint = p[index + (p.Length - index) / 3];
+                    int quarter = (p.Length - index) / 4;
+                    firstQuarterPoint = p[index + quarter];
+                    secondQuarterPoint = p[index + 2 * quarter];
                     break;
                 }
             }
@@ -194,14 +184,14 @@ namespace primitive
             {
                 if (debug_text != null) debug_text.text = "Circles found: " + debugCount++;
                 //print("new circle found with radius=" + radius);
-                InstantiateCircle(firstPoint, quarterPoint, center, radius);
+                InstantiateCircle(firstQuarterPoint, secondQuarterPoint, center, radius);
             }
         }
 
-        void InstantiateCircle(Vector3 firstPoint, Vector3 quarterPoint, Vector3 center, float radius)
+        void InstantiateCircle(Vector3 pointOnCircle1, Vector3 pointOnCircle2, Vector3 center, float radius)
         {
             // calculate normal
-            Vector3 normal = Vector3.Cross(firstPoint - center, quarterPoint - center).normalized;
+            Vector3 normal = Vector3.Cross(pointOnCircle1 - center, pointOnCircle2 - center).normalized;
 
             // instantiate circle
             GameObject circle = Instantiate<GameObject>(prefab_Circle);
@@ -214,7 +204,7 @@ namespace primitive
             }
 
             // try to find out if circle is clockwise or counterclockwise
-            bool clockwise = isClockwise(center, firstPoint, quarterPoint);
+            bool clockwise = isClockwise(center, pointOnCircle1, pointOnCircle2);
 
             // set position
             float turnAround = (clockwise) ? -1f : 1f;
