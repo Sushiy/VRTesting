@@ -80,55 +80,28 @@ public class MP_VR_PlayerController : NetworkBehaviour
         if(m_forcerecThis.isFiring())
         {
             Debug.Log("A Player is firing");
-            CmdFireSpell(m_forcerecThis.m_v3velocity);
-            CmdFire(hand1Spawn.transform.position, hand1Spawn.transform.rotation);
+            if (m_magicwandThis.IsWandLoaded())
+            {
+                CmdFireSpell(m_forcerecThis.m_v3velocity, m_magicwandThis.LoadedSpell, m_magicwandThis.prefab_Fireball, m_magicwandThis.m_SpawnPoint.position);
+                m_magicwandThis.LoadWand(SpellType.NONE);
+            }
         }
-
-        /******** This fires debug bullets*****/
-        /*
-        if (m_handRight != null && m_handRight.controller != null && m_handRight.controller.GetHairTriggerDown())
-        {
-            CmdFire(hand1Spawn.transform.position, hand1Spawn.transform.rotation);
-        }
-        if (m_handLeft != null && m_handLeft.controller != null && m_handLeft.controller.GetHairTriggerDown())
-        {
-            CmdFire(hand2Spawn.transform.position, hand2Spawn.transform.rotation);
-        }*/
     }
 
     [Command] //Command is called on client and executed on the server
-    void CmdFire(Vector3 p, Quaternion q)
-    {
-        
-        // Create the Bullet from the Bullet Prefab
-        GameObject bullet = (GameObject)Instantiate(
-            m_prefabBullet,
-            p,
-            q);
-
-        // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody>().velocity = -bullet.transform.up * 12;
-
-        // Spawn the bullet on the Clients
-        NetworkServer.Spawn(bullet);
-
-        // Destroy the bullet after 2 seconds
-        Destroy(bullet, 2.0f);
-    }
-
-    [Command] //Command is called on client and executed on the server
-    void CmdFireSpell(Vector3 velocity)
+    void CmdFireSpell(Vector3 velocity, SpellType spelltype, GameObject prefab, Vector3 position)
     {
         Debug.Log("The Server is firing the spell");
         //if you haven't loaded a Spell, return
-        if (m_magicwandThis.LoadedSpell == SpellType.NONE) return;
+        //if (m_magicwandThis.LoadedSpell == SpellType.NONE) return;
+        
         
         GameObject goSpell;
-        if (m_magicwandThis.LoadedSpell == SpellType.FIREBALL)
+        if (spelltype == SpellType.FIREBALL)
         {
             //Instatiate the SpellObject and shoot it 
-            goSpell = Instantiate<GameObject>(m_magicwandThis.prefab_Fireball);
-            goSpell.transform.position = m_magicwandThis.m_SpawnPoint.position;
+            goSpell = Instantiate<GameObject>(prefab);
+            goSpell.transform.position = position;
             goSpell.GetComponent<Rigidbody>().velocity = (velocity * 3.0f);
 
             // Spawn the spellObject on the Clients
@@ -137,7 +110,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
             Destroy(goSpell, 5.0f);
         }
 
-        m_magicwandThis.LoadWand(SpellType.NONE);
+        //m_magicwandThis.LoadWand(SpellType.NONE);
     }
 
 

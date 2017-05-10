@@ -68,6 +68,7 @@ public class MagicWand : MonoBehaviour {
         return m_enumLoadedSpell != SpellType.NONE;
     }
 
+    
     public bool isWandLoaded(SpellType type)
     {
         return m_enumLoadedSpell == type;
