@@ -6,24 +6,52 @@ using Valve.VR;
 
 public class MP_VR_PlayerController : NetworkBehaviour
 {
-    public GameObject m_prefabVRStation;
+    public bool m_bIsReady = false;
 
-    public Valve.VR.InteractionSystem.Player m_vrplayerThis;
+    [SerializeField]
+    private GameObject m_prefabVRStation;
+    [SerializeField]
+    private GameObject m_prefabBullet;
+    [SerializeField]
+    private MP_VR_NetworkHand m_mpvrhand1;
+    [SerializeField]
+    private MP_VR_NetworkHand m_mpvrhand2;
+    [SerializeField]
+    private Transform hand1Spawn;
+    [SerializeField]
+    private Transform hand2Spawn;
 
-    public GameObject m_prefabBullet;
+    private Valve.VR.InteractionSystem.Player m_vrplayerThis;
 
-    public Valve.VR.InteractionSystem.Hand m_handRight;
-    public Valve.VR.InteractionSystem.Hand m_handLeft;
-    public MP_VR_NetworkHand m_mpvrhand1;
-    public MP_VR_NetworkHand m_mpvrhand2;
-    public Transform hand1Spawn;
-    public Transform hand2Spawn;
+    public Valve.VR.InteractionSystem.Player ValvePlayer
+    {
+        get
+        {
+            return m_vrplayerThis;
+        }
+    }
 
+    private Valve.VR.InteractionSystem.Hand m_handRight;
+    private Valve.VR.InteractionSystem.Hand m_handLeft;
     private ForceRecorder m_forcerecThis;
     private MagicWand m_magicwandThis;
-	
-	// Update is called once per frame
-	void Update ()
+
+    //This is used instead of Start for Initialization (only called by local player)
+    public override void OnStartLocalPlayer()
+    {
+        //Spawn the SteamVR player prefab
+        m_vrplayerThis = GameObject.Instantiate(m_prefabVRStation, transform.position, transform.rotation).GetComponent<Valve.VR.InteractionSystem.Player>();
+        //Grab the SteamVR Hands
+        m_handRight = m_vrplayerThis.rightHand;
+        m_handLeft = m_vrplayerThis.leftHand;
+        //Check the hands again
+        CheckHands();
+        //Grab the forcerecorder and wand
+        InitSpellComponents();
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         //Check if you are a local Player
         if (!isLocalPlayer)
@@ -32,17 +60,30 @@ public class MP_VR_PlayerController : NetworkBehaviour
         }
         //Check if you have found your ForceRecorder
         if(m_forcerecThis == null)
-        { 
+        {
+            m_bIsReady = false;
             InitSpellComponents();
             return;
         }
         //Check if you have found your hands
         if (m_handLeft == null || m_handRight == null)
         {
+            m_bIsReady = false;
             CheckHands();
             return;
         }
+        //if you weren't ready yet and made it this far, get ready
+        if(!m_bIsReady)
+            m_bIsReady = true;
 
+        //If the forcerecorder wants us to fire spells, do it
+        if(m_forcerecThis.isFiring())
+        {
+            CmdFireSpell(m_forcerecThis.m_v3velocity);
+        }
+
+        /******** This fires debug bullets*****/
+        /*
         if (m_handRight != null && m_handRight.controller != null && m_handRight.controller.GetHairTriggerDown())
         {
             CmdFire(hand1Spawn.transform.position, hand1Spawn.transform.rotation);
@@ -50,11 +91,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         if (m_handLeft != null && m_handLeft.controller != null && m_handLeft.controller.GetHairTriggerDown())
         {
             CmdFire(hand2Spawn.transform.position, hand2Spawn.transform.rotation);
-        }
-        if(m_forcerecThis.isFiring())
-        {
-            CmdFireSpell(m_forcerecThis.m_v3velocity);
-        }
+        }*/
     }
 
     [Command] //Command is called on client and executed on the server
@@ -79,35 +116,28 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(Vector3 velocity)
     {
-        GameObject spell;
+        //if you haven't loaded a Spell, return
         if (m_magicwandThis.LoadedSpell == SpellType.NONE) return;
-
+        
+        GameObject goSpell;
         if (m_magicwandThis.LoadedSpell == SpellType.FIREBALL)
         {
-            spell = Instantiate<GameObject>(m_magicwandThis.prefab_Fireball);
-            spell.transform.position = m_magicwandThis.m_SpawnPoint.position;
-            spell.GetComponent<Rigidbody>().velocity = (velocity * 3.0f);
+            //Instatiate the SpellObject and shoot it 
+            goSpell = Instantiate<GameObject>(m_magicwandThis.prefab_Fireball);
+            goSpell.transform.position = m_magicwandThis.m_SpawnPoint.position;
+            goSpell.GetComponent<Rigidbody>().velocity = (velocity * 3.0f);
 
-            // Spawn the bullet on the Clients
-            NetworkServer.Spawn(spell);
-            // Destroy the bullet after 2 seconds
-            Destroy(spell, 5.0f);
+            // Spawn the spellObject on the Clients
+            NetworkServer.Spawn(goSpell);
+            // Destroy the spellObject after 2 seconds
+            Destroy(goSpell, 5.0f);
         }
 
         m_magicwandThis.LoadWand(SpellType.NONE);
-
-
     }
 
-    public override void OnStartLocalPlayer()
-    {
-        m_vrplayerThis = GameObject.Instantiate(m_prefabVRStation,transform.position, transform.rotation).GetComponent< Valve.VR.InteractionSystem.Player>();
-        m_handRight = m_vrplayerThis.rightHand;
-        m_handLeft = m_vrplayerThis.leftHand;
-        CheckHands();
-        InitSpellComponents();
-    }
 
+    //Find ForceRecorder and MagicWand Components
     private void InitSpellComponents()
     {
         if (m_forcerecThis != null && m_magicwandThis != null)
@@ -119,6 +149,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         m_magicwandThis = m_vrplayerThis.GetComponentInChildren<MagicWand>();
     } 
 
+    //Check if you currently have all the necessary handreferences
     private void CheckHands()
     {
         if (m_handRight != null && m_handLeft != null && m_handLeft != m_handRight)
