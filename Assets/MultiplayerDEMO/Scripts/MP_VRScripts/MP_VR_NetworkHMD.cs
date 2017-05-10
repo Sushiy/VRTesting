@@ -18,7 +18,7 @@ public class MP_VR_NetworkHMD : MonoBehaviour
     private void Init()
     {
         m_vrplayerctrlThis = GetComponentInParent<MP_VR_PlayerController>();
-        if (m_vrplayerctrlThis != null)
+        if (m_vrplayerctrlThis != null && m_vrplayerctrlThis.m_bIsReady)
             m_transVRHMD = m_vrplayerctrlThis.ValvePlayer.hmdTransform;
     }
 
