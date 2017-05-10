@@ -28,10 +28,10 @@ public class ForceRecorder : MonoBehaviour {
     void Awake()
     {
         m_rigid = GetComponent<Rigidbody>();
-        Assert.IsNotNull<MagicWand>(m_MagicWand);
+        Assert.IsNotNull(m_MagicWand);
 
         m_flickParticles = GetComponentInChildren<ParticleSystem>();
-        Assert.IsNotNull<ParticleSystem>(m_flickParticles);
+        Assert.IsNotNull(m_flickParticles);
     }
 
     public void RemoveFromParent()

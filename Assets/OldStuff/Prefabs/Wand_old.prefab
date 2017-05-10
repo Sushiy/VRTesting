@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 23000011396755108}
   - component: {fileID: 54000014177305588}
   m_Layer: 8
-  m_Name: Wand
+  m_Name: Wand_old
   m_TagString: Wand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
