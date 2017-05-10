@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//This class syncs the characters Head with the HeadMountedDisplays actual positions
 public class MP_VR_NetworkHMD : MonoBehaviour
 {
 
@@ -11,11 +13,14 @@ public class MP_VR_NetworkHMD : MonoBehaviour
     private void Start()
     {
         m_vrplayerctrlThis = GetComponentInParent<MP_VR_PlayerController>();
-        m_transVRHMD = m_vrplayerctrlThis.m_vrplayerThis.hmdTransform;
+        m_transVRHMD = m_vrplayerctrlThis.ValvePlayer.hmdTransform;
     }
 
     private void Update()
     {
+        if (!m_vrplayerctrlThis.m_bIsReady)
+            return;
+
         if (m_transVRHMD != null)
         {
             transform.position = m_transVRHMD.position;
@@ -23,7 +28,7 @@ public class MP_VR_NetworkHMD : MonoBehaviour
         }
         else
         {
-            m_transVRHMD = m_vrplayerctrlThis.m_vrplayerThis.hmdTransform;
+            m_transVRHMD = m_vrplayerctrlThis.ValvePlayer.hmdTransform;
         }
     }
 }
