@@ -102,6 +102,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
             //Instatiate the SpellObject and shoot it 
             goSpell = Instantiate<GameObject>(prefab);
             goSpell.transform.position = position;
+
             goSpell.GetComponent<Rigidbody>().velocity = (velocity * 3.0f);
 
             // Spawn the spellObject on the Clients
