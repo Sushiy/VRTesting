@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fVelocityMultiplier: 3
-  prefab_Fireball: {fileID: 1938868563837062, guid: fa016bf8cc3e44348ab921f777a3ca4d,
+  prefab_Fireball: {fileID: 114496908468504358, guid: 759b9957794247d4bab49dc6bf2854e9,
     type: 2}
   m_SpawnPoint: {fileID: 4601935459456922}
 --- !u!114 &114182703530404256
