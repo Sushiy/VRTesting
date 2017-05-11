@@ -82,35 +82,21 @@ public class MP_VR_PlayerController : NetworkBehaviour
             Debug.Log("A Player is firing");
             if (m_magicwandThis.IsWandLoaded())
             {
-                CmdFireSpell(m_forcerecThis.m_v3velocity, m_magicwandThis.LoadedSpell, m_magicwandThis.prefab_Fireball, m_magicwandThis.m_SpawnPoint.position);
+
+                //Instatiate the SpellObject and shoot it 
+                GameObject goSpell = m_magicwandThis.prefab_Fireball.Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                CmdFireSpell(goSpell);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
         }
     }
 
     [Command] //Command is called on client and executed on the server
-    void CmdFireSpell(Vector3 velocity, SpellType spelltype, GameObject prefab, Vector3 position)
+    void CmdFireSpell(GameObject _goSpell)
     {
         Debug.Log("The Server is firing the spell");
-        //if you haven't loaded a Spell, return
-        //if (m_magicwandThis.LoadedSpell == SpellType.NONE) return;
-        
-        
-        GameObject goSpell;
-        if (spelltype == SpellType.FIREBALL)
-        {
-            //Instatiate the SpellObject and shoot it 
-            goSpell = Instantiate<GameObject>(prefab);
-            goSpell.transform.position = position;
-            goSpell.GetComponent<Rigidbody>().velocity = (velocity * 3.0f);
-
-            // Spawn the spellObject on the Clients
-            NetworkServer.Spawn(goSpell);
-            // Destroy the spellObject after 2 seconds
-            Destroy(goSpell, 5.0f);
-        }
-
-        //m_magicwandThis.LoadWand(SpellType.NONE);
+        // Spawn the spellObject on the Clients
+        NetworkServer.Spawn(_goSpell);
     }
 
 
