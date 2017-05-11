@@ -85,6 +85,11 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
                 //Instatiate the SpellObject and shoot it 
                 GameObject goSpell = m_magicwandThis.prefab_Fireball.Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                if (goSpell == null)
+                {
+                    Debug.Log("SpellObject was made");
+                    return;
+                }
                 CmdFireSpell(goSpell);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
