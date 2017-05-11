@@ -102,6 +102,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(GameObject _goSpell)
     {
+        GameObject go = Instantiate<GameObject>(_goSpell);
         Debug.Log("The Server is firing the spell");
         if(go == null)
         {
