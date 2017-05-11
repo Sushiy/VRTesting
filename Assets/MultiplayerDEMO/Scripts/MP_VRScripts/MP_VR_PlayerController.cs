@@ -87,13 +87,12 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
                 //Instatiate the SpellObject and shoot it
                 GameObject goSpell = m_magicwandThis.prefab_Fireball.Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                spelli = goSpell;
                 if (goSpell == null)
                 {
                     Debug.Log("SpellObject was made");
                     return;
                 }
-                CmdFireSpell(spelli);
+                CmdFireSpell(goSpell);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
         }
@@ -102,15 +101,14 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(GameObject _goSpell)
     {
-        GameObject go = Instantiate<GameObject>(_goSpell);
         Debug.Log("The Server is firing the spell");
-        if(go == null)
+        if(_goSpell == null)
         {
             Debug.Log("Command did not get the spellObject");
             return;
         }
         // Spawn the spellObject on the Clients
-        NetworkServer.Spawn(go);
+        NetworkServer.Spawn(_goSpell);
 
     }
 
