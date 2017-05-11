@@ -95,6 +95,11 @@ public class MP_VR_PlayerController : NetworkBehaviour
     void CmdFireSpell(GameObject _goSpell)
     {
         Debug.Log("The Server is firing the spell");
+        if(_goSpell == null)
+        {
+            Debug.Log("Command did not get the spellObject");
+            return;
+        }
         // Spawn the spellObject on the Clients
         NetworkServer.Spawn(_goSpell);
     }
