@@ -21,6 +21,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [SerializeField]
     private Transform hand2Spawn;
 
+    private GameObject spelli;
+
     private Valve.VR.InteractionSystem.Player m_vrplayerThis;
 
     public Valve.VR.InteractionSystem.Player ValvePlayer
@@ -85,12 +87,13 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
                 //Instatiate the SpellObject and shoot it
                 GameObject goSpell = m_magicwandThis.prefab_Fireball.Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                spelli = goSpell;
                 if (goSpell == null)
                 {
                     Debug.Log("SpellObject was made");
                     return;
                 }
-                CmdFireSpell(goSpell);
+                CmdFireSpell(spelli);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
         }
@@ -99,7 +102,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(GameObject _goSpell)
     {
-        GameObject go = Instantiate<GameObject>(_goSpell);
         Debug.Log("The Server is firing the spell");
         if(go == null)
         {
