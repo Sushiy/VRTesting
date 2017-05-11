@@ -13,7 +13,7 @@ public class MagicWand : MonoBehaviour {
     [SerializeField]
     private float m_fVelocityMultiplier = 3f;
     [SerializeField]
-    public GameObject prefab_Fireball;
+    public Spell prefab_Fireball;
     [SerializeField]
     public Transform m_SpawnPoint;
 
@@ -23,8 +23,8 @@ public class MagicWand : MonoBehaviour {
 
     void Awake()
     {
-        Assert.IsNotNull<Transform>(m_SpawnPoint);
-        Assert.IsNotNull<GameObject>(prefab_Fireball);
+        Assert.IsNotNull(m_SpawnPoint);
+        Assert.IsNotNull(prefab_Fireball);
         m_loadedParticles = GetComponentInChildren<ParticleSystem>();
         Assert.IsNotNull<ParticleSystem>(m_loadedParticles);
     }
@@ -49,19 +49,19 @@ public class MagicWand : MonoBehaviour {
         m_enumLoadedSpell = spell;
     }
 
-    public void FireSpell(Vector3 velocity)
-    {
-        if (m_enumLoadedSpell == SpellType.NONE) return;
+    //public void FireSpell(Vector3 velocity)
+    //{
+    //    if (m_enumLoadedSpell == SpellType.NONE) return;
 
-        if (m_enumLoadedSpell == SpellType.FIREBALL)
-        {
-            GameObject fireball = Instantiate<GameObject>(prefab_Fireball);
-            fireball.transform.position = m_SpawnPoint.position;
-            fireball.GetComponent<Rigidbody>().velocity = (velocity * m_fVelocityMultiplier);
-        }
+    //    if (m_enumLoadedSpell == SpellType.FIREBALL)
+    //    {
+    //        GameObject fireball = Instantiate<GameObject>(prefab_Fireball);
+    //        fireball.transform.position = m_SpawnPoint.position;
+    //        fireball.GetComponent<Rigidbody>().velocity = (velocity * m_fVelocityMultiplier);
+    //    }
 
-        m_enumLoadedSpell = SpellType.NONE;
-    }
+    //    m_enumLoadedSpell = SpellType.NONE;
+    //}
 
     public bool IsWandLoaded()
     {
