@@ -83,14 +83,14 @@ public class MP_VR_PlayerController : NetworkBehaviour
             if (m_magicwandThis.IsWandLoaded())
             {
 
-                //Instatiate the SpellObject and shoot it 
-                //GameObject goSpell = m_magicwandThis.prefab_Fireball.Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                //if (goSpell == null)
-                //{
-                //    Debug.Log("SpellObject was made");
-                //    return;
-                //}
-                CmdFireSpell2(m_magicwandThis.prefab_Fireball, m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                //Instatiate the SpellObject and shoot it
+                GameObject goSpell = m_magicwandThis.prefab_Fireball.Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                if (goSpell == null)
+                {
+                    Debug.Log("SpellObject was made");
+                    return;
+                }
+                CmdFireSpell(goSpell);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
         }
@@ -99,21 +99,16 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(GameObject _goSpell)
     {
+        GameObject go = Instantiate<GameObject>(_goSpell);
         Debug.Log("The Server is firing the spell");
-        if(_goSpell == null)
+        if(go == null)
         {
             Debug.Log("Command did not get the spellObject");
             return;
         }
         // Spawn the spellObject on the Clients
-        NetworkServer.Spawn(_goSpell);
-    }
+        NetworkServer.Spawn(go);
 
-    [Command]
-    void CmdFireSpell2(Spell _spell, Transform _trans, Vector3 _velocity)
-    {
-        GameObject goSpell = _spell.Fire(_trans, _velocity);
-        NetworkServer.Spawn(goSpell);
     }
 
 
