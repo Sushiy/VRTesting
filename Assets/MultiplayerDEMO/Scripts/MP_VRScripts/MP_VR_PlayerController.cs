@@ -115,7 +115,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         if (_spellData._goSpellPrefab == null)
         {
             Debug.Log("Command did not get the spellObject");
-            return;
+            //return;
         }
 
         GameObject goSpell = Instantiate<GameObject>(m_prefabBullet);
