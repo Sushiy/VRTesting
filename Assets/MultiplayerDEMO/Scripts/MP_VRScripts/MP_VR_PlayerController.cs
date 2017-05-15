@@ -35,6 +35,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     private Valve.VR.InteractionSystem.Hand m_handRight;
     private Valve.VR.InteractionSystem.Hand m_handLeft;
+
     private ForceRecorder m_forcerecThis;
     private MagicWand m_magicwandThis;
 

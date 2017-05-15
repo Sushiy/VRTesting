@@ -153,6 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4762283369049580}
   - component: {fileID: 114422904293631378}
+  - component: {fileID: 114387737304788420}
   m_Layer: 0
   m_Name: MP_VR_Player
   m_TagString: Untagged
@@ -313,10 +314,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4780351774351186}
   - component: {fileID: 114242480814091826}
-  - component: {fileID: 114138348618890494}
+  - component: {fileID: 135678499858864378}
   m_Layer: 26
   m_Name: Hand1
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -348,9 +349,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4526048606591232}
   - component: {fileID: 114431249337986956}
+  - component: {fileID: 135033206550421682}
   m_Layer: 26
   m_Name: Hand2
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1221,19 +1223,6 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
---- !u!114 &114138348618890494
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1548527910999320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6166ed50f5825a44b9fc1af429caeb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1327800626269284, guid: 18d3489cb53841a40bc333e9e86dcf46,
-    type: 2}
 --- !u!114 &114156971042495960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1333,6 +1322,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highLightMaterial: {fileID: 2100000, guid: 7b939e5e799d98a469f594828ebab52e, type: 2}
   fireHapticsOnHightlight: 1
+--- !u!114 &114387737304788420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198207902069624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6166ed50f5825a44b9fc1af429caeb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToSpawn: {fileID: 1476425995623538, guid: 9e0891b93f5925240a80408eed40221e,
+    type: 2}
 --- !u!114 &114422904293631378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1570,6 +1572,18 @@ GUIText:
     rgba: 4278221311
   m_PixelCorrect: 1
   m_RichText: 1
+--- !u!135 &135033206550421682
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1568614722638194}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135353052142520416
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1581,6 +1595,18 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135678499858864378
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548527910999320}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136669036398794904
 CapsuleCollider:
