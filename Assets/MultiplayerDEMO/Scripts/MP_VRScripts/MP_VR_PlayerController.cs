@@ -88,6 +88,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
                 //Instatiate the SpellObject and shoot it
                 Spell.SpellData spelldata = m_magicwandThis.prefab_Fireball.GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                m_prefabBullet = spelldata._goSpellPrefab;
                 CmdFireSpell2(spelldata);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
