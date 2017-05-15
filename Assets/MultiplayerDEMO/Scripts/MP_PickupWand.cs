@@ -27,9 +27,10 @@ public class MP_PickupWand : MonoBehaviour
         {
             Transform offhand = other.GetComponent<Hand>().otherHand.transform;
 
-            Instantiate<GameObject>(m_prefabWand, other.transform);
+            GameObject mainWand = Instantiate(m_prefabWand, other.transform);
+            mainWand.GetComponent<MagicWand>().setMainHand();
             if (m_bSpawnOffhand)
-                Instantiate<GameObject>(m_prefabOffhand, offhand);
+                Instantiate(m_prefabOffhand, offhand);
 
             if (m_bDestroyCollidersAfterUse)
             {

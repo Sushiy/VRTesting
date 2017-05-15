@@ -20,6 +20,7 @@ public class MagicWand : MonoBehaviour {
     private SpellType m_enumLoadedSpell = SpellType.FIREBALL;
     private ParticleSystem m_loadedParticles;
     public SpellType LoadedSpell { get { return m_enumLoadedSpell; } }
+    public bool isMainHand { get; private set; }
 
     void Awake()
     {
@@ -27,6 +28,8 @@ public class MagicWand : MonoBehaviour {
         Assert.IsNotNull(prefab_Fireball);
         m_loadedParticles = GetComponentInChildren<ParticleSystem>();
         Assert.IsNotNull<ParticleSystem>(m_loadedParticles);
+
+        isMainHand = false;
     }
 
     void Update()
@@ -72,5 +75,10 @@ public class MagicWand : MonoBehaviour {
     public bool isWandLoaded(SpellType type)
     {
         return m_enumLoadedSpell == type;
+    }
+
+    public void setMainHand()
+    {
+        isMainHand = true;
     }
 }
