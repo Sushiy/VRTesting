@@ -118,7 +118,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
             return;
         }
 
-        GameObject goSpell = Instantiate<GameObject>(_spellData._goSpellPrefab);
+        GameObject goSpell = Instantiate<GameObject>(m_prefabBullet);
         goSpell.transform.position = _spellData._v3Position;
         goSpell.transform.rotation = _spellData._qRotation;
         goSpell.GetComponent<Rigidbody>().velocity = _spellData._v3Velocity;
