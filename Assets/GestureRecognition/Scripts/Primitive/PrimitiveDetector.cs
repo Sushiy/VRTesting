@@ -203,11 +203,12 @@ namespace primitive
                 Debug.LogError("When instantiating this circle, there was no Primitive Component attached!");
             }
 
-            // try to find out if circle is clockwise or counterclockwise
-            bool clockwise = isClockwise(center, pointOnCircle1, pointOnCircle2);
+            // check if the normal is facing the player or not
+            //bool clockwise = isClockwise(center, pointOnCircle1, pointOnCircle2);
+            float scalar = Vector3.Dot((center - Camera.main.transform.position), normal);
 
             // set position
-            float turnAround = (clockwise) ? -1f : 1f;
+            float turnAround = (scalar < 0) ? 1f : -1f;
             primitive.setPosition(turnAround * normal, center, radius);
         }
 
