@@ -33,10 +33,11 @@ public class MP_PickupWand : MonoBehaviour
             // Instantiate the wands
             mainWand = Instantiate(m_prefabWand, other.transform);
             if (m_bDestroyForcerecorderMesh) Destroy(mainWand.GetComponentInChildren<ForceRecorder>().GetComponent<MeshRenderer>());
-            mainWand.GetComponent<MagicWand>().setMainHand();
+            mainWand.GetComponent<MagicWand>().setMainHand(true);
             if (m_bSpawnOffhand)
             {
                 offWand = Instantiate(m_prefabOffhand, offhand);
+                offWand.GetComponent<MagicWand>().setMainHand(false);
                 if (m_bSpawnOffhand)
                     Destroy(offWand.GetComponentInChildren<ForceRecorder>().GetComponent<MeshRenderer>());
             }
