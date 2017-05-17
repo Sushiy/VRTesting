@@ -34,6 +34,16 @@ public class Fireball : Spell
         return goThis;
     }
 
+    public override SpellData GetSpellData(Transform _transSpawnTransform, Vector3 _v3Velocity)
+    {
+        SpellData ownData;
+        ownData._goSpellPrefab = this.gameObject;
+        ownData._v3Position = _transSpawnTransform.position;
+        ownData._qRotation = _transSpawnTransform.rotation;
+        ownData._v3Velocity = _v3Velocity * 3.0f;
+        return ownData;
+    }
+
     public override void PlayerHit()
     {
         throw new NotImplementedException();
