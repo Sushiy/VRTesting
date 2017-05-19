@@ -10,7 +10,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     [SerializeField]
     private GameObject m_prefabVRStation;
-    public GameObject m_prefabBullet;
+
+    public GameObject[] m_prefabSpells;
     [SerializeField]
     private MP_VR_NetworkHand m_mpvrhand1;
     [SerializeField]
@@ -86,9 +87,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
             {
                 //Instatiate the SpellObject and shoot it
                 Spell.SpellData spelldata = m_magicwandThis.spellFireball.GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                //m_prefabBullet = spelldata._goSpellPrefab;
-                m_prefabBullet = m_magicwandThis.prefabFireball;
-                CmdSetPrefab(m_prefabBullet);
                 CmdFireSpell2(spelldata);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
@@ -97,7 +95,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(GameObject _goSpell)
-    {m_prefabBullet = m_magicwandThis.prefabFireball; 
+    { 
         Debug.Log("The Server is firing the spell");
         if(_goSpell == null)
         {
@@ -113,13 +111,13 @@ public class MP_VR_PlayerController : NetworkBehaviour
     void CmdFireSpell2(Spell.SpellData _spellData)
     {
         Debug.Log("The Server is firing the spell");
-        if (_spellData._goSpellPrefab == null)
-        {
-            Debug.Log("Command did not get the spellObject");
-            //return;
-        }
+        //if (_spellData._goSpellPrefab == null)
+        //{
+        //    Debug.Log("Command did not get the spellObject");
+        //    //return;
+        //}
 
-        GameObject goSpell = Instantiate<GameObject>(m_prefabBullet);
+        GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellData._iPrefabIndex]);
         goSpell.transform.position = _spellData._v3Position;
         goSpell.transform.rotation = _spellData._qRotation;
         goSpell.GetComponent<Rigidbody>().velocity = _spellData._v3Velocity;
@@ -127,11 +125,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
         // Spawn the spellObject on the Clients
         NetworkServer.Spawn(goSpell);
 
-    }
-    [Command]
-    void CmdSetPrefab(GameObject prefab)
-    {
-        m_prefabBullet = prefab;
     }
 
 

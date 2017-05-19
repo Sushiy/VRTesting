@@ -3233,13 +3233,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690b554636b13d949a772af7f401c7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bIsReady: 0
   m_prefabVRStation: {fileID: 1198207902069624, guid: f80f5826cd5c4a4439fb3245bbd9b865,
     type: 2}
-  m_vrplayerThis: {fileID: 0}
-  m_prefabBullet: {fileID: 1795373394105846, guid: 636582d522f15544095c369e6f155a6e,
-    type: 2}
-  m_handRight: {fileID: 0}
-  m_handLeft: {fileID: 0}
+  m_prefabSpells:
+  - {fileID: 1795373394105846, guid: 636582d522f15544095c369e6f155a6e, type: 2}
+  - {fileID: 1611775661731242, guid: 759b9957794247d4bab49dc6bf2854e9, type: 2}
   m_mpvrhand1: {fileID: 114219511215169498}
   m_mpvrhand2: {fileID: 114740607327554638}
   hand1Spawn: {fileID: 4193385558162248}

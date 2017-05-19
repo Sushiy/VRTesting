@@ -7,7 +7,7 @@ public abstract class Spell : MonoBehaviour
 {
     public struct SpellData
     {
-        public GameObject _goSpellPrefab;
+        public int _iPrefabIndex;
         public Vector3 _v3Position;
         public Quaternion _qRotation;
         public Vector3 _v3Velocity;
