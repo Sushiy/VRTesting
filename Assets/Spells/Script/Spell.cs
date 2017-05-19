@@ -16,6 +16,8 @@ public abstract class Spell : MonoBehaviour
     [SerializeField]
     protected GameObject m_goLoadedFX;
     [SerializeField]
+    protected GameObject m_goPrefab;
+    [SerializeField]
     private SpellType m_spelltypeThis;
     [SerializeField]
     private gestureTypes m_gestureTypeThis;

@@ -37,7 +37,7 @@ public class Fireball : Spell
     public override SpellData GetSpellData(Transform _transSpawnTransform, Vector3 _v3Velocity)
     {
         SpellData ownData;
-        ownData._goSpellPrefab = this.gameObject;
+        ownData._goSpellPrefab = m_goPrefab;
         ownData._v3Position = _transSpawnTransform.position;
         ownData._qRotation = _transSpawnTransform.rotation;
         ownData._v3Velocity = _v3Velocity * 3.0f;

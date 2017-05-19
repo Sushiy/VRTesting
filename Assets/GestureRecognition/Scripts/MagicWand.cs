@@ -13,7 +13,8 @@ public class MagicWand : MonoBehaviour {
     [SerializeField]
     private float m_fVelocityMultiplier = 3f;
     [SerializeField]
-    public Spell prefab_Fireball;
+    public Spell spellFireball;
+    public GameObject prefabFireball;
     [SerializeField]
     public Transform m_SpawnPoint;
 
@@ -25,7 +26,7 @@ public class MagicWand : MonoBehaviour {
     void Awake()
     {
         Assert.IsNotNull(m_SpawnPoint);
-        Assert.IsNotNull(prefab_Fireball);
+        Assert.IsNotNull(prefabFireball);
         m_loadedParticles = GetComponentInChildren<ParticleSystem>();
         Assert.IsNotNull<ParticleSystem>(m_loadedParticles);
 

@@ -85,10 +85,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
             Debug.Log("A Player is firing");
             if (m_magicwandThis.IsWandLoaded())
             {
-
                 //Instatiate the SpellObject and shoot it
-                Spell.SpellData spelldata = m_magicwandThis.prefab_Fireball.GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                m_prefabBullet = spelldata._goSpellPrefab;
+                Spell.SpellData spelldata = m_magicwandThis.spellFireball.GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                m_prefabBullet = spelldata._goSpellPrefab;// m_prefabBullet = m_magicwandThis.prefabFireball; 
                 CmdFireSpell2(spelldata);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
