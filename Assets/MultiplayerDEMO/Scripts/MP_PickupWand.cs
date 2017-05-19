@@ -11,7 +11,7 @@ public class MP_PickupWand : MonoBehaviour
     [SerializeField]
     private GameObject m_prefabOffhand;
     [SerializeField]
-    private bool m_bSpawnOffhand = true;
+    private bool m_bSpawnOffhand = false;
     [SerializeField]
     private bool m_bDestroyCollidersAfterUse = true;
     [SerializeField]

@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
+  m_goPrefab: {fileID: 1611775661731242}
   m_spelltypeThis: 0
   m_gestureTypeThis: 0
 --- !u!114 &114679251140253758
