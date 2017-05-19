@@ -10,7 +10,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     [SerializeField]
     private GameObject m_prefabVRStation;
-    [SyncVar]
     public GameObject m_prefabBullet;
     [SerializeField]
     private MP_VR_NetworkHand m_mpvrhand1;
@@ -87,7 +86,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
             {
                 //Instatiate the SpellObject and shoot it
                 Spell.SpellData spelldata = m_magicwandThis.spellFireball.GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                m_prefabBullet = spelldata._goSpellPrefab;// m_prefabBullet = m_magicwandThis.prefabFireball; 
+                //m_prefabBullet = spelldata._goSpellPrefab;
+                m_prefabBullet = m_magicwandThis.prefabFireball; 
                 CmdFireSpell2(spelldata);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
