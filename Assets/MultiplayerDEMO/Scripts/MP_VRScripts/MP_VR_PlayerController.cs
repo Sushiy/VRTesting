@@ -10,8 +10,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     [SerializeField]
     private GameObject m_prefabVRStation;
-    [SerializeField]
-    private GameObject m_prefabBullet;
+    [SyncVar]
+    public GameObject m_prefabBullet;
     [SerializeField]
     private MP_VR_NetworkHand m_mpvrhand1;
     [SerializeField]
