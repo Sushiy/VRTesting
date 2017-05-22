@@ -26,7 +26,8 @@ public class Fireball : Spell
 
     public override GameObject Fire(Transform _transEndpoint, Vector3 _v3Velocity)
     {
-        GameObject goThis = Instantiate<GameObject>(gameObject);
+        Debug.Log("Client PewPew!");
+        GameObject goThis = Instantiate<GameObject>(m_goClientPrefab);
         goThis.transform.position = _transEndpoint.position;
         m_rigidThis = goThis.GetComponent<Rigidbody>();
         m_rigidThis.velocity = (_v3Velocity * 3.0f);
