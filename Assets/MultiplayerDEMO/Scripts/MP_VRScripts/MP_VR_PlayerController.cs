@@ -122,7 +122,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         Rigidbody rigidSpell = goSpell.GetComponent<Rigidbody>();
         if (_spellData._bParentToOffhand)
         {
-            Transform offhand;
+            Transform offhand = m_mpvrhand2.transform;
             if(_handIndex == 1)
             {
                 offhand = m_mpvrhand2.transform;
