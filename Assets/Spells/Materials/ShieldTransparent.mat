@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Flow_Transparent
-  m_Shader: {fileID: 4800000, guid: 37f56d56eae98c642b33ccffe6124b99, type: 3}
+  m_Name: ShieldTransparent
+  m_Shader: {fileID: 4800000, guid: fca89f344b45bc54ba92ea9a3540f3b0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -17,6 +17,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 2800000, guid: ba7ef43e48ba76f4c847af158f5db87a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -34,7 +38,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: 6d51861e46670a34ab29c71be95c18c4, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -42,8 +46,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: cf29017e528863f41bbab410d209867a, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: ac3074e646f33e94d89e1fc26895926d, type: 3}
+        m_Scale: {x: 1.5, y: 1.5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -58,29 +62,31 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Bubble1: 0.05
-    - _Bubble2: 9
-    - _Bubble3: 0.35
+    - _Bubble1: 1
+    - _Bubble2: 1
+    - _Bubble3: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _Depth: 100
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Intensity: 1.39
+    - _Intensity: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Range: 0
+    - _RimPower: 1
+    - _Shine: 10
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.51724136, b: 0, a: 1}
-    - _Depth: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0.6764706, g: 0.55832833, b: 0.06466261, a: 1}
+    - _Color: {r: 0.9852941, g: 0.9852941, b: 0.9852941, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 0.5389273, g: 0.8235294, b: 0.70576304, a: 0.309}
+    - _SpecColor: {r: 1, g: 0, b: 0, a: 1}
+    - _TexColor: {r: 0.5015063, g: 0.42711937, b: 0.7352941, a: 1}
