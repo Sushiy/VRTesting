@@ -5,7 +5,8 @@ using UnityEngine.Assertions;
 
 public enum SpellType
 {
-    FIREBALL, NONE
+    NONE,
+    FIREBALL
 }
 
 public class MagicWand : MonoBehaviour {
@@ -13,7 +14,7 @@ public class MagicWand : MonoBehaviour {
     [SerializeField]
     private float m_fVelocityMultiplier = 3f;
     [SerializeField]
-    public Spell spellFireball;
+    public Spell[] spells;
     [SerializeField]
     public Transform m_SpawnPoint;
 
@@ -25,7 +26,7 @@ public class MagicWand : MonoBehaviour {
     void Awake()
     {
         Assert.IsNotNull(m_SpawnPoint);
-        Assert.IsNotNull(spellFireball);
+        Assert.IsNotNull(spells);
         m_loadedParticles = GetComponentInChildren<ParticleSystem>();
         Assert.IsNotNull<ParticleSystem>(m_loadedParticles);
 

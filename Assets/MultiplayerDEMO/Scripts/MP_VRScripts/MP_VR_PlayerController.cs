@@ -85,17 +85,18 @@ public class MP_VR_PlayerController : NetworkBehaviour
             if (m_magicwandThis.IsWandLoaded())
             {
                 //Instatiate the SpellObject and shoot it
-                Spell.SpellData spelldata = m_magicwandThis.spellFireball.GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                CmdFireSpell(spelldata);
+                int spellIndex = (int)m_magicwandThis.LoadedSpell;
+                Spell.SpellData spelldata = m_magicwandThis.spells[spellIndex].GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                CmdFireSpell(spelldata, spellIndex);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
         }
     }
 
     [Command] //Command is called on client and executed on the server
-    void CmdFireSpell(Spell.SpellData _spellData)
+    void CmdFireSpell(Spell.SpellData _spellData, int _spellIndex)
     {
-        GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellData._iPrefabIndex]);
+        GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellIndex]);
         goSpell.transform.position = _spellData._v3Position;
         goSpell.transform.rotation = _spellData._qRotation;
         goSpell.GetComponent<Rigidbody>().velocity = _spellData._v3Velocity;
@@ -103,6 +104,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         // Spawn the spellObject on the Clients
         NetworkServer.Spawn(goSpell);
 
+        Destroy(goSpell, 3.0f);
     }
 
 
