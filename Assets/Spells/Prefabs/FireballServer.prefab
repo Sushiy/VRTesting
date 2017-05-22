@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4515622882255678}
   - component: {fileID: 198004178049036494}
   - component: {fileID: 199721485597531570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RocketTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,8 +43,8 @@ GameObject:
   - component: {fileID: 114466103483131614}
   - component: {fileID: 114679251140253758}
   - component: {fileID: 114496908468504358}
-  m_Layer: 0
-  m_Name: FireballNew
+  m_Layer: 9
+  m_Name: FireballServer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 4892998548275096}
   - component: {fileID: 198492130842487630}
   - component: {fileID: 199443046606393504}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
-  m_goPrefab: {fileID: 1611775661731242}
+  m_goClientPrefab: {fileID: 1302643816489002, guid: e7d750cc362deef4a98bbec7c1d7c5aa,
+    type: 2}
   m_spelltypeThis: 0
   m_gestureTypeThis: 0
 --- !u!114 &114679251140253758
@@ -237,7 +238,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611775661731242}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

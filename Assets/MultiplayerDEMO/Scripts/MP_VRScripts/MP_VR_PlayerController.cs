@@ -82,41 +82,19 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //If the forcerecorder wants us to fire spells, do it
         if(m_forcerecThis.isFiring())
         {
-            Debug.Log("A Player is firing");
             if (m_magicwandThis.IsWandLoaded())
             {
                 //Instatiate the SpellObject and shoot it
                 Spell.SpellData spelldata = m_magicwandThis.spellFireball.GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                CmdFireSpell2(spelldata);
+                CmdFireSpell(spelldata);
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
         }
     }
 
     [Command] //Command is called on client and executed on the server
-    void CmdFireSpell(GameObject _goSpell)
-    { 
-        Debug.Log("The Server is firing the spell");
-        if(_goSpell == null)
-        {
-            Debug.Log("Command did not get the spellObject");
-            return;
-        }
-        // Spawn the spellObject on the Clients
-        NetworkServer.Spawn(_goSpell);
-
-    }
-
-    [Command] //Command is called on client and executed on the server
-    void CmdFireSpell2(Spell.SpellData _spellData)
+    void CmdFireSpell(Spell.SpellData _spellData)
     {
-        Debug.Log("The Server is firing the spell");
-        //if (_spellData._goSpellPrefab == null)
-        //{
-        //    Debug.Log("Command did not get the spellObject");
-        //    //return;
-        //}
-
         GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellData._iPrefabIndex]);
         goSpell.transform.position = _spellData._v3Position;
         goSpell.transform.rotation = _spellData._qRotation;
