@@ -208,7 +208,7 @@ MonoBehaviour:
   m_goLoadedFX: {fileID: 0}
   m_goClientPrefab: {fileID: 1302643816489002, guid: e7d750cc362deef4a98bbec7c1d7c5aa,
     type: 2}
-  m_spelltypeThis: 0
+  m_spelltypeThis: 1
   m_gestureTypeThis: 0
 --- !u!114 &114679251140253758
 MonoBehaviour:

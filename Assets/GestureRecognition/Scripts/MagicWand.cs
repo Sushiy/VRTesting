@@ -6,7 +6,8 @@ using UnityEngine.Assertions;
 public enum SpellType
 {
     NONE,
-    FIREBALL
+    FIREBALL,
+    SHIELD
 }
 
 public class MagicWand : MonoBehaviour {
@@ -21,7 +22,7 @@ public class MagicWand : MonoBehaviour {
     private SpellType m_enumLoadedSpell = SpellType.FIREBALL;
     private ParticleSystem m_loadedParticles;
     public SpellType LoadedSpell { get { return m_enumLoadedSpell; } }
-    public bool isMainHand { get; private set; }
+    public bool isMainHand;// { get; private set; }
 
     void Awake()
     {
@@ -30,7 +31,7 @@ public class MagicWand : MonoBehaviour {
         m_loadedParticles = GetComponentInChildren<ParticleSystem>();
         Assert.IsNotNull<ParticleSystem>(m_loadedParticles);
 
-        isMainHand = false;
+        //isMainHand = false;
     }
 
     void Update()
@@ -53,19 +54,14 @@ public class MagicWand : MonoBehaviour {
         m_enumLoadedSpell = spell;
     }
 
-    //public void FireSpell(Vector3 velocity)
-    //{
-    //    if (m_enumLoadedSpell == SpellType.NONE) return;
-
-    //    if (m_enumLoadedSpell == SpellType.FIREBALL)
-    //    {
-    //        GameObject fireball = Instantiate<GameObject>(prefab_Fireball);
-    //        fireball.transform.position = m_SpawnPoint.position;
-    //        fireball.GetComponent<Rigidbody>().velocity = (velocity * m_fVelocityMultiplier);
-    //    }
-
-    //    m_enumLoadedSpell = SpellType.NONE;
-    //}
+    public void LoadWand(gesture.gestureTypes _gesture)
+    {
+        foreach(Spell s in spells)
+        {
+            if (s != null && s.Gesture == _gesture)
+                m_enumLoadedSpell = s.SpellType;
+        }
+    }
 
     public bool IsWandLoaded()
     {

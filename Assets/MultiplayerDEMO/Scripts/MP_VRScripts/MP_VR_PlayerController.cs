@@ -21,7 +21,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [SerializeField]
     private Transform hand2Spawn;
 
-    private GameObject spelli;
+    public Transform m_transMainHand;
+    public Transform m_transOffHand;
 
     private Valve.VR.InteractionSystem.Player m_vrplayerThis;
 
@@ -84,11 +85,29 @@ public class MP_VR_PlayerController : NetworkBehaviour
         {
             if (m_magicwandThis.IsWandLoaded())
             {
-                //Instatiate the SpellObject and shoot it
-                int spellIndex = (int)m_magicwandThis.LoadedSpell;
+                //1. grab the spellindex from the wands spelltype enum
+                int spellIndex = (int)m_magicwandThis.LoadedSpell;  
+                
+                //2. Grab spelldata from loaded spell
                 Spell.SpellData spelldata = m_magicwandThis.spells[spellIndex].GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                //3. Find out which hand is your wand hand which is your offhand
+                FindMainHand();
+                //4. Let the Server fire his version of the spell first
                 CmdFireSpell(spelldata, spellIndex);
-                m_magicwandThis.spells[spellIndex].Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                //5. Now Fire the Client version of the spell
+                //GameObject goClient = m_magicwandThis.spells[spellIndex].Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                //6. Now if you want to parent the spell to the offhand (Should be replaced with casting into the lefthand) do that
+                /*if (spelldata._bParentToOffhand)
+                {
+                    Transform transOffhand = m_transOffHand.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
+                    goClient.transform.position = transOffhand.position;
+                    goClient.transform.rotation = transOffhand.rotation;
+                    FixedJoint fixJOffhand = transOffhand.GetComponent<FixedJoint>();
+                    if (fixJOffhand.connectedBody != null)
+                        Destroy(fixJOffhand.connectedBody.gameObject);
+                    fixJOffhand.connectedBody = goClient.GetComponent<Rigidbody>();
+                }*/
+                //Last unload the wand
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
         }
@@ -99,13 +118,29 @@ public class MP_VR_PlayerController : NetworkBehaviour
     {
         Debug.Log("Server PewPew!");
         GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellIndex]);
-        goSpell.transform.position = _spellData._v3Position;
-        goSpell.transform.rotation = _spellData._qRotation;
-        goSpell.GetComponent<Rigidbody>().velocity = _spellData._v3Velocity;
-
+        Rigidbody rigidSpell = goSpell.GetComponent<Rigidbody>();
+        if (_spellData._bParentToOffhand)
+        {
+            if(m_transOffHand != null)
+            {
+                goSpell.transform.position = m_transOffHand.transform.position;
+                goSpell.transform.rotation = m_transOffHand.transform.rotation;
+                FixedJoint fixJOffhand = m_transOffHand.GetComponent<FixedJoint>();
+                if (fixJOffhand.connectedBody != null)
+                    Destroy(fixJOffhand.connectedBody.gameObject);
+                fixJOffhand.connectedBody = rigidSpell;
+            }
+        }         
+        else
+        {
+            goSpell.transform.position = _spellData._v3Position;
+            goSpell.transform.rotation = _spellData._qRotation;
+        }
+        rigidSpell.velocity = _spellData._v3Velocity;
         // Spawn the spellObject on the Clients
         NetworkServer.Spawn(goSpell);
-        Destroy(goSpell, 3.0f);
+        if(_spellData._fKillDelay > 0.0f)
+            Destroy(goSpell, _spellData._fKillDelay);
     }
 
 
@@ -125,7 +160,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
     private void CheckHands()
     {
         if (m_handRight != null && m_handLeft != null && m_handLeft != m_handRight)
+        {
             return;
+        }
 
         if(m_vrplayerThis.hands.Length > 1)
         {
@@ -140,6 +177,28 @@ public class MP_VR_PlayerController : NetworkBehaviour
         else
         {
             Debug.Log("No hands were found");
+        }
+    }
+
+    private void FindMainHand()
+    {
+        if (m_magicwandThis != null)
+        {
+            Valve.VR.InteractionSystem.Hand wandHand = m_magicwandThis.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
+            if (m_handRight == wandHand)
+            {
+                m_transMainHand = m_mpvrhand1.transform;
+                m_transOffHand = m_mpvrhand2.transform;
+            }
+            else if(m_handLeft == wandHand) 
+            {
+                m_transMainHand = m_mpvrhand2.transform;
+                m_transOffHand = m_mpvrhand1.transform;
+            }
+            else
+            {
+                Debug.Log("wtf");
+            }
         }
     }
 }

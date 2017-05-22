@@ -125,7 +125,7 @@ namespace primitive
             // charge wand if valid
             if (valid)
             {
-                m_magicWand.LoadWand(SpellType.FIREBALL);
+                m_magicWand.LoadWand(type);
             }
 
             // reduce one try

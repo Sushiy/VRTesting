@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_goClientPrefab: {fileID: 0}
-  m_spelltypeThis: 0
+  m_spelltypeThis: 1
   m_gestureTypeThis: 0
 --- !u!135 &135091836131864626
 SphereCollider:

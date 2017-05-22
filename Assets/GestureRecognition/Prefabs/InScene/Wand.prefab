@@ -506,6 +506,7 @@ MonoBehaviour:
   spells:
   - {fileID: 0}
   - {fileID: 114496908468504358, guid: 759b9957794247d4bab49dc6bf2854e9, type: 2}
+  - {fileID: 114875583167510106, guid: 6177871d211b37a4fb5871220b83c6fa, type: 2}
   m_SpawnPoint: {fileID: 4601935459456922}
 --- !u!114 &114182703530404256
 MonoBehaviour:

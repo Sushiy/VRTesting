@@ -10,6 +10,8 @@ public abstract class Spell : MonoBehaviour
         public Vector3 _v3Position;
         public Quaternion _qRotation;
         public Vector3 _v3Velocity;
+        public bool _bParentToOffhand;
+        public float _fKillDelay;
     }
 
     [SerializeField]
@@ -20,6 +22,10 @@ public abstract class Spell : MonoBehaviour
     private SpellType m_spelltypeThis;
     [SerializeField]
     private gestureTypes m_gestureTypeThis;
+    public gestureTypes Gesture
+    {
+        get { return m_gestureTypeThis; }
+    }
     public SpellType SpellType { get { return m_spelltypeThis; } }
 
     public abstract GameObject Fire(Transform _transEndpoint, Vector3 _v3Velocity);
