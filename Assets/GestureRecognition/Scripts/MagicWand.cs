@@ -78,8 +78,8 @@ public class MagicWand : MonoBehaviour {
         return m_enumLoadedSpell == type;
     }
 
-    public void setMainHand()
+    public void setMainHand(bool b)
     {
-        isMainHand = true;
+        isMainHand = b;
     }
 }
