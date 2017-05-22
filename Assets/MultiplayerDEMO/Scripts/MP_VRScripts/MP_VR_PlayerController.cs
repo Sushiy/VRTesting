@@ -121,6 +121,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         Rigidbody rigidSpell = goSpell.GetComponent<Rigidbody>();
         if (_spellData._bParentToOffhand)
         {
+            FindMainHand();
             if(m_transOffHand != null)
             {
                 goSpell.transform.position = m_transOffHand.transform.position;
@@ -132,13 +133,28 @@ public class MP_VR_PlayerController : NetworkBehaviour
             }
             else
             {
-                Debug.Log("transOffHand is null");
-                goSpell.transform.position = m_mpvrhand1.transform.position;
-                goSpell.transform.rotation = m_mpvrhand1.transform.rotation;
-                FixedJoint fixJOffhand = m_mpvrhand1.GetComponent<FixedJoint>();
-                if (fixJOffhand.connectedBody != null)
-                    Destroy(fixJOffhand.connectedBody.gameObject);
-                fixJOffhand.connectedBody = rigidSpell;
+                if (m_magicwandThis != null)
+                {
+                    Valve.VR.InteractionSystem.Hand wandHand = m_magicwandThis.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
+                    if (m_handRight == wandHand)
+                    {
+                        m_transMainHand = m_mpvrhand1.transform;
+                        m_transOffHand = m_mpvrhand2.transform;
+                    }
+                    else if (m_handLeft == wandHand)
+                    {
+                        m_transMainHand = m_mpvrhand2.transform;
+                        m_transOffHand = m_mpvrhand1.transform;
+                    }
+                    else
+                    {
+                        Debug.Log("wtf");
+                    }
+                }
+                else
+                {
+                    Debug.Log("theres no magicwand on the server?");
+                }
             }
         }         
         else
