@@ -131,11 +131,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightColor: {r: 1, g: 0.5882353, b: 0.18431373, a: 1}
-  minIntensity: 1.5
-  maxIntensity: 1.6
+  minIntensity: 1.6
+  Intensity: 1.5
+  intSpeed: 1
   minRange: 4
   Range: 0.4
-  maxRange: 4.4
+  rangSpeed: 1
 --- !u!135 &135530766992437084
 SphereCollider:
   m_ObjectHideFlags: 1

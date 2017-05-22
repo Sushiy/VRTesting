@@ -1,6 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Spells/FireShader"
+﻿Shader "Spells/FireShader"
 {
 	Properties
 	{
@@ -9,9 +7,9 @@ Shader "Spells/FireShader"
 		_EmissionColor("Emission Color", Color) = (0,0,0,1)
 		_Intensity("Emission Intensity", Range(0.1, 10.0)) = 1.0
 		_Emission("Emission Map", 2D) = "black" {}
-		_Bubble1("Bubbling Value 1", Float) = 1.0
-		_Bubble2("Bubbling Value 2", Float) = 1.0
-		_Bubble3("Bubbling Value 3", Float) = 1.0
+		_Bubble1("Bubbling Value 1", float) = 1.0
+		_Bubble2("Bubbling Value 2", float) = 1.0
+		_Bubble3("Bubbling Value 3", float) = 1.0
 	}
 	SubShader
 	{
@@ -34,29 +32,29 @@ Shader "Spells/FireShader"
 
 			struct VertexInput
 			{
-				float4 vertex : POSITION;
-				float2 uv : TEXCOORD0;
-				float2 emit : TEXCOORD1;
+				half4 vertex : POSITION;
+				half2 uv : TEXCOORD0;
+				half2 emit : TEXCOORD1;
 			};
 
 			struct v2f
 			{
-				float2 uv : TEXCOORD0;
-				float2 emit : TEXCOORD1;
-				float4 vertex : SV_POSITION;
+				fixed4 vertex : SV_POSITION;
+				fixed2 uv : TEXCOORD0;
+				fixed2 emit : TEXCOORD1;
 			};
 
 			sampler2D _MainTex;
 			sampler2D _Emission;
-			float4 _MainTex_ST;
-			fixed4 _Color;
-			fixed4 _EmissionColor;
-			half _Intensity;
+			half4 _MainTex_ST;
+			half4 _Color;
+			half4 _EmissionColor;
+			float _Intensity;
 			float _Bubble1;
 			float _Bubble2;
 			float _Bubble3;
 
-			float3 GetEmission (VertexInput i) 
+			half3 GetEmission (VertexInput i) 
 			{
 				#if defined(FORWARD_BASE_PASS)
 					#if defined(_EMISSION_MAP)
@@ -81,19 +79,20 @@ Shader "Spells/FireShader"
 				// Moving Texture
 				o.uv += _Time.xx * 2;
 
-
-				o.vertex = UnityObjectToClipPos(v.vertex); 
+				
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.emit = UnityObjectToClipPos(v.vertex);
 				return o;
 			}
 			
-			fixed4 frag (v2f i) : SV_Target
+			float4 frag (v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, i.uv) + _Color;
-				//fixed4 tex = tex2D(_MainTex, _MainTex_ST.xy * i.uv.xy + _MainTex_ST.zw);
-				//fixed alpha = tex.a * _Color.a;	
+				float4 col = tex2D(_MainTex, i.uv) + _Color;
+				//half4 tex = tex2D(_MainTex, _MainTex_ST.xy * i.uv.xy + _MainTex_ST.zw);
+				//half alpha = tex.a * _Color.a;	
 				
 				col *= tex2D(_Emission, i.uv) + _EmissionColor * _Intensity;
+
 				//Emission
 				col.rgb += GetEmission(i);
 				
@@ -103,5 +102,5 @@ Shader "Spells/FireShader"
 		}
 		
 	}
-	Fallback "Diffuse"
+	//Fallback "Diffuse"
 }
