@@ -95,9 +95,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
                 //4. Let the Server fire his version of the spell first
                 CmdFireSpell(spelldata, spellIndex);
                 //5. Now Fire the Client version of the spell
-                //GameObject goClient = m_magicwandThis.spells[spellIndex].Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
+                GameObject goClient = m_magicwandThis.spells[spellIndex].Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
                 //6. Now if you want to parent the spell to the offhand (Should be replaced with casting into the lefthand) do that
-                /*if (spelldata._bParentToOffhand)
+                if (spelldata._bParentToOffhand)
                 {
                     Transform transOffhand = m_transOffHand.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
                     goClient.transform.position = transOffhand.position;
@@ -106,7 +106,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
                     if (fixJOffhand.connectedBody != null)
                         Destroy(fixJOffhand.connectedBody.gameObject);
                     fixJOffhand.connectedBody = goClient.GetComponent<Rigidbody>();
-                }*/
+                }
                 //Last unload the wand
                 m_magicwandThis.LoadWand(SpellType.NONE);
             }
@@ -126,6 +126,16 @@ public class MP_VR_PlayerController : NetworkBehaviour
                 goSpell.transform.position = m_transOffHand.transform.position;
                 goSpell.transform.rotation = m_transOffHand.transform.rotation;
                 FixedJoint fixJOffhand = m_transOffHand.GetComponent<FixedJoint>();
+                if (fixJOffhand.connectedBody != null)
+                    Destroy(fixJOffhand.connectedBody.gameObject);
+                fixJOffhand.connectedBody = rigidSpell;
+            }
+            else
+            {
+                Debug.Log("transOffHand is null");
+                goSpell.transform.position = m_mpvrhand1.transform.position;
+                goSpell.transform.rotation = m_mpvrhand1.transform.rotation;
+                FixedJoint fixJOffhand = m_mpvrhand1.GetComponent<FixedJoint>();
                 if (fixJOffhand.connectedBody != null)
                     Destroy(fixJOffhand.connectedBody.gameObject);
                 fixJOffhand.connectedBody = rigidSpell;
