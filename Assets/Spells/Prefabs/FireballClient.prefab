@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
-  m_goPrefab: {fileID: 1302643816489002}
+  m_goClientPrefab: {fileID: 0}
   m_spelltypeThis: 0
   m_gestureTypeThis: 0
 --- !u!135 &135091836131864626
@@ -182,7 +182,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1302643816489002}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
