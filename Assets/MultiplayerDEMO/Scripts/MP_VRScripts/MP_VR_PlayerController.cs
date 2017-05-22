@@ -23,6 +23,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public Transform m_transMainHand;
     public Transform m_transOffHand;
+    private int m_iMainHand = 0;
 
     private Valve.VR.InteractionSystem.Player m_vrplayerThis;
 
@@ -93,7 +94,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
                 //3. Find out which hand is your wand hand which is your offhand
                 FindMainHand();
                 //4. Let the Server fire his version of the spell first
-                CmdFireSpell(spelldata, spellIndex);
+                CmdFireSpell(spelldata, spellIndex, m_iMainHand);
                 //5. Now Fire the Client version of the spell
                 GameObject goClient = m_magicwandThis.spells[spellIndex].Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
                 //6. Now if you want to parent the spell to the offhand (Should be replaced with casting into the lefthand) do that
@@ -114,48 +115,28 @@ public class MP_VR_PlayerController : NetworkBehaviour
     }
 
     [Command] //Command is called on client and executed on the server
-    void CmdFireSpell(Spell.SpellData _spellData, int _spellIndex)
+    void CmdFireSpell(Spell.SpellData _spellData, int _spellIndex, int _handIndex)
     {
         Debug.Log("Server PewPew!");
         GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellIndex]);
         Rigidbody rigidSpell = goSpell.GetComponent<Rigidbody>();
         if (_spellData._bParentToOffhand)
         {
-            FindMainHand();
-            if(m_transOffHand != null)
+            Transform offhand;
+            if(_handIndex == 1)
             {
-                goSpell.transform.position = m_transOffHand.transform.position;
-                goSpell.transform.rotation = m_transOffHand.transform.rotation;
-                FixedJoint fixJOffhand = m_transOffHand.GetComponent<FixedJoint>();
-                if (fixJOffhand.connectedBody != null)
-                    Destroy(fixJOffhand.connectedBody.gameObject);
-                fixJOffhand.connectedBody = rigidSpell;
+                offhand = m_mpvrhand2.transform;
             }
-            else
-            {
-                if (m_magicwandThis != null)
-                {
-                    Valve.VR.InteractionSystem.Hand wandHand = m_magicwandThis.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
-                    if (m_handRight == wandHand)
-                    {
-                        m_transMainHand = m_mpvrhand1.transform;
-                        m_transOffHand = m_mpvrhand2.transform;
-                    }
-                    else if (m_handLeft == wandHand)
-                    {
-                        m_transMainHand = m_mpvrhand2.transform;
-                        m_transOffHand = m_mpvrhand1.transform;
-                    }
-                    else
-                    {
-                        Debug.Log("wtf");
-                    }
-                }
-                else
-                {
-                    Debug.Log("theres no magicwand on the server?");
-                }
-            }
+            if(_handIndex == 2)
+                offhand = m_mpvrhand1.transform;
+
+
+            goSpell.transform.position = offhand.position;
+            goSpell.transform.rotation = offhand.rotation;
+            FixedJoint fixJOffhand = offhand.GetComponent<FixedJoint>();
+            if (fixJOffhand.connectedBody != null)
+                Destroy(fixJOffhand.connectedBody.gameObject);
+            fixJOffhand.connectedBody = rigidSpell;
         }         
         else
         {
@@ -215,10 +196,12 @@ public class MP_VR_PlayerController : NetworkBehaviour
             {
                 m_transMainHand = m_mpvrhand1.transform;
                 m_transOffHand = m_mpvrhand2.transform;
+                m_iMainHand = 1;
             }
             else if(m_handLeft == wandHand) 
             {
                 m_transMainHand = m_mpvrhand2.transform;
+                m_iMainHand = 2;
                 m_transOffHand = m_mpvrhand1.transform;
             }
             else
