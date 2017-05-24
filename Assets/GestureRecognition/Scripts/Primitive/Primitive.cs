@@ -19,7 +19,6 @@ namespace primitive
         private TextMesh debug_text;
 
         private Transform m_thisTransform;
-        private Vector3 debug_normal;
 
         void Awake()
         {
@@ -45,8 +44,6 @@ namespace primitive
 
             //bc of plane
             m_thisTransform.Rotate(new Vector3(-90f, 0));
-
-            debug_normal = normal;
         }
 
         public void reduceTry(bool destroy)
@@ -59,14 +56,14 @@ namespace primitive
             }
         }
 
-        void OnDrawGizmos()
-        {
-            if (debug_normal != null)
-            {
-                Gizmos.color = new Color(244/255f, 66/255f, 238/255f);
-                Gizmos.DrawLine(m_thisTransform.position, debug_normal * 3f);
-            }
-        }
+        //void OnDrawGizmos()
+        //{
+        //    if (debug_normal != null)
+        //    {
+        //        Gizmos.color = new Color(244/255f, 66/255f, 238/255f);
+        //        Gizmos.DrawLine(m_thisTransform.position, debug_normal * 3f);
+        //    }
+        //}
     }
 }
 

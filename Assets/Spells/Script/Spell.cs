@@ -10,7 +10,7 @@ public abstract class Spell : MonoBehaviour
         public Vector3 _v3Position;
         public Quaternion _qRotation;
         public Vector3 _v3Velocity;
-        public bool _bParentToOffhand;
+        public bool _bParentToHand;
         public float _fKillDelay;
     }
 

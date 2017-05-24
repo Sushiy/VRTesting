@@ -13,7 +13,9 @@ public class MP_PickupWand : MonoBehaviour
     [SerializeField]
     private bool m_bSpawnOffhand = false;
     [SerializeField]
-    private bool m_bDestroyCollidersAfterUse = true;
+    private bool m_bDestroyMainHandColliderAfterUse = true;
+    [SerializeField]
+    private bool m_bDestroyOffHandColliderAfterUse = false;
     [SerializeField]
     private bool m_bDestroyForcerecorderMesh = true;
 
@@ -38,16 +40,13 @@ public class MP_PickupWand : MonoBehaviour
             {
                 offWand = Instantiate(m_prefabOffhand, offhand);
                 offWand.GetComponent<MagicWand>().setMainHand(false);
-                if (m_bSpawnOffhand)
+                if (m_bDestroyForcerecorderMesh)
                     Destroy(offWand.GetComponentInChildren<ForceRecorder>().GetComponent<MeshRenderer>());
             }
 
             // Destroy the colliders on the hands
-            if (m_bDestroyCollidersAfterUse)
-            {
-                Destroy(other);
-                Destroy(offhand.GetComponent<Collider>());
-            }
+            if (m_bDestroyMainHandColliderAfterUse) Destroy(other);
+            if (m_bDestroyOffHandColliderAfterUse) Destroy(offhand.GetComponent<Collider>());
 
             Destroy(gameObject);
         }
