@@ -15,6 +15,7 @@ public class ForceRecorder : MonoBehaviour {
     private float m_fTimeBetweenFlicks = 0.1f;
     [SerializeField]
     private MagicWand m_MagicWand;
+    public MagicWand MagicWand { get { return m_MagicWand; } }
 
     private float m_fHighestValue = 0;
     private float m_fTimer = 0f;

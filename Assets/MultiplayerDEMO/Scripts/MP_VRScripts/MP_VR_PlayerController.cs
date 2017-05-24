@@ -21,10 +21,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [SerializeField]
     private Transform hand2Spawn;
 
-    public Transform m_transMainHand;
-    public Transform m_transOffHand;
-    private int m_iMainHand = 0;
-
     private Valve.VR.InteractionSystem.Player m_vrplayerThis;
 
     public Valve.VR.InteractionSystem.Player ValvePlayer
@@ -38,8 +34,14 @@ public class MP_VR_PlayerController : NetworkBehaviour
     private Valve.VR.InteractionSystem.Hand m_handRight;
     private Valve.VR.InteractionSystem.Hand m_handLeft;
 
-    private ForceRecorder m_forcerecThis;
-    private MagicWand m_magicwandThis;
+    //Mainhand Wand and forceRecorder
+    private ForceRecorder m_forcerecMain;
+    private MagicWand m_magicwandMain;
+
+    private ForceRecorder m_forcerecOff;
+    private MagicWand m_magicwandOff;
+
+    //Offhand Wand and forceRecorder
 
     //This is used instead of Start for Initialization (only called by local player)
     public override void OnStartLocalPlayer()
@@ -64,7 +66,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
             return;
         }
         //Check if you have found your ForceRecorder
-        if(m_forcerecThis == null)
+        if(m_forcerecMain == null)
         {
             m_bIsReady = false;
             InitSpellComponents();
@@ -82,40 +84,56 @@ public class MP_VR_PlayerController : NetworkBehaviour
             m_bIsReady = true;
 
         //If the forcerecorder wants us to fire spells, do it
-        if(m_forcerecThis.isFiring())
+        if(m_forcerecMain.isFiring())
         {
-            if (m_magicwandThis.IsWandLoaded())
+            if (m_magicwandMain.IsWandLoaded())
             {
-                //1. grab the spellindex from the wands spelltype enum
-                int spellIndex = (int)m_magicwandThis.LoadedSpell;  
-                
-                //2. Grab spelldata from loaded spell
-                Spell.SpellData spelldata = m_magicwandThis.spells[spellIndex].GetSpellData(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                //3. Find out which hand is your wand hand which is your offhand
-                FindMainHand();
-                //4. Let the Server fire his version of the spell first
-                CmdFireSpell(spelldata, spellIndex, m_iMainHand);
-                //5. Now Fire the Client version of the spell
-                GameObject goClient = m_magicwandThis.spells[spellIndex].Fire(m_magicwandThis.m_SpawnPoint, m_forcerecThis.m_v3velocity);
-                //6. Now if you want to parent the spell to the offhand (Should be replaced with casting into the lefthand) do that
-                if (spelldata._bParentToOffhand)
-                {
-                    Transform transOffhand = m_transOffHand.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
-                    goClient.transform.position = transOffhand.position;
-                    goClient.transform.rotation = transOffhand.rotation;
-                    FixedJoint fixJOffhand = transOffhand.GetComponent<FixedJoint>();
-                    if (fixJOffhand.connectedBody != null)
-                        Destroy(fixJOffhand.connectedBody.gameObject);
-                    fixJOffhand.connectedBody = goClient.GetComponent<Rigidbody>();
-                }
-                //Last unload the wand
-                m_magicwandThis.LoadWand(SpellType.NONE);
+                CastASpell(m_magicwandMain);
             }
         }
     }
 
+    void CastASpell(MagicWand _magicwand)
+    {
+        //1. grab the spellindex from the wands spelltype enum
+        int spellIndex = (int)_magicwand.LoadedSpell;
+
+        //2. Grab spelldata from loaded spell
+        Spell.SpellData spelldata = _magicwand.spells[spellIndex].GetSpellData(_magicwand.m_SpawnPoint, m_forcerecMain.m_v3velocity);
+        //3. Find out which hand is your wand hand which is your offhand
+        int iMainHandIndex = FindMainHand(_magicwand);
+        //4. Let the Server fire his version of the spell first
+        CmdFireSpell(spelldata, spellIndex, iMainHandIndex);
+        //5. Now Fire the Client version of the spell
+        GameObject goClient = _magicwand.spells[spellIndex].Fire(_magicwand.m_SpawnPoint, m_forcerecMain.m_v3velocity);
+        //6. Now if you want to parent the spell to the offhand (Should be replaced with casting into the lefthand) do that
+        if (spelldata._bParentToOffhand)
+        {
+            //check with the mainhandindex to findout which hand is the offhand
+            Transform transOffhand;
+            if (iMainHandIndex == 1)
+                transOffhand = m_mpvrhand1.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
+            else if (iMainHandIndex == 2)
+                transOffhand = m_mpvrhand2.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
+            else
+            {
+                Debug.LogError("MainHandindex is invalid (not 1 or 2)");
+                return;
+            }
+
+            goClient.transform.position = transOffhand.position;
+            goClient.transform.rotation = transOffhand.rotation;
+            FixedJoint fixJOffhand = transOffhand.GetComponent<FixedJoint>();
+            if (fixJOffhand.connectedBody != null)
+                Destroy(fixJOffhand.connectedBody.gameObject);
+            fixJOffhand.connectedBody = goClient.GetComponent<Rigidbody>();
+        }
+        //Last unload the wand
+        _magicwand.LoadWand(SpellType.NONE);
+    }
+
     [Command] //Command is called on client and executed on the server
-    void CmdFireSpell(Spell.SpellData _spellData, int _spellIndex, int _handIndex)
+    void CmdFireSpell(Spell.SpellData _spellData, int _spellIndex, int _mainHandIndex)
     {
         Debug.Log("Server PewPew!");
         GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellIndex]);
@@ -154,13 +172,34 @@ public class MP_VR_PlayerController : NetworkBehaviour
     //Find ForceRecorder and MagicWand Components
     private void InitSpellComponents()
     {
-        if (m_forcerecThis != null && m_magicwandThis != null)
+        if (m_forcerecMain != null && m_magicwandMain != null && m_forcerecOff != null && m_magicwandOff != null)
             return;
 
-        m_forcerecThis = m_vrplayerThis.GetComponentInChildren<ForceRecorder>();
-        if (m_forcerecThis != null)
-            m_forcerecThis.RemoveFromParent();
-        m_magicwandThis = m_vrplayerThis.GetComponentInChildren<MagicWand>();
+        ForceRecorder[] forceRecorders = m_vrplayerThis.GetComponentsInChildren<ForceRecorder>();
+        if (forceRecorders.Length != 2)
+        {
+            Debug.LogError("There are not exactly 2 Forcerecorders on this player");
+            return;
+        }
+        foreach(ForceRecorder f in forceRecorders)
+        {
+            if (f.MagicWand.isMainHand)
+            {
+                m_forcerecMain = f;
+                m_magicwandMain = f.MagicWand;
+            }
+            else
+            {
+                m_forcerecOff = f;
+                m_magicwandOff = f.MagicWand;
+            }
+        }
+
+        if(m_forcerecMain != null && m_forcerecOff != null)
+        {
+            m_forcerecOff.RemoveFromParent();
+            m_forcerecMain.RemoveFromParent();
+        }
     } 
 
     //Check if you currently have all the necessary handreferences
@@ -187,27 +226,20 @@ public class MP_VR_PlayerController : NetworkBehaviour
         }
     }
 
-    private void FindMainHand()
+    private int FindMainHand(MagicWand _magicwand)
     {
-        if (m_magicwandThis != null)
+        if (_magicwand != null)
         {
-            Valve.VR.InteractionSystem.Hand wandHand = m_magicwandThis.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
+            Valve.VR.InteractionSystem.Hand wandHand = _magicwand.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
             if (m_handRight == wandHand)
             {
-                m_transMainHand = m_mpvrhand1.transform;
-                m_transOffHand = m_mpvrhand2.transform;
-                m_iMainHand = 1;
+               return 1;
             }
             else if(m_handLeft == wandHand) 
             {
-                m_transMainHand = m_mpvrhand2.transform;
-                m_iMainHand = 2;
-                m_transOffHand = m_mpvrhand1.transform;
-            }
-            else
-            {
-                Debug.Log("wtf");
+                return 2;
             }
         }
+        return 0;
     }
 }
