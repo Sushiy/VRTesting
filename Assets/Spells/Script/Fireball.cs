@@ -37,6 +37,21 @@ public class Fireball : Spell
         return goThis;
     }
 
+    public override void Fire(SpellData2 spelldata)
+    {
+        Debug.Log("Spell: Fire!");
+        gameObject.transform.position = spelldata._v3WandPos;
+        gameObject.transform.rotation = spelldata._qWandRot;
+        m_rigidThis = GetComponent<Rigidbody>();
+        m_rigidThis.velocity = (spelldata._v3WandVelocity * 3.0f);
+        MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
+        if (player.Opponent != null)
+            m_v3TargetPos = player.Opponent.transform.position;
+        else
+            m_v3TargetPos = Vector3.zero;
+        Destroy(gameObject, 5.0f);
+    }
+
     public override SpellData GetSpellData(Transform _transSpawnTransform, Vector3 _v3Velocity)
     {
         SpellData ownData;

@@ -22,6 +22,11 @@ public class Shield : Spell
         return goThis;
     }
 
+    public override void Fire(SpellData2 spelldata)
+    {
+        throw new NotImplementedException();
+    }
+
     public override SpellData GetSpellData(Transform _transSpawnTransform, Vector3 _v3Velocity)
     {
         SpellData ownData;

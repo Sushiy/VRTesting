@@ -18,7 +18,8 @@ public class PhysicsHoming : MonoBehaviour {
         m_rigid = GetComponent<Rigidbody>();
     }
 
-	void Start () {
+	void Start ()
+    {
         // find a target
         m_transTarget = GameObject.Find("DebugTarget").transform;
         if (m_transTarget == null) Debug.LogWarning("Couldn't find no target y'all");

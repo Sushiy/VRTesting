@@ -6,12 +6,14 @@ using Valve.VR;
 
 public class MP_VR_PlayerController : NetworkBehaviour
 {
+    private MP_VR_PlayerController m_mpvr_playerOpponent;
+    public MP_VR_PlayerController Opponent { get { return m_mpvr_playerOpponent; } }
     public bool m_bIsReady = false;
 
     [SerializeField]
     private GameObject m_prefabVRStation;
 
-    public GameObject[] m_prefabSpells;
+    public GameObject[] m_prefabServerSpells;
     [SerializeField]
     private MP_VR_NetworkHand m_mpvrhand1;
     [SerializeField]
@@ -55,6 +57,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         CheckHands();
         //Grab the forcerecorder and wand
         InitSpellComponents();
+        MP_VR_PlayerRegistry.s_instance.AddPlayer(this);
     }
 
     // Update is called once per frame
@@ -114,8 +117,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //3. Find out which hand is your wand hand which is your offhand
         int iCastingHandIndex = FindCastingHand(_magicwand);
         //4. Let the Server fire his version of the spell first
-        CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
-        
+        //CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
+        CmdFireSpell2(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex, gameObject);
         
         /*Client Spells are DISABLED FOR TESTING
         
@@ -151,8 +154,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(Spell.SpellData _spellData, int _spellIndex, int _mainHandIndex)
     {
-        Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabSpells.Length);
-        GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellIndex]);
+        Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabServerSpells.Length);
+        GameObject goSpell = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
+
         Rigidbody rigidSpell = goSpell.GetComponent<Rigidbody>();
         if (_spellData._bParentToHand)
         {
@@ -163,7 +167,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
             }
             if(_mainHandIndex == 2)
                 castingHand = m_mpvrhand2.transform;
-
 
             goSpell.transform.position = castingHand.position;
             goSpell.transform.rotation = castingHand.rotation;
@@ -184,6 +187,22 @@ public class MP_VR_PlayerController : NetworkBehaviour
             Destroy(goSpell, _spellData._fKillDelay);
     }
 
+    [Command]
+    void CmdFireSpell2(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _mainHandIndex, GameObject _playerThis)
+    {
+        Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabServerSpells.Length);
+        GameObject goSpell = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
+        Spell.SpellData2 spelldata = new Spell.SpellData2();
+        spelldata._v3WandPos = spawnPosition;
+        spelldata._qWandRot = spawnRotation;
+        spelldata._v3WandVelocity = velocity;
+        spelldata._goPlayer = _playerThis;
+
+        Spell spell = goSpell.GetComponent<Spell>();
+        spell.Fire(spelldata);
+        // Spawn the spellObject on the Clients
+        NetworkServer.Spawn(goSpell);
+    }
 
     //Find ForceRecorder and MagicWand Components
     private void InitSpellComponents()
@@ -257,5 +276,10 @@ public class MP_VR_PlayerController : NetworkBehaviour
             }
         }
         return 0;
+    }
+
+    public void SetOpponent(MP_VR_PlayerController _opponent)
+    {
+        m_mpvr_playerOpponent = _opponent;
     }
 }
