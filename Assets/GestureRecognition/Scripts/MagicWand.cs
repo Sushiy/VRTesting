@@ -12,8 +12,8 @@ public enum SpellType
 
 public class MagicWand : MonoBehaviour {
 
-    [SerializeField]
-    private float m_fVelocityMultiplier = 3f;
+    //[SerializeField]
+    //private float m_fVelocityMultiplier = 3f;
     [SerializeField]
     public Spell[] spells;
     [SerializeField]

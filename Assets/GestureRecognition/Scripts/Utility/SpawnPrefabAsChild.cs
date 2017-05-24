@@ -11,7 +11,7 @@ public class SpawnPrefabAsChild : MonoBehaviour {
     {
         if (prefabToSpawn != null)
         {
-            GameObject g = Instantiate<GameObject>(prefabToSpawn, transform);
+            Instantiate<GameObject>(prefabToSpawn, transform);
         }
     }
 }

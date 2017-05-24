@@ -13,7 +13,7 @@ public class WandScript : MonoBehaviour
     public GameObject[] m_goSpellsIce;
     public GameObject[] m_goSpellsFire;
     public GameObject[] m_goSpellsLight;
-    float m_fShotPower = 15f;
+    //float m_fShotPower = 15f;
 
     public ParticleSystem m_psIdleFire;
     public ParticleSystem m_psIdleIce;

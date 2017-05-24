@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Shield : Spell
 {
-    private Rigidbody m_rigidThis;
+    //private Rigidbody m_rigidThis;
 
     public override void Deactivate()
     {
@@ -18,7 +18,7 @@ public class Shield : Spell
         GameObject goThis = Instantiate<GameObject>(m_goClientPrefab);
         goThis.transform.position = _transEndpoint.position;
         goThis.transform.rotation = _transEndpoint.rotation;
-        m_rigidThis = goThis.GetComponent<Rigidbody>();
+        //m_rigidThis = goThis.GetComponent<Rigidbody>();
         return goThis;
     }
 
@@ -42,14 +42,4 @@ public class Shield : Spell
     {
         throw new NotImplementedException();
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

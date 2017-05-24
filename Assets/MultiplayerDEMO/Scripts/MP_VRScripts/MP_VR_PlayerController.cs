@@ -141,11 +141,11 @@ public class MP_VR_PlayerController : NetworkBehaviour
         if (_spellData._bParentToOffhand)
         {
             Transform offhand = m_mpvrhand2.transform;
-            if(_handIndex == 1)
+            if(_mainHandIndex == 1)
             {
                 offhand = m_mpvrhand2.transform;
             }
-            if(_handIndex == 2)
+            if(_mainHandIndex == 2)
                 offhand = m_mpvrhand1.transform;
 
 

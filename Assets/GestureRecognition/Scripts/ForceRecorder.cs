@@ -7,8 +7,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 public class ForceRecorder : MonoBehaviour {
 
-    [SerializeField]
-    private float m_fMaximumVelocity = 100f;
+    //[SerializeField]
+    //private float m_fMaximumVelocity = 100f;
     [SerializeField]
     private float m_fVelocityThreshold = 70f;
     [SerializeField]
