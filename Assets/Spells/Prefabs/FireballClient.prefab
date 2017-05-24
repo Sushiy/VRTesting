@@ -188,6 +188,8 @@ MonoBehaviour:
   m_goClientPrefab: {fileID: 0}
   m_spelltypeThis: 1
   m_gestureTypeThis: 0
+  explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
+    type: 2}
 --- !u!114 &114976362494387850
 MonoBehaviour:
   m_ObjectHideFlags: 1

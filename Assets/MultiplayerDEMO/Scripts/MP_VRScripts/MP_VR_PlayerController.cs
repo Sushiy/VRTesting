@@ -14,7 +14,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [SerializeField]
     private GameObject m_prefabVRStation;
 
-    public GameObject[] m_prefabServerSpells;
+    public SpellRegistry spellregistry;
+
+    public GameObject[] m_prefabServerSpells; //TODO: try if the spellregistry works than cut this from the code
     [SerializeField]
     private MP_VR_NetworkHand m_mpvrhand1;
     [SerializeField]
@@ -112,97 +114,52 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
         //1. grab the spellindex from the wands spelltype enum
         int spellIndex = (int)_magicwand.LoadedSpell;
-
-        //2. Grab spelldata from loaded spell
-        Spell.SpellData spelldata = _magicwand.spells[spellIndex].GetSpellData(_magicwand.m_SpawnPoint, forceRec.m_v3velocity);
-        //3. Find out which hand is your wand hand which is your offhand
+        
+        //2. Find out which hand is your wand hand which is your offhand
         int iCastingHandIndex = FindCastingHand(_magicwand);
-        //4. Let the Server fire his version of the spell first
+        //3. Let the Server fire his version of the spell first
         //CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
-        CmdFireSpell2(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex, gameObject);
+        CmdServerFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex, gameObject);
         
-        /*Client Spells are DISABLED FOR TESTING
+        /*//Client Spells are DISABLED FOR TESTING
         
-        //5. Now Fire the Client version of the spell
-        GameObject goClient = _magicwand.spells[spellIndex].Fire(_magicwand.m_SpawnPoint, forceRec.m_v3velocity);
-        //6. Now if you want to parent the spell to the offhand (Should be replaced with casting into the lefthand) do that
-        if (spelldata._bParentToHand)
-        {
-            //check with the mainhandindex to findout which hand is the offhand
-            Transform transCastingHand;
-            if (iCastingHandIndex == 1)
-                transCastingHand = m_mpvrhand1.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
-            else if (iCastingHandIndex == 2)
-                transCastingHand = m_mpvrhand2.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
-            else
-            {
-                Debug.LogError("MainHandindex is invalid (not 1 or 2)");
-                return;
-            }
-
-            goClient.transform.position = transCastingHand.position;
-            goClient.transform.rotation = transCastingHand.rotation;
-            FixedJoint fixJCastinghand = transCastingHand.GetComponent<FixedJoint>();
-            if (fixJCastinghand.connectedBody != null)
-                Destroy(fixJCastinghand.connectedBody.gameObject);
-            fixJCastinghand.connectedBody = goClient.GetComponent<Rigidbody>();
-        }
+        //4. Now Fire the Client version of the spell
+        ClientFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex);
         */
         //Last unload the wand
         _magicwand.LoadWand(SpellType.NONE);
     }
 
-    [Command] //Command is called on client and executed on the server
-    void CmdFireSpell(Spell.SpellData _spellData, int _spellIndex, int _mainHandIndex)
+    void ClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
     {
-        Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabServerSpells.Length);
-        GameObject goSpell = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
-
-        Rigidbody rigidSpell = goSpell.GetComponent<Rigidbody>();
-        if (_spellData._bParentToHand)
-        {
-            Transform castingHand = m_mpvrhand1.transform;
-            if(_mainHandIndex == 1)
-            {
-                castingHand = m_mpvrhand1.transform;
-            }
-            if(_mainHandIndex == 2)
-                castingHand = m_mpvrhand2.transform;
-
-            goSpell.transform.position = castingHand.position;
-            goSpell.transform.rotation = castingHand.rotation;
-            FixedJoint fixJOffhand = castingHand.GetComponent<FixedJoint>();
-            if (fixJOffhand.connectedBody != null)
-                Destroy(fixJOffhand.connectedBody.gameObject);
-            fixJOffhand.connectedBody = rigidSpell;
-        }         
-        else
-        {
-            goSpell.transform.position = _spellData._v3Position;
-            goSpell.transform.rotation = _spellData._qRotation;
-        }
-        rigidSpell.velocity = _spellData._v3Velocity;
-        // Spawn the spellObject on the Clients
-        NetworkServer.Spawn(goSpell);
-        if(_spellData._fKillDelay > 0.0f)
-            Destroy(goSpell, _spellData._fKillDelay);
-    }
-
-    [Command]
-    void CmdFireSpell2(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _mainHandIndex, GameObject _playerThis)
-    {
-        Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabServerSpells.Length);
-        GameObject goSpell = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
-        Spell.SpellData2 spelldata = new Spell.SpellData2();
+        GameObject goClient = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
+        Spell.SpellData spelldata = new Spell.SpellData();
         spelldata._v3WandPos = spawnPosition;
         spelldata._qWandRot = spawnRotation;
         spelldata._v3WandVelocity = velocity;
+        spelldata._iCastingHandIndex = _castingHandIndex;
+        spelldata._goPlayer = gameObject;
+        Spell spell = goClient.GetComponent<Spell>();
+        spell.Fire(spelldata);
+    }
+
+    [Command]
+    void CmdServerFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex, GameObject _playerThis)
+    {
+        Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabServerSpells.Length);
+        //GameObject goServer = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
+        GameObject goServer = Instantiate<GameObject>(spellregistry.serverPrefabs[_spellIndex]);
+        Spell.SpellData spelldata = new Spell.SpellData();
+        spelldata._v3WandPos = spawnPosition;
+        spelldata._qWandRot = spawnRotation;
+        spelldata._v3WandVelocity = velocity;
+        spelldata._iCastingHandIndex = _castingHandIndex;
         spelldata._goPlayer = _playerThis;
 
-        Spell spell = goSpell.GetComponent<Spell>();
+        Spell spell = goServer.GetComponent<Spell>();
         spell.Fire(spelldata);
         // Spawn the spellObject on the Clients
-        NetworkServer.Spawn(goSpell);
+        NetworkServer.Spawn(goServer);
     }
 
     //Find ForceRecorder and MagicWand Components
@@ -277,6 +234,18 @@ public class MP_VR_PlayerController : NetworkBehaviour
             }
         }
         return 0;
+    }
+
+    public Transform GetCastingHand(int _iCastingHandIndex)
+    {
+        Transform castingHand = m_mpvrhand1.transform;
+        if (_iCastingHandIndex == 1)
+        {
+            castingHand = m_mpvrhand1.transform;
+        }
+        if (_iCastingHandIndex == 2)
+            castingHand = m_mpvrhand2.transform;
+        return castingHand;
     }
 
     public void SetOpponent(MP_VR_PlayerController _opponent)

@@ -22,20 +22,22 @@ public class Shield : Spell
         return goThis;
     }
 
-    public override void Fire(SpellData2 spelldata)
+    public override void Fire(SpellData spelldata)
     {
-        throw new NotImplementedException();
-    }
+        Debug.Log("Shield: Fire");
+        //Fetch the MPVRPlayerController
+        MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
+        //Get the transform of the currently casting hand
+        Transform transCastingHand = player.GetCastingHand(spelldata._iCastingHandIndex);
+        //Get rigidbody and the fixedjoint of the casting hand
+        Rigidbody rigidSpell = GetComponent<Rigidbody>();
+        transform.position = transCastingHand.position;
+        transform.rotation = transCastingHand.rotation;
+        FixedJoint fixJOffhand = transCastingHand.GetComponent<FixedJoint>();
+        if (fixJOffhand.connectedBody != null)
+            Destroy(fixJOffhand.connectedBody.gameObject);
+        fixJOffhand.connectedBody = rigidSpell;
 
-    public override SpellData GetSpellData(Transform _transSpawnTransform, Vector3 _v3Velocity)
-    {
-        SpellData ownData;
-        ownData._v3Position = _transSpawnTransform.position;
-        ownData._qRotation = _transSpawnTransform.rotation;
-        ownData._v3Velocity = Vector3.zero;
-        ownData._bParentToHand = true;
-        ownData._fKillDelay = 0.0f;
-        return ownData;
     }
 
     public override void PlayerHit()

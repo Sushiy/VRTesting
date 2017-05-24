@@ -7,21 +7,15 @@ public abstract class Spell : MonoBehaviour
 {
     public struct SpellData
     {
-        public Vector3 _v3Position;
-        public Quaternion _qRotation;
-        public Vector3 _v3Velocity;
-        public bool _bParentToHand;
-        public float _fKillDelay;
-    }
-
-    public struct SpellData2
-    {
         //WandData
         public Vector3 _v3WandPos;
         public Quaternion _qWandRot;
         public Vector3 _v3WandVelocity;
 
         //HandsData
+        public int _iCastingHandIndex;
+
+        //PlayerData
         public GameObject _goPlayer;
     }
 
@@ -40,8 +34,7 @@ public abstract class Spell : MonoBehaviour
     public Transform TargetTransform { get { return m_transTarget; } }
 
     public abstract GameObject Fire(Transform _transEndpoint, Vector3 _v3Velocity);
-    public abstract void Fire(SpellData2 spelldata);
-    public abstract SpellData GetSpellData(Transform _transSpawnTransform, Vector3 _v3Velocity);
+    public abstract void Fire(SpellData spelldata);
     public abstract void PlayerHit();
     public abstract void SpellHit();
     public abstract void Deactivate();
