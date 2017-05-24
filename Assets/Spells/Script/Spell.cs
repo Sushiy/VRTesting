@@ -36,8 +36,8 @@ public abstract class Spell : MonoBehaviour
     protected gestureTypes m_gestureTypeThis;
     public gestureTypes Gesture{ get { return m_gestureTypeThis; } }
 
-    protected Vector3 m_v3TargetPos;
-    public Vector3 TargetPosition { get { return m_v3TargetPos; } }
+    protected Transform m_transTarget;
+    public Transform TargetTransform { get { return m_transTarget; } }
 
     public abstract GameObject Fire(Transform _transEndpoint, Vector3 _v3Velocity);
     public abstract void Fire(SpellData2 spelldata);

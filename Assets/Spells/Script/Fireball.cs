@@ -46,9 +46,7 @@ public class Fireball : Spell
         m_rigidThis.velocity = (spelldata._v3WandVelocity * 3.0f);
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
         if (player.Opponent != null)
-            m_v3TargetPos = player.Opponent.transform.position;
-        else
-            m_v3TargetPos = Vector3.zero;
+            m_transTarget = player.Opponent.transform;
         Destroy(gameObject, 5.0f);
     }
 

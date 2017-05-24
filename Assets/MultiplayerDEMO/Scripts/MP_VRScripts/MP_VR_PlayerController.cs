@@ -6,6 +6,7 @@ using Valve.VR;
 
 public class MP_VR_PlayerController : NetworkBehaviour
 {
+    [SerializeField]
     private MP_VR_PlayerController m_mpvr_playerOpponent;
     public MP_VR_PlayerController Opponent { get { return m_mpvr_playerOpponent; } }
     public bool m_bIsReady = false;

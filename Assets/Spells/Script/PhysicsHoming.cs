@@ -16,12 +16,13 @@ public class PhysicsHoming : MonoBehaviour {
     void Awake()
     {
         m_rigid = GetComponent<Rigidbody>();
+
     }
 
 	void Start ()
     {
         // find a target
-        m_transTarget = GameObject.Find("DebugTarget").transform;
+        m_transTarget = GetComponent<Spell>().TargetTransform;
         if (m_transTarget == null) Debug.LogWarning("Couldn't find no target y'all");
     }
 
