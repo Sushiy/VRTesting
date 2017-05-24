@@ -405,8 +405,12 @@ Prefab:
         type: 2}
       propertyPath: m_SpawnPrefabs.Array.data[3]
       value: 
-      objectReference: {fileID: 1938868563837062, guid: fa016bf8cc3e44348ab921f777a3ca4d,
+      objectReference: {fileID: 0}
+    - target: {fileID: 114168782805361724, guid: c9458441f1e278a4882537d924853d88,
         type: 2}
+      propertyPath: m_OnlineScene
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9458441f1e278a4882537d924853d88, type: 2}
   m_IsPrefabParent: 0

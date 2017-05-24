@@ -126,7 +126,7 @@ MonoBehaviour:
     type: 2}
   m_prefabOffhand: {fileID: 1431643627953176, guid: c20f4ff62e8dff245be402047b211cc2,
     type: 2}
-  m_bSpawnOffhand: 0
+  m_bSpawnOffhand: 1
   m_bDestroyCollidersAfterUse: 1
   m_bDestroyForcerecorderMesh: 1
 --- !u!114 &114938293831260240
