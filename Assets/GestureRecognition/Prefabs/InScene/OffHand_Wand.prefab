@@ -392,8 +392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc74a517b484cb44a662fc2abc0c22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fVelocityMultiplier: 3
-  spells: []
+  spells:
+  - {fileID: 0}
+  - {fileID: 114496908468504358, guid: 759b9957794247d4bab49dc6bf2854e9, type: 2}
+  - {fileID: 114875583167510106, guid: 6177871d211b37a4fb5871220b83c6fa, type: 2}
   m_SpawnPoint: {fileID: 4168810401978288}
   isMainHand: 0
 --- !u!114 &114854728039575588
@@ -407,8 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6441cc1c41c0d447b56e177ede01e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fMaximumVelocity: 100
-  m_fVelocityThreshold: 50
+  m_fVelocityThreshold: 20
   m_fTimeBetweenFlicks: 1
   m_MagicWand: {fileID: 114575299375472264}
   m_v3velocity: {x: 0, y: 0, z: 0}

@@ -91,21 +91,32 @@ public class MP_VR_PlayerController : NetworkBehaviour
                 CastASpell(m_magicwandMain);
             }
         }
+
+        //If the forcerecorder wants us to fire spells, do it
+        if (m_forcerecOff.isFiring())
+        {
+            if (m_magicwandOff.IsWandLoaded())
+            {
+                CastASpell(m_magicwandOff);
+            }
+        }
     }
 
     void CastASpell(MagicWand _magicwand)
     {
+        ForceRecorder forceRec = (_magicwand.isMainHand) ? m_forcerecMain : m_forcerecOff;
+
         //1. grab the spellindex from the wands spelltype enum
         int spellIndex = (int)_magicwand.LoadedSpell;
 
         //2. Grab spelldata from loaded spell
-        Spell.SpellData spelldata = _magicwand.spells[spellIndex].GetSpellData(_magicwand.m_SpawnPoint, m_forcerecMain.m_v3velocity);
+        Spell.SpellData spelldata = _magicwand.spells[spellIndex].GetSpellData(_magicwand.m_SpawnPoint, forceRec.m_v3velocity);
         //3. Find out which hand is your wand hand which is your offhand
         int iMainHandIndex = FindMainHand(_magicwand);
         //4. Let the Server fire his version of the spell first
         CmdFireSpell(spelldata, spellIndex, iMainHandIndex);
         //5. Now Fire the Client version of the spell
-        GameObject goClient = _magicwand.spells[spellIndex].Fire(_magicwand.m_SpawnPoint, m_forcerecMain.m_v3velocity);
+        GameObject goClient = _magicwand.spells[spellIndex].Fire(_magicwand.m_SpawnPoint, forceRec.m_v3velocity);
         //6. Now if you want to parent the spell to the offhand (Should be replaced with casting into the lefthand) do that
         if (spelldata._bParentToOffhand)
         {
