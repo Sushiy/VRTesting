@@ -112,33 +112,38 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //2. Grab spelldata from loaded spell
         Spell.SpellData spelldata = _magicwand.spells[spellIndex].GetSpellData(_magicwand.m_SpawnPoint, forceRec.m_v3velocity);
         //3. Find out which hand is your wand hand which is your offhand
-        int iMainHandIndex = FindMainHand(_magicwand);
+        int iCastingHandIndex = FindCastingHand(_magicwand);
         //4. Let the Server fire his version of the spell first
-        CmdFireSpell(spelldata, spellIndex, iMainHandIndex);
+        CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
+        
+        
+        /*Client Spells are DISABLED FOR TESTING
+        
         //5. Now Fire the Client version of the spell
         GameObject goClient = _magicwand.spells[spellIndex].Fire(_magicwand.m_SpawnPoint, forceRec.m_v3velocity);
         //6. Now if you want to parent the spell to the offhand (Should be replaced with casting into the lefthand) do that
-        if (spelldata._bParentToOffhand)
+        if (spelldata._bParentToHand)
         {
             //check with the mainhandindex to findout which hand is the offhand
-            Transform transOffhand;
-            if (iMainHandIndex == 1)
-                transOffhand = m_mpvrhand1.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
-            else if (iMainHandIndex == 2)
-                transOffhand = m_mpvrhand2.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
+            Transform transCastingHand;
+            if (iCastingHandIndex == 1)
+                transCastingHand = m_mpvrhand1.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
+            else if (iCastingHandIndex == 2)
+                transCastingHand = m_mpvrhand2.GetComponent<MP_VR_NetworkHand>().m_transVRHand;
             else
             {
                 Debug.LogError("MainHandindex is invalid (not 1 or 2)");
                 return;
             }
 
-            goClient.transform.position = transOffhand.position;
-            goClient.transform.rotation = transOffhand.rotation;
-            FixedJoint fixJOffhand = transOffhand.GetComponent<FixedJoint>();
-            if (fixJOffhand.connectedBody != null)
-                Destroy(fixJOffhand.connectedBody.gameObject);
-            fixJOffhand.connectedBody = goClient.GetComponent<Rigidbody>();
+            goClient.transform.position = transCastingHand.position;
+            goClient.transform.rotation = transCastingHand.rotation;
+            FixedJoint fixJCastinghand = transCastingHand.GetComponent<FixedJoint>();
+            if (fixJCastinghand.connectedBody != null)
+                Destroy(fixJCastinghand.connectedBody.gameObject);
+            fixJCastinghand.connectedBody = goClient.GetComponent<Rigidbody>();
         }
+        */
         //Last unload the wand
         _magicwand.LoadWand(SpellType.NONE);
     }
@@ -149,20 +154,20 @@ public class MP_VR_PlayerController : NetworkBehaviour
         Debug.Log("Server PewPew!");
         GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellIndex]);
         Rigidbody rigidSpell = goSpell.GetComponent<Rigidbody>();
-        if (_spellData._bParentToOffhand)
+        if (_spellData._bParentToHand)
         {
-            Transform offhand = m_mpvrhand2.transform;
+            Transform castingHand = m_mpvrhand1.transform;
             if(_mainHandIndex == 1)
             {
-                offhand = m_mpvrhand2.transform;
+                castingHand = m_mpvrhand1.transform;
             }
             if(_mainHandIndex == 2)
-                offhand = m_mpvrhand1.transform;
+                castingHand = m_mpvrhand2.transform;
 
 
-            goSpell.transform.position = offhand.position;
-            goSpell.transform.rotation = offhand.rotation;
-            FixedJoint fixJOffhand = offhand.GetComponent<FixedJoint>();
+            goSpell.transform.position = castingHand.position;
+            goSpell.transform.rotation = castingHand.rotation;
+            FixedJoint fixJOffhand = castingHand.GetComponent<FixedJoint>();
             if (fixJOffhand.connectedBody != null)
                 Destroy(fixJOffhand.connectedBody.gameObject);
             fixJOffhand.connectedBody = rigidSpell;
@@ -237,7 +242,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         }
     }
 
-    private int FindMainHand(MagicWand _magicwand)
+    private int FindCastingHand(MagicWand _magicwand)
     {
         if (_magicwand != null)
         {
