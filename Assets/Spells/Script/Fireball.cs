@@ -6,6 +6,8 @@ using UnityEngine;
 public class Fireball : Spell
 {
     private Rigidbody m_rigidThis;
+    private int m_iDamage = 10;
+    public GameObject explosionPrefab;
 
     // Use this for initialization
     public override void Awake()
@@ -41,9 +43,20 @@ public class Fireball : Spell
         ownData._v3Position = _transSpawnTransform.position;
         ownData._qRotation = _transSpawnTransform.rotation;
         ownData._v3Velocity = _v3Velocity * 3.0f;
-        ownData._bParentToOffhand = false;
+        ownData._bParentToHand = false;
         ownData._fKillDelay = 5.0f;
         return ownData;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Instantiate(explosionPrefab, transform.position, transform.rotation);
+        GameObject goOther = collision.gameObject;
+        if (goOther.layer == LayerMask.NameToLayer("Player"))
+        {
+            goOther.GetComponentInParent<MP_Health>().TakeDamage(m_iDamage);
+        }
+        Destroy(gameObject);
     }
 
     public override void PlayerHit()

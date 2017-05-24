@@ -28,7 +28,7 @@ public class Shield : Spell
         ownData._v3Position = _transSpawnTransform.position;
         ownData._qRotation = _transSpawnTransform.rotation;
         ownData._v3Velocity = Vector3.zero;
-        ownData._bParentToOffhand = true;
+        ownData._bParentToHand = true;
         ownData._fKillDelay = 0.0f;
         return ownData;
     }
