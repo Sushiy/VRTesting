@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Wand
   - Projectile
+  - Primitive
+  - GestureObject
+  - Hand
   layers:
   - Default
   - TransparentFX

@@ -3,21 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireball : Spell
+public class Shield : Spell
 {
     private Rigidbody m_rigidThis;
-
-    // Use this for initialization
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
-    // Update is called once per frame
-    public override void Update()
-    {
-
-    }
 
     public override void Deactivate()
     {
@@ -29,9 +17,8 @@ public class Fireball : Spell
         Debug.Log("Client PewPew!");
         GameObject goThis = Instantiate<GameObject>(m_goClientPrefab);
         goThis.transform.position = _transEndpoint.position;
+        goThis.transform.rotation = _transEndpoint.rotation;
         m_rigidThis = goThis.GetComponent<Rigidbody>();
-        m_rigidThis.velocity = (_v3Velocity * 3.0f);
-        Destroy(goThis, 5.0f);
         return goThis;
     }
 
@@ -40,9 +27,9 @@ public class Fireball : Spell
         SpellData ownData;
         ownData._v3Position = _transSpawnTransform.position;
         ownData._qRotation = _transSpawnTransform.rotation;
-        ownData._v3Velocity = _v3Velocity * 3.0f;
-        ownData._bParentToOffhand = false;
-        ownData._fKillDelay = 5.0f;
+        ownData._v3Velocity = Vector3.zero;
+        ownData._bParentToOffhand = true;
+        ownData._fKillDelay = 0.0f;
         return ownData;
     }
 
@@ -55,4 +42,14 @@ public class Fireball : Spell
     {
         throw new NotImplementedException();
     }
+
+    // Use this for initialization
+    void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 }
