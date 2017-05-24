@@ -151,7 +151,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command] //Command is called on client and executed on the server
     void CmdFireSpell(Spell.SpellData _spellData, int _spellIndex, int _mainHandIndex)
     {
-        Debug.Log("Server PewPew!");
+        Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabSpells.Length);
         GameObject goSpell = Instantiate<GameObject>(m_prefabSpells[_spellIndex]);
         Rigidbody rigidSpell = goSpell.GetComponent<Rigidbody>();
         if (_spellData._bParentToHand)
@@ -194,7 +194,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         ForceRecorder[] forceRecorders = m_vrplayerThis.GetComponentsInChildren<ForceRecorder>();
         if (forceRecorders.Length != 2)
         {
-            Debug.LogError("There are not exactly 2 Forcerecorders on this player");
+            //Debug.LogError("There are not exactly 2 Forcerecorders on this player");
             return;
         }
         foreach(ForceRecorder f in forceRecorders)

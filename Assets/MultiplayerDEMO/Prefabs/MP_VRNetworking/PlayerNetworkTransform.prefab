@@ -1580,7 +1580,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680203444749712}
-  m_LocalRotation: {x: 0.00019392365, y: -0.00010162589, z: 0.85604984, w: 0.51689315}
+  m_LocalRotation: {x: 0.00019392367, y: -0.0001016259, z: 0.8560499, w: 0.5168932}
   m_LocalPosition: {x: -0.00010237286, y: 0.00009633603, z: -0.2723716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2783,7 +2783,10 @@ MonoBehaviour:
   m_bIsReady: 0
   m_prefabVRStation: {fileID: 1198207902069624, guid: f80f5826cd5c4a4439fb3245bbd9b865,
     type: 2}
-  m_prefabSpells: []
+  m_prefabSpells:
+  - {fileID: 0}
+  - {fileID: 1611775661731242, guid: 759b9957794247d4bab49dc6bf2854e9, type: 2}
+  - {fileID: 1050107986345280, guid: 6177871d211b37a4fb5871220b83c6fa, type: 2}
   m_mpvrhand1: {fileID: 114219511215169498}
   m_mpvrhand2: {fileID: 114740607327554638}
   hand1Spawn: {fileID: 4193385558162248}
