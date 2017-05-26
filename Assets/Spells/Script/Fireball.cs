@@ -6,8 +6,9 @@ using UnityEngine;
 public class Fireball : Spell
 {
     private Rigidbody m_rigidThis;
-    private int m_iDamage = 10;
+    private int m_iDamage = 30;
     public GameObject explosionPrefab;
+    public float m_fVelocityMultiplier = 2.0f;
 
     // Use this for initialization
     public override void Awake()
@@ -32,7 +33,7 @@ public class Fireball : Spell
         gameObject.transform.position = spelldata._v3WandPos;
         gameObject.transform.rotation = spelldata._qWandRot;
         m_rigidThis = GetComponent<Rigidbody>();
-        m_rigidThis.velocity = (spelldata._v3WandVelocity * 3.0f);
+        m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
         if (player.Opponent != null)
             m_transTarget = player.Opponent.transform;

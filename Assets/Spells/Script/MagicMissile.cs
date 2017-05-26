@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +7,12 @@ public class MagicMissile : Spell
     private Rigidbody m_rigidThis;
     private int m_iDamage = 5;
     public GameObject explosionPrefab;
+
+    public float m_fVelocityMultiplier = 4.0f;
+    public float m_fMinAngle = 15.0f;
+    public float m_fMaxAngle = 30.0f;
+
+    private Quaternion m_qRandDir = Quaternion.identity;
 
     public override void Deactivate()
     {
@@ -20,11 +25,33 @@ public class MagicMissile : Spell
         gameObject.transform.position = spelldata._v3WandPos;
         gameObject.transform.rotation = spelldata._qWandRot;
         m_rigidThis = GetComponent<Rigidbody>();
-        m_rigidThis.velocity = (spelldata._v3WandVelocity * 3.0f);
+        if(m_qRandDir == Quaternion.identity)
+            MakeRandomDirection();
+        Vector3 randomizedDir = m_qRandDir  * spelldata._v3WandVelocity;
+        m_rigidThis.velocity = (randomizedDir * m_fVelocityMultiplier);
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
         if (player.Opponent != null)
             m_transTarget = player.Opponent.transform;
         Invoke("Deactivate", 5.0f);
+    }
+
+    public void MakeRandomDirection()
+    {
+        m_qRandDir = Quaternion.Euler(RandomSign() * Random.Range(m_fMinAngle, m_fMaxAngle), RandomSign() * Random.Range(m_fMinAngle, m_fMaxAngle), 0);
+    }
+
+    public int RandomSign()
+    {
+        int sign = Random.Range(0, 2);
+        if (sign == 0)
+            sign = -1;
+
+        return sign;
+    }
+
+    public void SetRandomDirection(Quaternion q)
+    {
+        m_qRandDir = q;
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -35,17 +62,18 @@ public class MagicMissile : Spell
         {
             PlayerHit(goOther);
         }
-        Destroy(gameObject);
+        CancelInvoke();
+        Deactivate();
     }
 
     public override void PlayerHit(GameObject _goPlayer)
     {
-        throw new NotImplementedException();
+        _goPlayer.GetComponentInParent<MP_Health>().TakeDamage(m_iDamage);
     }
 
     public override void SpellHit()
     {
-        throw new NotImplementedException();
+        throw new System.NotImplementedException();
     }
 
     // Use this for initialization

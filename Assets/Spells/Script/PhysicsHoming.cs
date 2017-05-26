@@ -29,7 +29,7 @@ public class PhysicsHoming : MonoBehaviour {
     void FixedUpdate () {
         if (m_transTarget == null) return;
 
-        Vector3 targetDelta = m_transTarget.position + new Vector3(0,1,0) - transform.position;
+        Vector3 targetDelta = m_transTarget.position + new Vector3(0,0,0) - transform.position;
 
         //get the angle between transform.forward and target delta
         float angleDiff = Vector3.Angle(transform.forward, targetDelta);
