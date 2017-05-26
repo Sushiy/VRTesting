@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffd699708281b848be59f43dbd686ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fTorqueForce: 5
+  m_fTorqueForce: 10
   m_rigid: {fileID: 0}
 --- !u!114 &114022046395065434
 MonoBehaviour:
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffd699708281b848be59f43dbd686ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fTorqueForce: 5
+  m_fTorqueForce: 10
   m_rigid: {fileID: 0}
 --- !u!114 &114153488345534690
 MonoBehaviour:
@@ -1079,7 +1079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffd699708281b848be59f43dbd686ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fTorqueForce: 5
+  m_fTorqueForce: 10
   m_rigid: {fileID: 0}
 --- !u!114 &114884896682714616
 MonoBehaviour:

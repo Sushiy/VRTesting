@@ -5,7 +5,7 @@ using UnityEngine;
 public class MagicMissile : Spell
 {
     private Rigidbody m_rigidThis;
-    private int m_iDamage = 5;
+    private int m_iDamage = 4;
     public GameObject explosionPrefab;
 
     public float m_fVelocityMultiplier = 4.0f;
