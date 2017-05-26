@@ -1533,6 +1533,48 @@ Transform:
   m_PrefabParentObject: {fileID: 4316044942492080, guid: 79cad42611ab34340abaa1c361128d1e,
     type: 2}
   m_PrefabInternal: {fileID: 1060375635}
+--- !u!1001 &2128464256
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4094625560980660, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094625560980660, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094625560980660, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -4.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094625560980660, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094625560980660, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094625560980660, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094625560980660, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094625560980660, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 20ccdc997edde7541ab4a81fc544004d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &2145736356 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4788753248346242, guid: 790c37a5b39343540b01455bd8dd922a,
