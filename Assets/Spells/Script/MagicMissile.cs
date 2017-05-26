@@ -31,7 +31,7 @@ public class MagicMissile : Spell
         m_rigidThis.velocity = (randomizedDir * m_fVelocityMultiplier);
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
         if (player.Opponent != null)
-            m_transTarget = player.Opponent.transform;
+            m_transTarget = player.GetComponentInChildren<HomingTarget>().transform;
         Invoke("Deactivate", 5.0f);
     }
 

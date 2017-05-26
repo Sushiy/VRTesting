@@ -6,7 +6,7 @@ using UnityEngine;
 public class Fireball : Spell
 {
     private Rigidbody m_rigidThis;
-    private int m_iDamage = 30;
+    private int m_iDamage = 20;
     public GameObject explosionPrefab;
     public float m_fVelocityMultiplier = 2.0f;
 
@@ -36,7 +36,7 @@ public class Fireball : Spell
         m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
         if (player.Opponent != null)
-            m_transTarget = player.Opponent.transform;
+            m_transTarget = player.GetComponentInChildren<HomingTarget>().transform;
         Invoke("Deactivate", 5.0f);
     }
 
