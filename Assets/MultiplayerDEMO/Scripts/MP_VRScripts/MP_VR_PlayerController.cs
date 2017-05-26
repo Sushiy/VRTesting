@@ -133,7 +133,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
     void ClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
     {
         GameObject goClient = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
-        Spell.SpellData spelldata = new Spell.SpellData();
+        Spell.CastingData spelldata = new Spell.CastingData();
         spelldata._v3WandPos = spawnPosition;
         spelldata._qWandRot = spawnRotation;
         spelldata._v3WandVelocity = velocity;
@@ -149,7 +149,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabServerSpells.Length);
         //GameObject goServer = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
         GameObject goServer = Instantiate<GameObject>(spellregistry.serverPrefabs[_spellIndex]);
-        Spell.SpellData spelldata = new Spell.SpellData();
+        Spell.CastingData spelldata = new Spell.CastingData();
         spelldata._v3WandPos = spawnPosition;
         spelldata._qWandRot = spawnRotation;
         spelldata._v3WandVelocity = velocity;

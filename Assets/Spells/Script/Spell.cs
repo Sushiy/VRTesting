@@ -5,7 +5,7 @@ using gesture;
 
 public abstract class Spell : MonoBehaviour
 {
-    public struct SpellData
+    public struct CastingData
     {
         //WandData
         public Vector3 _v3WandPos;
@@ -22,8 +22,6 @@ public abstract class Spell : MonoBehaviour
     [SerializeField]
     protected GameObject m_goLoadedFX;
     [SerializeField]
-    protected GameObject m_goClientPrefab;
-    [SerializeField]
     protected SpellType m_spelltypeThis;
     public SpellType SpellType { get { return m_spelltypeThis; } }
     [SerializeField]
@@ -32,10 +30,9 @@ public abstract class Spell : MonoBehaviour
 
     protected Transform m_transTarget;
     public Transform TargetTransform { get { return m_transTarget; } }
-
-    public abstract GameObject Fire(Transform _transEndpoint, Vector3 _v3Velocity);
-    public abstract void Fire(SpellData spelldata);
-    public abstract void PlayerHit();
+    
+    public abstract void Fire(CastingData spelldata);
+    public abstract void PlayerHit(GameObject _goPlayer);
     public abstract void SpellHit();
     public abstract void Deactivate();
     public GameObject Loaded()

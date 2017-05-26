@@ -7,7 +7,8 @@ public enum SpellType
 {
     NONE,
     FIREBALL,
-    SHIELD
+    SHIELD,
+    MAGICMISSILE
 }
 
 public class MagicWand : MonoBehaviour {
@@ -56,9 +57,13 @@ public class MagicWand : MonoBehaviour {
     {
         foreach(GameObject go in spellRegistry.serverPrefabs)
         {
-            Spell s = go.GetComponent<Spell>();
-            if (s != null && s.Gesture == _gesture)
-                m_enumLoadedSpell = s.SpellType;
+            if(go!=null)
+            {
+                Spell s = go.GetComponent<Spell>();
+                if (s != null && s.Gesture == _gesture)
+                    m_enumLoadedSpell = s.SpellType;
+
+            }
         }
     }
 

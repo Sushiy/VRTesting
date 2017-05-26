@@ -12,17 +12,7 @@ public class Shield : Spell
         throw new NotImplementedException();
     }
 
-    public override GameObject Fire(Transform _transEndpoint, Vector3 _v3Velocity)
-    {
-        Debug.Log("Client PewPew!");
-        GameObject goThis = Instantiate<GameObject>(m_goClientPrefab);
-        goThis.transform.position = _transEndpoint.position;
-        goThis.transform.rotation = _transEndpoint.rotation;
-        //m_rigidThis = goThis.GetComponent<Rigidbody>();
-        return goThis;
-    }
-
-    public override void Fire(SpellData spelldata)
+    public override void Fire(CastingData spelldata)
     {
         Debug.Log("Shield: Fire");
         //Fetch the MPVRPlayerController
@@ -40,7 +30,7 @@ public class Shield : Spell
 
     }
 
-    public override void PlayerHit()
+    public override void PlayerHit(GameObject _goPlayer)
     {
         throw new NotImplementedException();
     }
