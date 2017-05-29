@@ -6,8 +6,9 @@ using UnityEngine;
 public class Fireball : Spell
 {
     private Rigidbody m_rigidThis;
-    private int m_iDamage = 10;
+    private int m_iDamage = 20;
     public GameObject explosionPrefab;
+    public float m_fVelocityMultiplier = 2.0f;
 
     // Use this for initialization
     public override void Awake()
@@ -23,29 +24,20 @@ public class Fireball : Spell
 
     public override void Deactivate()
     {
-        throw new NotImplementedException();
+        Destroy(gameObject);
     }
 
-    public override GameObject Fire(Transform _transEndpoint, Vector3 _v3Velocity)
+    public override void Fire(CastingData spelldata)
     {
-        Debug.Log("Client PewPew!");
-        GameObject goThis = Instantiate<GameObject>(m_goClientPrefab);
-        goThis.transform.position = _transEndpoint.position;
-        m_rigidThis = goThis.GetComponent<Rigidbody>();
-        m_rigidThis.velocity = (_v3Velocity * 3.0f);
-        Destroy(goThis, 5.0f);
-        return goThis;
-    }
-
-    public override SpellData GetSpellData(Transform _transSpawnTransform, Vector3 _v3Velocity)
-    {
-        SpellData ownData;
-        ownData._v3Position = _transSpawnTransform.position;
-        ownData._qRotation = _transSpawnTransform.rotation;
-        ownData._v3Velocity = _v3Velocity * 3.0f;
-        ownData._bParentToHand = false;
-        ownData._fKillDelay = 5.0f;
-        return ownData;
+        Debug.Log("Spell: Fire!");
+        gameObject.transform.position = spelldata._v3WandPos;
+        gameObject.transform.rotation = spelldata._qWandRot;
+        m_rigidThis = GetComponent<Rigidbody>();
+        m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
+        MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
+        if (player.Opponent != null)
+            m_transTarget = player.Opponent.GetComponentInChildren<HomingTarget>().transform;
+        Invoke("Deactivate", 5.0f);
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -54,14 +46,14 @@ public class Fireball : Spell
         GameObject goOther = collision.gameObject;
         if (goOther.layer == LayerMask.NameToLayer("Player"))
         {
-            goOther.GetComponentInParent<MP_Health>().TakeDamage(m_iDamage);
+            PlayerHit(goOther);
         }
         Destroy(gameObject);
     }
 
-    public override void PlayerHit()
+    public override void PlayerHit(GameObject _goPlayer)
     {
-        throw new NotImplementedException();
+        _goPlayer.GetComponentInParent<MP_Health>().TakeDamage(m_iDamage);
     }
 
     public override void SpellHit()

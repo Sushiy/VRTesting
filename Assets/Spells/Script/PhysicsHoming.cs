@@ -8,7 +8,7 @@ public class PhysicsHoming : MonoBehaviour {
     [SerializeField]
     private float m_fTorqueForce = 0.1f;
     [SerializeField]
-    private float m_fConstantForce = 0.1f;
+    //private float m_fConstantForce = 0.1f;
 
     private Rigidbody m_rigid;
     private Transform m_transTarget;
@@ -16,18 +16,20 @@ public class PhysicsHoming : MonoBehaviour {
     void Awake()
     {
         m_rigid = GetComponent<Rigidbody>();
+
     }
 
-	void Start () {
+	void Start ()
+    {
         // find a target
-        m_transTarget = GameObject.Find("DebugTarget").transform;
+        m_transTarget = GetComponent<Spell>().TargetTransform;
         if (m_transTarget == null) Debug.LogWarning("Couldn't find no target y'all");
     }
 
     void FixedUpdate () {
         if (m_transTarget == null) return;
 
-        Vector3 targetDelta = m_transTarget.position - transform.position;
+        Vector3 targetDelta = m_transTarget.position + new Vector3(0,0,0) - transform.position;
 
         //get the angle between transform.forward and target delta
         float angleDiff = Vector3.Angle(transform.forward, targetDelta);

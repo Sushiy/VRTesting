@@ -7,15 +7,14 @@ public enum SpellType
 {
     NONE,
     FIREBALL,
-    SHIELD
+    SHIELD,
+    MAGICMISSILE
 }
 
 public class MagicWand : MonoBehaviour {
 
-    //[SerializeField]
-    //private float m_fVelocityMultiplier = 3f;
     [SerializeField]
-    public Spell[] spells;
+    private SpellRegistry spellRegistry;
     [SerializeField]
     public Transform m_SpawnPoint;
 
@@ -27,7 +26,7 @@ public class MagicWand : MonoBehaviour {
     void Awake()
     {
         Assert.IsNotNull(m_SpawnPoint);
-        Assert.IsNotNull(spells);
+        Assert.IsNotNull(spellRegistry);
         m_loadedParticles = GetComponentInChildren<ParticleSystem>();
         Assert.IsNotNull<ParticleSystem>(m_loadedParticles);
 
@@ -56,10 +55,15 @@ public class MagicWand : MonoBehaviour {
 
     public void LoadWand(gesture.gestureTypes _gesture)
     {
-        foreach(Spell s in spells)
+        foreach(GameObject go in spellRegistry.serverPrefabs)
         {
-            if (s != null && s.Gesture == _gesture)
-                m_enumLoadedSpell = s.SpellType;
+            if(go!=null)
+            {
+                Spell s = go.GetComponent<Spell>();
+                if (s != null && s.Gesture == _gesture)
+                    m_enumLoadedSpell = s.SpellType;
+
+            }
         }
     }
 
