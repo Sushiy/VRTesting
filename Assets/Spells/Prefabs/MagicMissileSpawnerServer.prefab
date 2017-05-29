@@ -822,12 +822,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Target: {fileID: 4460323886469376}
   m_ChildIndex: 0
-  m_SendInterval: 0.055555556
+  m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
-  m_MovementThreshold: 0.0001
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.3
+  m_InterpolateMovement: 0.3
 --- !u!114 &114298519720130366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1001,12 +1001,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Target: {fileID: 4134883065591626}
   m_ChildIndex: 1
-  m_SendInterval: 0.055555556
+  m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
-  m_MovementThreshold: 0.0001
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.3
+  m_InterpolateMovement: 0.3
 --- !u!114 &114781676910798082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1020,12 +1020,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Target: {fileID: 4955619219532170}
   m_ChildIndex: 2
-  m_SendInterval: 0.055555556
+  m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
-  m_MovementThreshold: 0.0001
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.3
+  m_InterpolateMovement: 0.3
 --- !u!114 &114784311010883648
 MonoBehaviour:
   m_ObjectHideFlags: 1
