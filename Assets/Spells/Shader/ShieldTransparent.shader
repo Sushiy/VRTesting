@@ -92,12 +92,11 @@
 				//Texture (Stringy works best!)
 				fixed4 tex = tex2D(_MainTex, _MainTex_ST.xy * i.uv.xy + _MainTex_ST.zw) + _RimColor;
 
-
 				//Alpha Map
 				fixed alphaT = tex.a + _RimColor.a;
 				fixed alphaR = 1 -(rim * _TexColor.a);
 
-				return fixed4(lightFinal * tex, alphaT * alphaR);
+				return fixed4(lightFinal * tex, (alphaT / rim) * alphaR);
 			}
 
 			ENDCG
