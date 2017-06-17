@@ -6,7 +6,7 @@ public class MP_VR_PlayerRegistry : MonoBehaviour
 {
     public static MP_VR_PlayerRegistry s_instance;
 
-    private List<MP_VR_PlayerController> m_list_mpvr_playerctrl;
+    public List<MP_VR_PlayerController> m_list_mpvr_playerctrl;
 
 	// Use this for initialization
 	void Start ()

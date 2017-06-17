@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class NetworkHUD : MonoBehaviour {
-
+public class NetworkHUD : MonoBehaviour
+{
+    public static NetworkHUD s_instance;
     NetworkManager manager;
 	// Use this for initialization
 	void Start ()
     {
+        if (s_instance != null)
+        {
+            Debug.LogError("Two NetworkHUDs");
+            Destroy(this);
+        }
+
+        s_instance = this;
         manager = GetComponent<NetworkManager>();	
 	}
 	
