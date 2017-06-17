@@ -70,4 +70,12 @@ public class NetworkHUD : MonoBehaviour {
         manager.matchSize = (uint)match.currentSize;
         manager.matchMaker.JoinMatch(match.networkId, "","","",0,0, manager.OnMatchJoined);
     }
+
+    public void JoinMatch(int matchIndex)
+    {
+        UnityEngine.Networking.Match.MatchInfoSnapshot match = manager.matches[matchIndex];
+        SetMatchName(match.name);
+        manager.matchSize = (uint)match.currentSize;
+        manager.matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, manager.OnMatchJoined);
+    }
 }
