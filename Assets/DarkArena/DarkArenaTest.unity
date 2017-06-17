@@ -446,7 +446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &682994991
 AudioListener:
   m_ObjectHideFlags: 0
@@ -983,6 +983,48 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1252769238
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 5.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.8840355
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.31404704
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.12868758
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.3213956
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1380088703 stripped
 Transform:
