@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4968931038215544}
   - component: {fileID: 114168782805361724}
   - component: {fileID: 114265747739690992}
+  - component: {fileID: 114749029001930028}
+  - component: {fileID: 114389189008526874}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -57,7 +59,7 @@ MonoBehaviour:
   m_ServerBindAddress: 
   m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
-  m_RunInBackground: 1
+  m_RunInBackground: 0
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
@@ -65,8 +67,8 @@ MonoBehaviour:
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
-  m_OfflineScene: 
-  m_OnlineScene: 
+  m_OfflineScene: DarkArenaLobby
+  m_OnlineScene: DarkArenaTest
   m_SpawnPrefabs:
   - {fileID: 1795373394105846, guid: 636582d522f15544095c369e6f155a6e, type: 2}
   - {fileID: 1906751736766586, guid: c33493e41b2371d4d9ecce07af731d45, type: 2}
@@ -143,3 +145,27 @@ MonoBehaviour:
   showGUI: 1
   offsetX: 0
   offsetY: 0
+--- !u!114 &114389189008526874
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1144523005438070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20193638aeec10749ac29ea3fa5595e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_list_mpvr_playerctrl: []
+  m_homingtargetDefault: {fileID: 0}
+--- !u!114 &114749029001930028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1144523005438070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb39617cd0bc16478c61b8a374bfc86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

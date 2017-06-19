@@ -18,7 +18,7 @@ public class MagicWand : MonoBehaviour {
     [SerializeField]
     public Transform m_SpawnPoint;
 
-    private SpellType m_enumLoadedSpell = SpellType.FIREBALL;
+    private SpellType m_enumLoadedSpell = SpellType.NONE;
     private ParticleSystem m_loadedParticles;
     public SpellType LoadedSpell { get { return m_enumLoadedSpell; } }
     public bool isMainHand;// { get; private set; }

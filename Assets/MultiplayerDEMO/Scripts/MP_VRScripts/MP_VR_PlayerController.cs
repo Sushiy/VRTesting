@@ -236,6 +236,11 @@ public class MP_VR_PlayerController : NetworkBehaviour
         return 0;
     }
 
+    public void FindOpponent()
+    {
+        MP_VR_PlayerRegistry.s_instance.FindOtherPlayer(this);
+    }
+
     public Transform GetCastingHand(int _iCastingHandIndex)
     {
         Transform castingHand = m_mpvrhand1.transform;
@@ -251,5 +256,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public void SetOpponent(MP_VR_PlayerController _opponent)
     {
         m_mpvr_playerOpponent = _opponent;
+        if (_opponent.Opponent == null)
+        {
+            _opponent.SetOpponent(this);
+        }
     }
 }
