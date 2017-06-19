@@ -35,10 +35,10 @@ namespace primitive
         {
             m_transform = transform;
 
-            m_transBeginning = m_transform.FindChild("beginningPoint");
+            m_transBeginning = m_transform.Find("beginningPoint");
             Assert.IsNotNull<Transform>(m_transBeginning);
 
-            m_transEnd = m_transform.FindChild("endPoint");
+            m_transEnd = m_transform.Find("endPoint");
             Assert.IsNotNull<Transform>(m_transEnd);
 
             points = new FixedSizeQueue<Vector3>(m_iNumberOfPoints);
