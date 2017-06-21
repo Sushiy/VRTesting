@@ -3387,6 +3387,48 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!1001 &653581859
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.08777
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.573
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -3.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.8840355
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.31404704
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.12868758
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.3213956
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810737323070462, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 39a7018e6b5e1ce4b9c67e5cc64d9c11, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &705310182 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4816310457220480, guid: b0ed3b8fee2d13a4c9d70824a8c66f77,
@@ -3636,7 +3678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1488400502
 MonoBehaviour:
   m_ObjectHideFlags: 0
