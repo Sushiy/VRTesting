@@ -172,7 +172,7 @@ ConstantForce:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611775661731242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Force: {x: 0, y: 0, z: 0}
   m_RelativeForce: {x: 0, y: 0, z: 15}
   m_Torque: {x: 0, y: 0, z: 0}
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611775661731242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ffd699708281b848be59f43dbd686ae, type: 3}
   m_Name: 
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_gestureTypeThis: 0
   explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
     type: 2}
-  m_fVelocityMultiplier: 2
+  m_fVelocityMultiplier: 2.7
 --- !u!114 &114679251140253758
 MonoBehaviour:
   m_ObjectHideFlags: 1
