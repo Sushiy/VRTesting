@@ -35,11 +35,14 @@ namespace primitive
         private bool m_trackVR = false;
         [SerializeField]
         private GameObject prefab_Circle;
+        [SerializeField]
+        private bool m_bAlternativeNormalCalc = true;
 
         private FixedSizeQueue<Vector3> points;
         private Vector3 lastPoint;
         private LineRenderer trail;
         private Transform m_transform;
+        private Transform m_VRtransform;
 
         private int debugCount = 0; //debug
         public TextMesh debug_text; //debug
@@ -50,9 +53,12 @@ namespace primitive
         {
             points = new FixedSizeQueue<Vector3>(m_iPointCount);
             trail = GetComponent<LineRenderer>();
-            Assert.IsNotNull<LineRenderer>(trail);
+            Assert.IsNotNull(trail);
             m_transform = GetComponent<Transform>();
-            Assert.IsNotNull<GameObject>(prefab_Circle);
+            Assert.IsNotNull(prefab_Circle);
+            //m_VRtransform = m_transform.parent.parent.Find("VRCamera");
+            m_VRtransform = m_transform.parent.parent.GetChild(4);
+            Assert.IsNotNull(m_VRtransform);
         }
 
         void Start()
@@ -192,6 +198,12 @@ namespace primitive
         {
             // calculate normal
             Vector3 normal = Vector3.Cross(pointOnCircle1 - center, pointOnCircle2 - center).normalized;
+
+            // calculate alternative normal by just facing it towards the player
+            if (m_bAlternativeNormalCalc)
+            {
+                normal = (center - m_VRtransform.position).normalized;
+            }
 
             // instantiate circle
             GameObject circle = Instantiate<GameObject>(prefab_Circle);

@@ -8,7 +8,17 @@ public class AnimateSpriteSheet : MonoBehaviour
      public int uvAnimationTileY = 1;
  
      public float framesPerSecond = 30.0f;
- 
+
+    public bool animateLineRendererMaterial = false;
+
+    private Material material;
+
+    void Awake()
+    {
+        if (!animateLineRendererMaterial) material = GetComponent<Renderer>().material;
+        else material = GetComponent<LineRenderer>().material;
+    }
+
      void Update()
      {
          // Calculate index
@@ -27,7 +37,7 @@ public class AnimateSpriteSheet : MonoBehaviour
          // v coordinate is the bottom of the image in opengl so we need to invert.
          var offset = new Vector2(uIndex * size.x, 1.0f - size.y - vIndex * size.y);
  
-         GetComponent<Renderer>().material.SetTextureOffset("_MainTex", offset);
-         GetComponent<Renderer>().material.SetTextureScale("_MainTex", size);
+         material.SetTextureOffset("_MainTex", offset);
+         material.SetTextureScale("_MainTex", size);
      }
 }
