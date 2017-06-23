@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6799038dd715e7e41af1c0868188c5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug_lineRenderer: {fileID: 0}
   m_fDequeueInterval: 0.1
   m_iPointCount: 100
   m_fMinimumDistance: 0.01
@@ -59,7 +60,9 @@ MonoBehaviour:
   m_iMinimumIndexDiff: 40
   m_fRadiusTolerance: 0.25
   m_trackVR: 1
-  prefab_Circle: {fileID: 0}
+  prefab_Circle: {fileID: 1367136972893760, guid: c6354d82b89e0144fb30dddc0a33de95,
+    type: 2}
+  m_normalCalculationType: 2
   debug_text: {fileID: 0}
 --- !u!120 &120567061302935490
 LineRenderer:

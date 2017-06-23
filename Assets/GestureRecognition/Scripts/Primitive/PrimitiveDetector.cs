@@ -36,7 +36,7 @@ namespace primitive
         [SerializeField]
         private GameObject prefab_Circle;
         [SerializeField]
-        private bool m_bAlternativeNormalCalc = true;
+        private m_enumNormalCalc m_normalCalculationType = m_enumNormalCalc.CALC;
 
         private FixedSizeQueue<Vector3> points;
         private Vector3 lastPoint;
@@ -46,6 +46,11 @@ namespace primitive
 
         private int debugCount = 0; //debug
         public TextMesh debug_text; //debug
+
+        private enum m_enumNormalCalc
+        {
+            CALC, LOOKAT_CAM, MIXED
+        }
 
         //private Vector3 debug_center = Vector3.zero;
 
@@ -197,14 +202,21 @@ namespace primitive
         void InstantiateCircle(Vector3 pointOnCircle1, Vector3 pointOnCircle2, Vector3 center, float radius)
         {
             // calculate normal
-            Vector3 normal = Vector3.Cross(pointOnCircle1 - center, pointOnCircle2 - center).normalized;
-
-            // calculate alternative normal by just facing it towards the player
-            if (m_bAlternativeNormalCalc)
+            Vector3 calcNormal = Vector3.Cross(pointOnCircle1 - center, pointOnCircle2 - center).normalized;
+            Vector3 lookatNormal = (center - m_VRtransform.position).normalized;
+            Vector3 normal;
+            switch (m_normalCalculationType)
             {
-                normal = (center - m_VRtransform.position).normalized;
+                case m_enumNormalCalc.CALC: normal = calcNormal; break;
+                case m_enumNormalCalc.LOOKAT_CAM: normal = lookatNormal; break;
+                case m_enumNormalCalc.MIXED: normal = (calcNormal + lookatNormal) / 2f; break;
+                default:
+                    Debug.LogWarning("An Normal Calculation Type was used, but no case expression was there!");
+                    normal = calcNormal;
+                    break;
             }
-
+            normal = normal.normalized;
+            
             // instantiate circle
             GameObject circle = Instantiate<GameObject>(prefab_Circle);
             Primitive primitive = circle.GetComponent<Primitive>();
