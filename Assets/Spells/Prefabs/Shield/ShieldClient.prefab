@@ -124,6 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
-  m_goClientPrefab: {fileID: 1841176201615080}
   m_spelltypeThis: 2
   m_gestureTypeThis: 3
