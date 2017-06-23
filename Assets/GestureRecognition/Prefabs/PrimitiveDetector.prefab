@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4090514888456998}
   - component: {fileID: 114093744627268234}
   - component: {fileID: 120567061302935490}
+  - component: {fileID: 114964064169211816}
   m_Layer: 0
   m_Name: PrimitiveDetector
   m_TagString: Untagged
@@ -64,6 +65,38 @@ MonoBehaviour:
     type: 2}
   m_normalCalculationType: 2
   debug_text: {fileID: 0}
+--- !u!114 &114964064169211816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1299519811965274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!120 &120567061302935490
 LineRenderer:
   m_ObjectHideFlags: 1
