@@ -15,8 +15,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
     private GameObject m_prefabVRStation;
 
     public SpellRegistry spellregistry;
-
-    public GameObject[] m_prefabServerSpells; //TODO: try if the spellregistry works than cut this from the code
+    
     [SerializeField]
     private MP_VR_NetworkHand m_mpvrhand1;
     [SerializeField]
@@ -88,7 +87,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //if you weren't ready yet and made it this far, get ready
         if(!m_bIsReady)
             m_bIsReady = true;
-
+        
         //If the forcerecorder wants us to fire spells, do it
         if(m_forcerecMain.isFiring())
         {
@@ -132,7 +131,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     void ClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
     {
-        GameObject goClient = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
+        GameObject goClient = Instantiate<GameObject>(spellregistry.serverPrefabs[_spellIndex]);
         Spell.CastingData spelldata = new Spell.CastingData();
         spelldata._v3WandPos = spawnPosition;
         spelldata._qWandRot = spawnRotation;
@@ -146,7 +145,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command]
     void CmdServerFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex, GameObject _playerThis)
     {
-        Debug.Log("Server PewPew! Spell:" + _spellIndex + "/" + m_prefabServerSpells.Length);
         //GameObject goServer = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
         GameObject goServer = Instantiate<GameObject>(spellregistry.serverPrefabs[_spellIndex]);
         Spell.CastingData spelldata = new Spell.CastingData();
