@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class MeteorSpawner : Spell
 {
-    public Fireball m_fireballChild;
-    public float m_factivationRange;
+    public Meteor m_meteorChild;
+    public Transform m_transPortal;
+    public float m_fActivationRange;
 
 
     private Rigidbody m_rigidThis;
@@ -14,8 +15,10 @@ public class MeteorSpawner : Spell
     public float m_fVelocityMultiplier = 2.0f;
 
     CastingData m_spelldata;
-    Transform m_transTarget;
+    public AnimationCurve m_animcurvePortalSize;
     bool m_bFired;
+
+    private float m_fPortalSpawnTime = 2.0f;
 
     public override void Deactivate()
     {
@@ -27,8 +30,6 @@ public class MeteorSpawner : Spell
         Debug.Log("Spell: Meteooor!");
         gameObject.transform.position = spelldata._v3WandPos;
         gameObject.transform.rotation = spelldata._qWandRot;
-        m_rigidThis = GetComponent<Rigidbody>();
-        m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
         m_rigidThis = GetComponent<Rigidbody>();
         m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
         m_spelldata = spelldata;
@@ -47,9 +48,10 @@ public class MeteorSpawner : Spell
     }
 
     // Use this for initialization
-    public override void Start()
+    public override void Awake()
     {
-
+        if (m_meteorChild == null)
+            m_meteorChild = GetComponent<Meteor>();
     }
 
     // Update is called once per frame
@@ -57,10 +59,29 @@ public class MeteorSpawner : Spell
     {
         if(m_bFired)
         {
-            if ((m_rigidThis.transform.position - m_transTarget.position).magnitude <= m_factivationRange)
+            if ((m_rigidThis.transform.position - m_transTarget.position).magnitude <= m_fActivationRange)
             {
-                m_fireballChild.Fire(m_spelldata);
+                SpawnPortal();
             }
         }
+    }
+
+    IEnumerator SpawnPortal()
+    {
+        bool bFire = false;
+        float delta = 0.0f;
+        while(delta < 1.0f)
+        {
+            delta += Time.deltaTime / m_fPortalSpawnTime;
+            float curve = m_animcurvePortalSize.Evaluate(delta);
+            m_transPortal.localScale = new Vector3(curve,curve,curve);
+        }
+        m_transPortal.LookAt(m_transTarget);
+        if(bFire)
+        {
+            m_meteorChild.Fire(m_spelldata);
+        }
+        
+        yield return null;
     }
 }
