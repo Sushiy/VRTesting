@@ -11,6 +11,8 @@ public class LaserBeam : Spell {
     private LayerMask m_layerMask;
     [SerializeField]
     private int m_iNumPoints = 10;
+    [SerializeField]
+    private float m_fRayLength = 20f;
 
     private Vector3 m_v3target;
     private LineRenderer m_lineRenderer;
@@ -37,8 +39,10 @@ public class LaserBeam : Spell {
         }
         else
         {
-            m_v3target = transform.position + transform.forward * 30f;
+            m_v3target = transform.position + transform.forward * m_fRayLength;
         }
+
+        m_v3target = transform.position + transform.forward * m_fRayLength;
 
         targetSphere.MovePosition(m_v3target);
         CalculateLinePoints();
@@ -49,7 +53,7 @@ public class LaserBeam : Spell {
         // BEZIER CURVE
         Vector3[] bezPoints = new Vector3[3];
         bezPoints[0] = transform.position;
-        bezPoints[1] = Vector3.Project(m_v3target, transform.forward) * 0.25f;
+        bezPoints[1] = Vector3.Project(m_v3target, transform.forward) * 0.5f;
         bezPoints[2] = physicsSphere.transform.position;
 
         for (int i = 0; i < m_iNumPoints; ++i)
@@ -66,13 +70,6 @@ public class LaserBeam : Spell {
 
             m_lineRenderer.SetPosition(i, bezPoints[0]);
         }
-
-        // SIMPLE LINE
-        //for (int i = 0; i < m_iNumPoints; ++i)
-        //{
-        //    Vector3 pos = Vector3.Lerp(transform.position, m_v3target, i / ((float)m_iNumPoints-1f));
-        //    m_lineRenderer.SetPosition(i, pos);
-        //}
     }
 
     public override void Fire(CastingData spelldata)

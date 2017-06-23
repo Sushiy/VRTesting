@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 114996844050504090}
   - component: {fileID: 120861226641792432}
   - component: {fileID: 54421675382851904}
+  - component: {fileID: 114762519542580456}
+  - component: {fileID: 114863766919696074}
   m_Layer: 2
   m_Name: LaserBeamServer
   m_TagString: Untagged
@@ -121,8 +123,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1553247003943636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.021, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 3, z: 3}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4916568376393362}
   - {fileID: 4113749302385520}
@@ -379,6 +381,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba42448c9a2fa44409034eead650b5f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114762519542580456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553247003943636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 119
+    i1: 4
+    i2: 41
+    i3: 190
+    i4: 78
+    i5: 177
+    i6: 175
+    i7: 52
+    i8: 233
+    i9: 67
+    i10: 255
+    i11: 58
+    i12: 161
+    i13: 56
+    i14: 252
+    i15: 12
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114863766919696074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553247003943636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114996844050504090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,11 +446,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
-  m_spelltypeThis: 0
-  m_gestureTypeThis: 0
+  m_spelltypeThis: 5
+  m_gestureTypeThis: 4
   m_layerMask:
     serializedVersion: 2
-    m_Bits: 4294967291
+    m_Bits: 4294967295
   m_iNumPoints: 64
 --- !u!120 &120861226641792432
 LineRenderer:
