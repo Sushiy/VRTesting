@@ -9,7 +9,8 @@ public enum SpellType
     FIREBALL,
     SHIELD,
     MAGICMISSILE,
-    METEOR
+    METEOR,
+    LASERBEAM
 }
 
 public class MagicWand : MonoBehaviour {

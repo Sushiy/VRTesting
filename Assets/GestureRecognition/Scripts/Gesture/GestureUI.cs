@@ -50,18 +50,18 @@ namespace gesture
             dataset = recorder.Dataset;
 
             // assert
-            Assert.IsNotNull<Transform>(indexPanel);
-            Assert.IsNotNull<Transform>(typePanel);
-            Assert.IsNotNull<GestureDataRecorder>(recorder);
-            Assert.IsNotNull<GestureData>(dataset);
+            Assert.IsNotNull(indexPanel);
+            Assert.IsNotNull(typePanel);
+            Assert.IsNotNull(recorder);
+            Assert.IsNotNull(dataset);
         }
 
         void Start()
         {
-            gesturesRecorded = new int[dataset.pointsPerGesture];
+            gesturesRecorded = new int[dataset.NumberOfGestureTypes];
 
             indexPanels = new Image[dataset.samplesPerGesture];
-            gesturePanels = new Image[dataset.pointsPerGesture];
+            gesturePanels = new Image[dataset.NumberOfGestureTypes];
 
             // create indexpanel
             for (int i=0; i<dataset.samplesPerGesture; ++i)
@@ -76,7 +76,7 @@ namespace gesture
 
             // create gesture panel buttons
             string[] names = System.Enum.GetNames(typeof(gestureTypes));
-            for (int i = 0; i < dataset.pointsPerGesture; ++i)
+            for (int i = 0; i < dataset.NumberOfGestureTypes; ++i)
             {
                 Transform b = Instantiate(buttonPrefab).transform;
                 b.name = "type_" + i;

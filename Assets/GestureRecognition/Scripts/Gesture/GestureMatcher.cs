@@ -60,6 +60,10 @@ namespace gesture
                     // and copy every single point to a new gesture
                     for (int pointIndex = 0; pointIndex < dataObject.pointsPerGesture; ++pointIndex)
                     {
+                        if (dataObject.gestures[typeIndex].Length == 0)
+                        {
+                            dataObject.gestures[typeIndex] = new Vector2[dataObject.samplesPerGesture * dataObject.pointsPerGesture];
+                        }
                         g.points[pointIndex] = dataObject.gestures[typeIndex][sampleIndex * dataObject.pointsPerGesture + pointIndex];
                     }
 

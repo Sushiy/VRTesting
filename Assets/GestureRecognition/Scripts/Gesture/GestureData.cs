@@ -12,7 +12,8 @@ namespace gesture
         N_GESTURE,
         Z_GESTURE,
         MIRRORED_N_GESTURE,
-        TRIANGLE
+        TRIANGLE,
+        U_GESTURE
     }
 
     /// <summary>
@@ -28,7 +29,8 @@ namespace gesture
         public Vector2[] z_gesture;
         public Vector2[] mirrored_n_gesture;
         public Vector2[] triangle;
-        
+        public Vector2[] u_gesture;
+
         public int samplesPerGesture = 4; // how many samples of one gesture?
         public int pointsPerGesture = 4; // points per gesture
         public bool initialise = true; // makes it a new blank dataset
@@ -46,6 +48,7 @@ namespace gesture
             gestures[1] = z_gesture;
             gestures[2] = mirrored_n_gesture;
             gestures[3] = triangle;
+            gestures[4] = u_gesture;
 
             if (!initialise)
                 return;
@@ -54,6 +57,7 @@ namespace gesture
             z_gesture = new Vector2[samplesPerGesture * pointsPerGesture];
             mirrored_n_gesture = new Vector2[samplesPerGesture * pointsPerGesture];
             triangle = new Vector2[samplesPerGesture * pointsPerGesture];
+            u_gesture = new Vector2[samplesPerGesture * pointsPerGesture];
 
             initialise = false;
         }
