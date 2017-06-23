@@ -206,11 +206,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -274,11 +269,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -469,11 +459,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -537,11 +522,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -3994,11 +3974,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -7621,11 +7596,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -14227,11 +14197,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -14516,11 +14481,6 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -24263,11 +24223,6 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -24331,11 +24286,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -27962,11 +27912,6 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -28160,11 +28105,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -28228,11 +28168,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -28241,6 +28176,49 @@ Transform:
   m_PrefabParentObject: {fileID: 4316044942492080, guid: 79cad42611ab34340abaa1c361128d1e,
     type: 2}
   m_PrefabInternal: {fileID: 1605078382}
+--- !u!1001 &1617448679
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4480985303805522, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480985303805522, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480985303805522, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480985303805522, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480985303805522, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480985303805522, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480985303805522, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480985303805522, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114214105311812944, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 18d3489cb53841a40bc333e9e86dcf46, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1652497783
 GameObject:
   m_ObjectHideFlags: 0
@@ -28513,11 +28491,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -31724,11 +31697,6 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -41499,11 +41467,6 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0
@@ -48117,11 +48080,6 @@ Prefab:
       propertyPath: m_Name
       value: TempleWall (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 23660570970802772, guid: 79cad42611ab34340abaa1c361128d1e,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2f67f1104e9a4b3498ad1186d3018ed1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79cad42611ab34340abaa1c361128d1e, type: 2}
   m_IsPrefabParent: 0

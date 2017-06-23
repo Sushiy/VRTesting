@@ -15,7 +15,7 @@ namespace primitive
     /// TODO check if edges "overlapped" and see if the thing is big enough
     /// </summary>
     [RequireComponent(typeof(LineRenderer))]
-    public class PrimitiveDetector : NetworkBehaviour
+    public class PrimitiveDetector : MonoBehaviour
     {
         public LineRenderer debug_lineRenderer;
 
@@ -217,10 +217,16 @@ namespace primitive
                     break;
             }
             normal = normal.normalized;
-            
-            
 
-            
+            // instantiate circle
+            GameObject circle = Instantiate<GameObject>(prefab_Circle);
+            Primitive primitive = circle.GetComponent<Primitive>();
+            // check for traps
+            if (primitive == null)
+            {
+                Debug.LogError("When instantiating this circle, there was no Primitive Component attached!");
+            }
+
 
             // check if the normal is facing the player or not
             //bool clockwise = isClockwise(center, pointOnCircle1, pointOnCircle2);
@@ -228,23 +234,15 @@ namespace primitive
 
             // set position
             float turnAround = (scalar < 0) ? 1f : -1f;
-            CmdSpawnCircle(turnAround * normal, center, radius);
+            primitive.setPosition(turnAround * normal, center, radius);
         }
 
-        [Command]
-        void CmdSpawnCircle(Vector3 normal, Vector3 center, float radius)
-        {
-            // instantiate circle
-            GameObject circle = Instantiate<GameObject>(prefab_Circle);
-            Primitive primitive = circle.GetComponent<Primitive>();
-            primitive.setPosition(normal, center, radius);
-            // check for traps
-            if (primitive == null)
-            {
-                Debug.LogError("When instantiating this circle, there was no Primitive Component attached!");
-            }
-            NetworkServer.Spawn(circle);
-        }
+        //[Command]
+        //void CmdSpawnCircle(Vector3 normal, Vector3 center, float radius)
+        //{
+            
+        //    NetworkServer.Spawn(circle);
+        //}
 
 
         /*
