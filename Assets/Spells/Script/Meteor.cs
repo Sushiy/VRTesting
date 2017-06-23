@@ -43,7 +43,6 @@ public class Meteor : Spell
         gameObject.transform.LookAt(m_transTarget);
         m_rigidThis = GetComponent<Rigidbody>();
         m_rigidThis.velocity = ((m_transTarget.position-transform.position) * m_fVelocityMultiplier);
-        Invoke("Deactivate", 5.0f);
     }
 
     public void OnCollisionEnter(Collision collision)
