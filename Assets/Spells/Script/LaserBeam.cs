@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 [RequireComponent(typeof(LineRenderer))]
-public class LaserBeam : MonoBehaviour {
+public class LaserBeam : Spell {
 
     [SerializeField]
     private LayerMask m_layerMask;
@@ -48,7 +49,7 @@ public class LaserBeam : MonoBehaviour {
         // BEZIER CURVE
         Vector3[] bezPoints = new Vector3[3];
         bezPoints[0] = transform.position;
-        bezPoints[1] = Vector3.Project(m_v3target, transform.forward) / 2f;
+        bezPoints[1] = Vector3.Project(m_v3target, transform.forward) * 0.25f;
         bezPoints[2] = physicsSphere.transform.position;
 
         for (int i = 0; i < m_iNumPoints; ++i)
@@ -74,8 +75,35 @@ public class LaserBeam : MonoBehaviour {
         //}
     }
 
-    void OnDrawGizmos()
+    public override void Fire(CastingData spelldata)
     {
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward*30f);    
+        Debug.Log("LaserBeam: Fire");
+        //Fetch the MPVRPlayerController
+        MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
+        //Get the transform of the currently casting hand
+        Transform transCastingHand = player.GetCastingHand(spelldata._iCastingHandIndex);
+        //Get rigidbody and the fixedjoint of the casting hand
+        Rigidbody rigidSpell = GetComponent<Rigidbody>();
+        transform.position = transCastingHand.position;
+        transform.rotation = transCastingHand.rotation;
+        FixedJoint fixJOffhand = transCastingHand.GetComponent<FixedJoint>();
+        if (fixJOffhand.connectedBody != null)
+            Destroy(fixJOffhand.connectedBody.gameObject);
+        fixJOffhand.connectedBody = rigidSpell;
+    }
+
+    public override void PlayerHit(GameObject _goPlayer)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SpellHit()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Deactivate()
+    {
+        throw new NotImplementedException();
     }
 }

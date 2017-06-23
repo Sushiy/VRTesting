@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 120861226641792432}
   - component: {fileID: 54421675382851904}
   m_Layer: 2
-  m_Name: LaserBeam
+  m_Name: LaserBeamServer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -390,6 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fab95ba188a4b4fa250e30b09750b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_goLoadedFX: {fileID: 0}
+  m_spelltypeThis: 0
+  m_gestureTypeThis: 0
   m_layerMask:
     serializedVersion: 2
     m_Bits: 4294967291
