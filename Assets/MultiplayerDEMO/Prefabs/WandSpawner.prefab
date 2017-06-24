@@ -129,7 +129,7 @@ MonoBehaviour:
   m_bSpawnOffhand: 1
   m_bDestroyMainHandColliderAfterUse: 1
   m_bDestroyOffHandColliderAfterUse: 0
-  m_bDestroyForcerecorderMesh: 0
+  m_bDestroyForcerecorderMesh: 1
 --- !u!114 &114938293831260240
 MonoBehaviour:
   m_ObjectHideFlags: 1
