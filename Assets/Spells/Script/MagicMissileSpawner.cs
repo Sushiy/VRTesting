@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicMissileSpawner : Spell
+public class MagicMissileSpawner : SpawnerSpell
 {
+    public int m_iChildrenDestroyed = 0;
 
     public override void Deactivate()
     {
@@ -24,7 +25,14 @@ public class MagicMissileSpawner : Spell
                 mm.Fire(spelldata);
             }
         }
-        Invoke("Deactivate", 5.0f);
+        //Invoke("Deactivate", 10.0f);
+    }
+
+    public override void ChildDestroyed()
+    {
+        m_iChildrenDestroyed++;
+        if (m_iChildrenDestroyed == 3)
+            Deactivate();
     }
 
     public override void PlayerHit(GameObject _goPlayer)

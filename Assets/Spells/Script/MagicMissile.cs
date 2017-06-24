@@ -16,6 +16,7 @@ public class MagicMissile : Spell
 
     public override void Deactivate()
     {
+        transform.parent.GetComponent<MagicMissileSpawner>().ChildDestroyed();
         Destroy(gameObject);
     }
 

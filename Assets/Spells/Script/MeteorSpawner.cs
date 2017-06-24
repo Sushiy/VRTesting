@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeteorSpawner : Spell
+public class MeteorSpawner : SpawnerSpell
 {
     public Meteor m_meteorChild;
     public Transform m_transPortal;
@@ -42,7 +42,7 @@ public class MeteorSpawner : Spell
         m_spelldata = spelldata;
         m_bFired = true;
 
-        Invoke("Deactivate", 10.0f);
+        //Invoke("Deactivate", 10.0f);
     }
 
     public override void PlayerHit(GameObject _goPlayer)
@@ -124,5 +124,16 @@ public class MeteorSpawner : Spell
 
 
         yield return null;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Instantiate(explosionPrefab, transform.position, transform.rotation);
+        Deactivate();
+    }
+
+    public override void ChildDestroyed()
+    {
+        Deactivate();
     }
 }
