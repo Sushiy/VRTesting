@@ -13,35 +13,69 @@ public class LaserBeam : Spell {
     private int m_iNumPoints = 10;
     [SerializeField]
     private float m_fRayLength = 20f;
+    [SerializeField]
+    private bool m_bEnableRaycast = true;
+    [SerializeField]
+    private float m_fDuration = 10f;
 
     private Vector3 m_v3target;
     private LineRenderer m_lineRenderer;
-    private Rigidbody targetSphere;
-    private Transform physicsSphere;
-	
-    void Awake()
+    private Rigidbody m_rigidTargetSphere;
+    private Transform m_transPhysicsSphere;
+    private float m_fDurationTimer = 0f;
+    private bool m_bIsEnding = false;
+    private Transform m_transSparks;
+
+    public override void Awake()
     {
+        base.Awake();
+
         m_lineRenderer = GetComponent<LineRenderer>();
         m_lineRenderer.positionCount = m_iNumPoints;
-        targetSphere = transform.Find("TargetSphere").GetComponent<Rigidbody>();
-        physicsSphere = transform.Find("PhysicsSphere").GetComponent<Transform>();
-        Assert.IsNotNull(targetSphere);
-        Assert.IsNotNull(physicsSphere);
+        m_rigidTargetSphere = transform.Find("TargetSphere").GetComponent<Rigidbody>();
+        m_transPhysicsSphere = transform.Find("PhysicsSphere").GetComponent<Transform>();
+        Assert.IsNotNull(m_rigidTargetSphere);
+        Assert.IsNotNull(m_transPhysicsSphere);
+        m_transSparks = transform.Find("EndSparks");
+        Assert.IsNotNull(m_transSparks);
     }
 
-	void FixedUpdate () {
-        RaycastHit hit;
-        if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit, 100f, m_layerMask)){
-            m_v3target = hit.point;
+    public override void Update()
+    {
+        base.Update();
+
+        // update the particle effects on the tip
+        m_transSparks.position = getEndPosition();
+        m_transSparks.LookAt(transform.position);
+
+        // kill the spell
+        if (!m_bIsEnding)
+        {
+            m_fDurationTimer += Time.deltaTime;
+            if (m_fDurationTimer >= m_fDuration)
+            {
+                EndSpell();
+            }
+        }
+    }
+
+
+    void FixedUpdate () {
+        if (m_bEnableRaycast)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit, 100f, m_layerMask)){
+                m_v3target = hit.point;
+            }
+            else
+            {
+                m_v3target = transform.position + transform.forward * m_fRayLength;
+            }
         }
         else
-        {
             m_v3target = transform.position + transform.forward * m_fRayLength;
-        }
 
-        m_v3target = transform.position + transform.forward * m_fRayLength;
-
-        targetSphere.MovePosition(m_v3target);
+        m_rigidTargetSphere.MovePosition(m_v3target);
         CalculateLinePoints();
     }
 
@@ -52,7 +86,7 @@ public class LaserBeam : Spell {
         bezPoints[0] = transform.position;
         bezPoints[1] = transform.position + transform.forward;
         //bezPoints[1] = Vector3.Project(m_v3target, transform.forward) * 0.5f;
-        bezPoints[2] = physicsSphere.transform.position;
+        bezPoints[2] = m_transPhysicsSphere.transform.position;
 
         for (int i = 0; i < m_iNumPoints; ++i)
         {
@@ -79,7 +113,7 @@ public class LaserBeam : Spell {
         Transform transCastingHand = player.GetCastingHand(spelldata._iCastingHandIndex);
         //Get rigidbody and the fixedjoint of the casting hand
         Rigidbody rigidSpell = GetComponent<Rigidbody>();
-        transform.position = transCastingHand.position;
+        transform.position = spelldata._v3WandPos;
         transform.rotation = transCastingHand.rotation;
         FixedJoint fixJOffhand = transCastingHand.GetComponent<FixedJoint>();
         if (fixJOffhand.connectedBody != null)
@@ -100,5 +134,16 @@ public class LaserBeam : Spell {
     public override void Deactivate()
     {
         throw new NotImplementedException();
+    }
+
+    void EndSpell()
+    {
+        Destroy(m_transPhysicsSphere.gameObject);
+        Destroy(this.gameObject);
+    }
+
+    public Vector3 getEndPosition()
+    {
+        return m_lineRenderer.GetPosition(m_iNumPoints - 1);
     }
 }
