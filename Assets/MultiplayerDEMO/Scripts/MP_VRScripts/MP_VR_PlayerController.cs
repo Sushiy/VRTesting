@@ -10,6 +10,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
     private MP_VR_PlayerController m_mpvr_playerOpponent;
     public MP_VR_PlayerController Opponent { get { return m_mpvr_playerOpponent; } }
     public bool m_bIsReady = false;
+    public bool m_bBodyIsReady = false;
 
     [SerializeField]
     private GameObject m_prefabVRStation;
@@ -24,6 +25,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
     private Transform hand1Spawn;
     [SerializeField]
     private Transform hand2Spawn;
+
+    public GameObject m_prefabWand;
+    public GameObject m_prefabOffhand;
 
     private Valve.VR.InteractionSystem.Player m_vrplayerThis;
 
@@ -70,22 +74,26 @@ public class MP_VR_PlayerController : NetworkBehaviour
         {
             return;
         }
+        //Check if you have found your hands
+        if (m_handLeft == null || m_handRight == null)
+        {
+            m_bIsReady = false;
+            m_bBodyIsReady = false;
+            CheckHands();
+            return;
+        }
+        if(!m_bBodyIsReady)
+            m_bBodyIsReady = true;
+
         //Check if you have found your ForceRecorder
-        if(m_forcerecMain == null)
+        if (m_forcerecMain == null)
         {
             m_bIsReady = false;
             InitSpellComponents();
             return;
         }
-        //Check if you have found your hands
-        if (m_handLeft == null || m_handRight == null)
-        {
-            m_bIsReady = false;
-            CheckHands();
-            return;
-        }
         //if you weren't ready yet and made it this far, get ready
-        if(!m_bIsReady)
+        if (!m_bIsReady)
             m_bIsReady = true;
         
         //If the forcerecorder wants us to fire spells, do it
@@ -145,7 +153,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command]
     void CmdServerFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex, GameObject _playerThis)
     {
-        //GameObject goServer = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
         GameObject goServer = Instantiate<GameObject>(spellregistry.serverPrefabs[_spellIndex]);
         Spell.CastingData spelldata = new Spell.CastingData();
         spelldata._v3WandPos = spawnPosition;
@@ -258,5 +265,49 @@ public class MP_VR_PlayerController : NetworkBehaviour
         {
             _opponent.SetOpponent(this);
         }
+    }
+
+    public void SpawnWand(Collider hand, bool m_bSpawnOffhand, bool m_bDestroyForcerecorderMesh, bool m_bDestroyOffHandColliderAfterUse, bool m_bDestroyMainHandColliderAfterUse)
+    {
+        int mainhandIndex;
+        Transform offhand;
+        if (hand.GetComponent<Valve.VR.InteractionSystem.Hand>().transform == m_mpvrhand1.m_transVRHand)
+        {
+            mainhandIndex = 1;
+            offhand = m_mpvrhand2.transform;
+        }
+        else
+        {
+            mainhandIndex = 2;
+            offhand = m_mpvrhand1.transform;
+        }
+        CmdSpawnWand(mainhandIndex, m_bSpawnOffhand, m_bDestroyForcerecorderMesh);
+
+        // Destroy the colliders on the hands
+        if (m_bDestroyMainHandColliderAfterUse) Destroy(hand);
+        if (m_bDestroyOffHandColliderAfterUse) Destroy(offhand.GetComponent<Collider>());
+    }
+
+    [Command]
+    public void CmdSpawnWand(int mainHandIndex, bool m_bSpawnOffhand, bool m_bDestroyForcerecorderMesh)
+    {
+        GameObject mainWand, offWand;
+
+        Transform mainHand, offHand;
+        mainHand = mainHandIndex == 1 ? m_mpvrhand1.transform : m_mpvrhand2.transform;
+        offHand = mainHandIndex == 1 ? m_mpvrhand2.transform : m_mpvrhand1.transform;
+        // Instantiate the wands
+        mainWand = Instantiate(m_prefabWand, mainHand);
+        if (m_bDestroyForcerecorderMesh) Destroy(mainWand.GetComponentInChildren<ForceRecorder>().GetComponent<MeshRenderer>());
+        mainWand.GetComponent<MagicWand>().setMainHand(true);
+        if (m_bSpawnOffhand)
+        {
+            offWand = Instantiate(m_prefabOffhand, offHand);
+            offWand.GetComponent<MagicWand>().setMainHand(false);
+            if (m_bDestroyForcerecorderMesh)
+                Destroy(offWand.GetComponentInChildren<ForceRecorder>().GetComponent<MeshRenderer>());
+            NetworkServer.Spawn(offWand);
+        }
+        NetworkServer.Spawn(mainWand);
     }
 }

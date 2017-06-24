@@ -62,8 +62,8 @@ namespace primitive
             Assert.IsNotNull(trail);
             m_transform = GetComponent<Transform>();
             Assert.IsNotNull(prefab_Circle);
-            //m_VRtransform = m_transform.parent.parent.Find("VRCamera");
-            m_VRtransform = m_transform.parent.parent.GetChild(4);
+            m_VRtransform = Camera.main.transform;
+            //m_VRtransform = m_transform.parent.parent.GetChild(4);
             Assert.IsNotNull(m_VRtransform);
         }
 

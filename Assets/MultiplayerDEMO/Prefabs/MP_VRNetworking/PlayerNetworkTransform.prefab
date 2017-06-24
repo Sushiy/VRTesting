@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 114128807506764530}
   - component: {fileID: 54196510507033148}
   - component: {fileID: 114899743190477224}
+  - component: {fileID: 114312659049695166}
   m_Layer: 11
   m_Name: PlayerNetworkTransform
   m_TagString: Untagged
@@ -521,7 +522,7 @@ GameObject:
   - component: {fileID: 138015360754048852}
   m_Layer: 12
   m_Name: Hand1 Transform
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -699,7 +700,7 @@ GameObject:
   - component: {fileID: 138277518124407954}
   m_Layer: 12
   m_Name: Hand2 Transform
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1030,7 +1031,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322237559393726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.387, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_Children:
   - {fileID: 4640185840351106}
@@ -2380,6 +2381,19 @@ MonoBehaviour:
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.3
   m_InterpolateMovement: 0.3
+--- !u!114 &114312659049695166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322237559393726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6166ed50f5825a44b9fc1af429caeb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToSpawn: {fileID: 1476425995623538, guid: 9e0891b93f5925240a80408eed40221e,
+    type: 2}
 --- !u!114 &114391452532219080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2503,17 +2517,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mpvr_playerOpponent: {fileID: 0}
   m_bIsReady: 0
+  m_bBodyIsReady: 0
   m_prefabVRStation: {fileID: 1198207902069624, guid: f80f5826cd5c4a4439fb3245bbd9b865,
     type: 2}
   spellregistry: {fileID: 11400000, guid: 3beecf07e91f5374d9b2c7e795a05173, type: 2}
-  m_prefabServerSpells:
-  - {fileID: 0}
-  - {fileID: 1611775661731242, guid: 759b9957794247d4bab49dc6bf2854e9, type: 2}
-  - {fileID: 1050107986345280, guid: 6177871d211b37a4fb5871220b83c6fa, type: 2}
   m_mpvrhand1: {fileID: 114219511215169498}
   m_mpvrhand2: {fileID: 114740607327554638}
   hand1Spawn: {fileID: 0}
   hand2Spawn: {fileID: 0}
+  m_prefabWand: {fileID: 1327800626269284, guid: 18d3489cb53841a40bc333e9e86dcf46,
+    type: 2}
+  m_prefabOffhand: {fileID: 1431643627953176, guid: c20f4ff62e8dff245be402047b211cc2,
+    type: 2}
 --- !u!114 &114740607327554638
 MonoBehaviour:
   m_ObjectHideFlags: 1
