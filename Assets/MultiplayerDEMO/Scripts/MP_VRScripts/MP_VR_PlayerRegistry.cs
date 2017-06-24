@@ -30,9 +30,9 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
 
     public MP_VR_PlayerController FindOpponent(GameObject _playerSelf)
     {
-        if (m_goPlayer1 == _playerSelf)
+        if (m_goPlayer1 == _playerSelf && m_goPlayer2 != null)
             return m_goPlayer2.GetComponent<MP_VR_PlayerController>();
-        else if (m_goPlayer2 == _playerSelf)
+        else if (m_goPlayer2 == _playerSelf && m_goPlayer1 != null)
             return m_goPlayer1.GetComponent<MP_VR_PlayerController>();
         else
             return null;
