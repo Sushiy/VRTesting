@@ -128,10 +128,10 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //Last unload the wand
         _magicwand.LoadWand(SpellType.NONE);
     }
-
-    void ClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
+    [ClientRpc]
+    void RpcClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
     {
-        GameObject goClient = Instantiate<GameObject>(spellregistry.serverPrefabs[_spellIndex]);
+        GameObject goClient = Instantiate<GameObject>(spellregistry.clientPrefabs[_spellIndex]);
         Spell.CastingData spelldata = new Spell.CastingData();
         spelldata._v3WandPos = spawnPosition;
         spelldata._qWandRot = spawnRotation;
@@ -158,6 +158,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
         spell.Fire(spelldata);
         // Spawn the spellObject on the Clients
         NetworkServer.Spawn(goServer);
+        RpcClientFireSpell(velocity, spawnPosition, spawnRotation, _spellIndex, _castingHandIndex);
+
     }
 
     //Find ForceRecorder and MagicWand Components
