@@ -84,6 +84,12 @@ public class MP_VR_PlayerController : NetworkBehaviour
             CheckHands();
             return;
         }
+        //Check if you have an opponent
+        if(m_mpvr_playerOpponent == null)
+        {
+            FindOpponent();
+        }
+
         //if you weren't ready yet and made it this far, get ready
         if(!m_bIsReady)
             m_bIsReady = true;
@@ -238,7 +244,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public void FindOpponent()
     {
-        MP_VR_PlayerRegistry.s_instance.FindOtherPlayer(this);
+        m_mpvr_playerOpponent =  MP_VR_PlayerRegistry.s_instance.FindOpponent(gameObject);
     }
 
     public Transform GetCastingHand(int _iCastingHandIndex)
