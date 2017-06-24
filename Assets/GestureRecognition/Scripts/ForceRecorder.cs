@@ -35,7 +35,7 @@ public class ForceRecorder : MonoBehaviour {
     public Vector3 m_v3velocity;
 
     private bool m_bWaitingToFlick = false; // for delayed type
-    private Rigidbody m_rigidWand;
+    //private Rigidbody m_rigidWand;
     private Vector3 m_lastWandPosition = Vector3.zero;
 
     private enum enumFlickDetectingType
@@ -51,7 +51,7 @@ public class ForceRecorder : MonoBehaviour {
         m_flickParticles = GetComponentInChildren<ParticleSystem>();
         Assert.IsNotNull(m_flickParticles);
 
-        m_rigidWand = m_MagicWand.GetComponent<Rigidbody>();
+        //m_rigidWand = m_MagicWand.GetComponent<Rigidbody>();
         m_lastWandPosition = m_MagicWand.m_SpawnPoint.transform.position;
     }
 
@@ -71,7 +71,7 @@ public class ForceRecorder : MonoBehaviour {
             //if (m_rigidWand.velocity.sqrMagnitude < m_fWandVelocityThreshold)
             if (velocity.sqrMagnitude < m_fWandVelocityThreshold)
                 {
-                print("Wand velo: " + velocity.sqrMagnitude);
+                //print("Wand velo: " + velocity.sqrMagnitude);
                 FlickDetected();
                 m_bWaitingToFlick = false;
             }

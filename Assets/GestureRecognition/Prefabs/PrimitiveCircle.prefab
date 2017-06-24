@@ -198,8 +198,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1367136972893760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.9377093, y: -4.6516333, z: 15.081533}
-  m_LocalScale: {x: 0.1, y: 0.04, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0.529, z: 0}
+  m_LocalScale: {x: 1, y: 0.04, z: 1}
   m_Children:
   - {fileID: 4321176642638234}
   - {fileID: 4662595102008206}
@@ -253,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 1475273465075990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 12}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4443550876159292}
   - {fileID: 4170491360585040}
@@ -347,7 +347,7 @@ MeshCollider:
   m_Convex: 1
   m_InflateMesh: 0
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!102 &102745468112453608
 TextMesh:
   serializedVersion: 3
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3f4ccbcc779404ca33e546923bc51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fRadiusFactor: 0.16
+  m_fRadiusFactor: 1
   m_iTries: 5
   debug_text: {fileID: 0}
 --- !u!120 &120767043455769406
@@ -584,7 +584,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -893619130
+  randomSeed: -2058493292
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3619,7 +3619,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1929547315
+  randomSeed: 152053170
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6666,7 +6666,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -126722602
+  randomSeed: -468492996
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9792,7 +9792,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -122487068
+  randomSeed: -466490624
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12839,7 +12839,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -858729569
+  randomSeed: 1762696083
   InitialModule:
     serializedVersion: 3
     enabled: 1
