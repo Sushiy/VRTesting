@@ -18,7 +18,6 @@ public class LaserBeam : Spell {
     private LineRenderer m_lineRenderer;
     private Rigidbody targetSphere;
     private Transform physicsSphere;
-    private Vector3[] bezierPoints;
 	
     void Awake()
     {
@@ -28,8 +27,6 @@ public class LaserBeam : Spell {
         physicsSphere = transform.Find("PhysicsSphere").GetComponent<Transform>();
         Assert.IsNotNull(targetSphere);
         Assert.IsNotNull(physicsSphere);
-
-        bezierPoints = new Vector3[m_iNumPoints];
     }
 
 	void FixedUpdate () {
@@ -53,7 +50,8 @@ public class LaserBeam : Spell {
         // BEZIER CURVE
         Vector3[] bezPoints = new Vector3[3];
         bezPoints[0] = transform.position;
-        bezPoints[1] = Vector3.Project(m_v3target, transform.forward) * 0.5f;
+        bezPoints[1] = transform.position + transform.forward;
+        //bezPoints[1] = Vector3.Project(m_v3target, transform.forward) * 0.5f;
         bezPoints[2] = physicsSphere.transform.position;
 
         for (int i = 0; i < m_iNumPoints; ++i)
