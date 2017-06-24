@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad0e065fff5c2c4ba0f61164294fecd, type: 3}
+  m_Name: SpellRegistry
+  m_EditorClassIdentifier: 
+  serverPrefabs:
+  - {fileID: 0}
+  - {fileID: 1611775661731242, guid: 759b9957794247d4bab49dc6bf2854e9, type: 2}
+  - {fileID: 1050107986345280, guid: 6177871d211b37a4fb5871220b83c6fa, type: 2}
+  - {fileID: 1075939588721284, guid: e6ba4053790b2de4293ee09a36216b3e, type: 2}
+  - {fileID: 1448137643041376, guid: 8244a9c3edda33d4e91e1f771aff298f, type: 2}
+  - {fileID: 1553247003943636, guid: 770429be4eb1af34e943ff3aa138fc0c, type: 2}
+  clientPrefabs:
+  - {fileID: 0}
+  - {fileID: 1302643816489002, guid: e7d750cc362deef4a98bbec7c1d7c5aa, type: 2}
+  - {fileID: 1841176201615080, guid: e2639149d5ad24e47919f860195f81da, type: 2}
+  - {fileID: 0}

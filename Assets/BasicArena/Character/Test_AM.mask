@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Test_AM
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/L_IK_Arm
+    m_Weight: 1
+  - m_Path: Armature/L_IK_Arm/L_IK_Arm_end
+    m_Weight: 1
+  - m_Path: Armature/R_IK_Arm
+    m_Weight: 1
+  - m_Path: Armature/R_IK_Arm/R_IK_Arm_end
+    m_Weight: 1
+  - m_Path: Armature/Root
+    m_Weight: 1
+  - m_Path: Armature/Root/L_UpperLeg
+    m_Weight: 1
+  - m_Path: Armature/Root/L_UpperLeg/L_LowerLeg
+    m_Weight: 1
+  - m_Path: Armature/Root/L_UpperLeg/L_LowerLeg/L_Foot
+    m_Weight: 1
+  - m_Path: Armature/Root/L_UpperLeg/L_LowerLeg/L_Foot/L_Foot_end
+    m_Weight: 1
+  - m_Path: Armature/Root/R_UpperLeg
+    m_Weight: 1
+  - m_Path: Armature/Root/R_UpperLeg/R_LowerLeg
+    m_Weight: 1
+  - m_Path: Armature/Root/R_UpperLeg/R_LowerLeg/R_Foot
+    m_Weight: 1
+  - m_Path: Armature/Root/R_UpperLeg/R_LowerLeg/R_Foot/R_Foot_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/L_Shoulder
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/L_Shoulder/L_UpperArm
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/L_Shoulder/L_UpperArm/L_LowerArm
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/L_Shoulder/L_UpperArm/L_LowerArm/L_Hand
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/L_Shoulder/L_UpperArm/L_LowerArm/L_Hand/L_Hand_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/Neck
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/Neck/Head
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/Neck/Head/Head_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/R_Shoulder
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/R_Shoulder/R_UpperArm
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/R_Shoulder/R_UpperArm/R_LowerArm
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/R_Shoulder/R_UpperArm/R_LowerArm/R_Hand
+    m_Weight: 1
+  - m_Path: Armature/Root/Spine1/Spine2/R_Shoulder/R_UpperArm/R_LowerArm/R_Hand/R_Hand_end
+    m_Weight: 1
+  - m_Path: Avatar
+    m_Weight: 1
