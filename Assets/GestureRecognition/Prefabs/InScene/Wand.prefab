@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 54526245866609734}
   - component: {fileID: 114077566674071448}
   - component: {fileID: 114342116934308944}
-  - component: {fileID: 114314046314469822}
   m_Layer: 0
   m_Name: Wand
   m_TagString: Untagged
@@ -275,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 1327800626269284}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.4}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4180488671630820}
   - {fileID: 4601935459456922}
@@ -563,38 +562,6 @@ MonoBehaviour:
     i15: 70
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114314046314469822
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1327800626269284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 24
-    i1: 211
-    i2: 72
-    i3: 156
-    i4: 181
-    i5: 56
-    i6: 65
-    i7: 164
-    i8: 11
-    i9: 195
-    i10: 51
-    i11: 233
-    i12: 232
-    i13: 109
-    i14: 207
-    i15: 70
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114342116934308944
 MonoBehaviour:
   m_ObjectHideFlags: 1

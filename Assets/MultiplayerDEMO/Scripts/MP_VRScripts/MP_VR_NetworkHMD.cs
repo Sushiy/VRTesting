@@ -30,7 +30,7 @@ public class MP_VR_NetworkHMD : MonoBehaviour
             return;
         }
         
-        if (!m_vrplayerctrlThis.m_bBodyIsReady)
+        if (!m_vrplayerctrlThis.m_bIsReady)
             return;
 
         if (m_transVRHMD != null)

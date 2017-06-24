@@ -29,14 +29,26 @@ public class MP_PickupWand : MonoBehaviour
     {
         if (other.CompareTag("Hand"))
         {
-            foreach(MP_VR_PlayerController p in MP_VR_PlayerRegistry.s_instance.m_list_mpvr_playerctrl)
+            Transform offhand = other.GetComponent<Hand>().otherHand.transform;
+            GameObject mainWand, offWand;
+
+            // Instantiate the wands
+            mainWand = Instantiate(m_prefabWand, other.transform);
+            if (m_bDestroyForcerecorderMesh) Destroy(mainWand.GetComponentInChildren<ForceRecorder>().GetComponent<MeshRenderer>());
+            mainWand.GetComponent<MagicWand>().setMainHand(true);
+            if (m_bSpawnOffhand)
             {
-                if (p.isLocalPlayer)
-                {
-                    p.SpawnWand(other, m_bSpawnOffhand, m_bDestroyForcerecorderMesh, m_bDestroyOffHandColliderAfterUse, m_bDestroyMainHandColliderAfterUse);
-                    Destroy(gameObject);
-                }
+                offWand = Instantiate(m_prefabOffhand, offhand);
+                offWand.GetComponent<MagicWand>().setMainHand(false);
+                if (m_bDestroyForcerecorderMesh)
+                    Destroy(offWand.GetComponentInChildren<ForceRecorder>().GetComponent<MeshRenderer>());
             }
+
+            // Destroy the colliders on the hands
+            if (m_bDestroyMainHandColliderAfterUse) Destroy(other);
+            if (m_bDestroyOffHandColliderAfterUse) Destroy(offhand.GetComponent<Collider>());
+
+            Destroy(gameObject);
         }
     }
 }
