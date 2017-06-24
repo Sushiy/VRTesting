@@ -173,7 +173,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         if (m_forcerecMain != null && m_magicwandMain != null && m_forcerecOff != null && m_magicwandOff != null)
             return;
 
-        ForceRecorder[] forceRecorders = m_vrplayerThis.GetComponentsInChildren<ForceRecorder>();
+        ForceRecorder[] forceRecorders = GetComponentsInChildren<ForceRecorder>();
         if (forceRecorders.Length != 2)
         {
             //Debug.LogError("There are not exactly 2 Forcerecorders on this player");
