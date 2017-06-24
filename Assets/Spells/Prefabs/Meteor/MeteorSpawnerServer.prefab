@@ -256,6 +256,8 @@ GameObject:
   - component: {fileID: 114886737983021442}
   - component: {fileID: 75856031380673536}
   - component: {fileID: 114607804690377424}
+  - component: {fileID: 114100770075582870}
+  - component: {fileID: 114722210399594874}
   m_Layer: 9
   m_Name: MeteorSpawnerServer
   m_TagString: Untagged
@@ -1094,6 +1096,25 @@ MonoBehaviour:
     i15: 143
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114100770075582870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448137643041376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4582717423603058}
+  m_ChildIndex: 0
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.3
+  m_InterpolateMovement: 0.3
 --- !u!114 &114134601551215978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1188,7 +1209,8 @@ MonoBehaviour:
   m_psSpawn: {fileID: 198887241121747184}
   m_goMissile: {fileID: 1795393286840778}
   m_fActivationRange: 13
-  explosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
+    type: 2}
   m_fVelocityMultiplier: 5
   m_animcurvePortalSize:
     serializedVersion: 2
@@ -1233,6 +1255,25 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   m_fPortalSpawnTime: 0.7
+--- !u!114 &114722210399594874
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448137643041376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4024746501473502}
+  m_ChildIndex: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.3
+  m_InterpolateMovement: 0.3
 --- !u!114 &114740448699448666
 MonoBehaviour:
   m_ObjectHideFlags: 1

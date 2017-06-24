@@ -30,6 +30,7 @@ public class Meteor : Spell
     public override void Deactivate()
     {
         Destroy(gameObject);
+        transform.parent.GetComponent<MeteorSpawner>().ChildDestroyed();
     }
 
     public override void Fire(CastingData spelldata)
@@ -53,7 +54,7 @@ public class Meteor : Spell
         {
             PlayerHit(goOther);
         }
-        Destroy(gameObject);
+        Deactivate();
     }
 
     public override void PlayerHit(GameObject _goPlayer)
