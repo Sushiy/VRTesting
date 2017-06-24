@@ -36,7 +36,6 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
             return m_goPlayer1.GetComponent<MP_VR_PlayerController>();
         else
             return null;
-
     }
 
 }
