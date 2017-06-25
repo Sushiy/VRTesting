@@ -286,7 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c38e0414ef3d714f8fb49b14b3293e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_goLoadedFX: {fileID: 0}
+  m_goLoadedFX: {fileID: 1548777840797678, guid: edd0883cfa96a524ea98cfd2ee120245,
+    type: 2}
   m_spelltypeThis: 1
   m_gestureTypeThis: 0
   explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,

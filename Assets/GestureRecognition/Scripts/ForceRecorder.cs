@@ -132,7 +132,7 @@ public class ForceRecorder : MonoBehaviour {
 
         // is the wand loaded? => play the flick particles
         if (m_MagicWand.IsWandLoaded())
-            m_flickParticles.Play();
+            //m_flickParticles.Play();
 
         //m_MagicWand.FireSpell(m_rigid.velocity);
 

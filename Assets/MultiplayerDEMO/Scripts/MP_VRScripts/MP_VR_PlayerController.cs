@@ -125,14 +125,14 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //3. Let the Server fire his version of the spell first
         //CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
         CmdServerFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex, gameObject);
-        
+
         /*//Client Spells are DISABLED FOR TESTING
         
         //4. Now Fire the Client version of the spell
         ClientFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex);
         */
         //Last unload the wand
-        _magicwand.LoadWand(SpellType.NONE);
+        _magicwand.UnLoadWand();
     }
     [ClientRpc]
     void RpcClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)

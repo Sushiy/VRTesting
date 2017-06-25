@@ -136,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1553247003943636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.37, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4113749302385520}
@@ -377,7 +377,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294961915
   m_iNumPoints: 64
-  m_fRayLength: 30
+  m_fRayLength: 50
   m_bEnableRaycast: 1
   m_fDuration: 10
 --- !u!120 &120861226641792432
@@ -432,8 +432,8 @@ LineRenderer:
         outSlope: 0.9133709
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.87501085
-        value: 1
+        time: 0.86683214
+        value: 0.34940147
         inSlope: 0
         outSlope: 0
         tangentMode: 0

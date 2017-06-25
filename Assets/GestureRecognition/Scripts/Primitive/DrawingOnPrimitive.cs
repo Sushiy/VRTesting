@@ -31,6 +31,8 @@ namespace primitive
         private GestureConverter m_converter;
         private GestureMatcher m_matcher;
 
+        private ParticleSystem m_psDrawing;
+
         void Awake()
         {
             m_transform = transform;
@@ -54,11 +56,14 @@ namespace primitive
             m_magicWand = GetComponent<MagicWand>();
             Assert.IsNotNull<MagicWand>(m_magicWand);
 
-            
+            m_psDrawing = GetComponentInChildren<ParticleSystem>();
         }
 
         void OnTriggerEnter(Collider c)
         {
+            if (c.CompareTag("Primitive"))
+                m_psDrawing.Play();
+
             OnTriggerStay(c);
         }
 
@@ -79,6 +84,8 @@ namespace primitive
                 out hit,
                 wand.magnitude))
             {
+                m_psDrawing.transform.position = hit.point;
+
                 if (Vector3.Distance(hit.point, m_v3LastPoint) > m_fMinimumDistance)
                 {
                     // add to the debug queue
@@ -126,7 +133,9 @@ namespace primitive
             if (valid)
             {
                 m_magicWand.LoadWand(type);
+                StartCoroutine(SuckInParticles());
             }
+            m_psDrawing.Stop();
 
             // reduce one try
             Primitive primitive = c.GetComponent<Primitive>();
@@ -143,6 +152,15 @@ namespace primitive
             {
                 line.positionCount = 0;
             }
+        }
+
+        IEnumerator SuckInParticles()
+        {
+            m_psDrawing.GetComponent<particleAttractorMove>().active = true ;
+            while (m_psDrawing.IsAlive())
+                yield return null;
+            m_psDrawing.GetComponent<particleAttractorMove>().active = false;
+            yield return null;
         }
     }
 }

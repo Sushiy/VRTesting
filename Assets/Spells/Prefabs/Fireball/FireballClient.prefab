@@ -252,7 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c38e0414ef3d714f8fb49b14b3293e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_goLoadedFX: {fileID: 0}
+  m_goLoadedFX: {fileID: 1548777840797678, guid: edd0883cfa96a524ea98cfd2ee120245,
+    type: 2}
   m_spelltypeThis: 1
   m_gestureTypeThis: 0
   explosionPrefab: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,

@@ -35,7 +35,7 @@ public abstract class Spell : MonoBehaviour
     public abstract void PlayerHit(GameObject _goPlayer);
     public abstract void SpellHit();
     public abstract void Deactivate();
-    public GameObject Loaded()
+    public GameObject LoadedFX()
     {
         return m_goLoadedFX;
     }

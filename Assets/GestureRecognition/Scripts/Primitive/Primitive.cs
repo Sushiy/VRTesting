@@ -14,11 +14,17 @@ namespace primitive
         [SerializeField]
         private float m_fRadiusFactor = 0.1f;
         [SerializeField]
-        private int m_iTries = 3;
+        private int m_iTries = 1;
         [SerializeField]
         private TextMesh debug_text;
+        [SerializeField]
+        private float m_fMaxTimeToCast = 2.0f;
+        private float m_fTimer = 0.0f;
 
         private Transform m_thisTransform;
+
+        public GameObject m_psDestruction;
+        private bool m_bDestroying = false;
 
         void Awake()
         {
@@ -33,6 +39,30 @@ namespace primitive
 	    void OnDestroy()
         {
             s_iPrimitiveCount -= 1;
+
+        }
+
+        void Deactivate()
+        {
+            GameObject go = GameObject.Instantiate(m_psDestruction);
+            go.transform.rotation = m_thisTransform.rotation;
+            go.transform.position = m_thisTransform.position;
+            go.transform.localScale = new Vector3(m_thisTransform.localScale.x, m_thisTransform.localScale.x, m_thisTransform.localScale.x);
+            Destroy(gameObject);
+        }
+
+        void Update()
+        {
+            if(!m_bDestroying)
+                m_fTimer += Time.deltaTime;
+
+            if (m_fTimer > m_fMaxTimeToCast)
+            {
+                Deactivate();
+                m_bDestroying = true;
+                m_fTimer = 0.0f;
+            }
+
         }
 
         public void setPosition(Vector3 normal, Vector3 center, float radius)
@@ -52,18 +82,9 @@ namespace primitive
             if (debug_text != null) debug_text.text = "Number of Tries: " + m_iTries;
             if (m_iTries == 0 || destroy)
             {
-                Destroy(gameObject);
+                Deactivate();
             }
         }
-
-        //void OnDrawGizmos()
-        //{
-        //    if (debug_normal != null)
-        //    {
-        //        Gizmos.color = new Color(244/255f, 66/255f, 238/255f);
-        //        Gizmos.DrawLine(m_thisTransform.position, debug_normal * 3f);
-        //    }
-        //}
     }
 }
 

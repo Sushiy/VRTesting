@@ -17,7 +17,7 @@ public class DestroyPSwhenDone : MonoBehaviour {
     {
 		if(!ps.IsAlive())
         {
-            Destroy(gameObject);
+            Destroy(transform.root.gameObject);
         }
 	}
 }

@@ -21,7 +21,7 @@ public class MagicWand : MonoBehaviour {
     public Transform m_SpawnPoint;
 
     private SpellType m_enumLoadedSpell = SpellType.NONE;
-    private ParticleSystem m_loadedParticles;
+    private GameObject m_loadedfx;
     public SpellType LoadedSpell { get { return m_enumLoadedSpell; } }
     public bool isMainHand;// { get; private set; }
 
@@ -29,25 +29,10 @@ public class MagicWand : MonoBehaviour {
     {
         Assert.IsNotNull(m_SpawnPoint);
         Assert.IsNotNull(spellRegistry);
-        m_loadedParticles = GetComponentInChildren<ParticleSystem>();
-        Assert.IsNotNull<ParticleSystem>(m_loadedParticles);
-
-        //isMainHand = false;
     }
 
     void Update()
     {
-        // is loaded?
-        if (m_enumLoadedSpell != SpellType.NONE)
-        {
-            // play the particle effect
-            if (!m_loadedParticles.isPlaying) m_loadedParticles.Play();
-        }
-        // not loaded
-        else
-        {
-            if (m_loadedParticles.isPlaying) m_loadedParticles.Stop();
-        }
     }
 
     public void LoadWand(SpellType spell)
@@ -55,15 +40,30 @@ public class MagicWand : MonoBehaviour {
         m_enumLoadedSpell = spell;
     }
 
+    public void UnLoadWand()
+    {
+        if(m_loadedfx != null)
+        {
+            GameObject go = m_loadedfx;
+            Destroy(go);
+            m_loadedfx = null;
+        }
+        m_enumLoadedSpell = SpellType.NONE;
+    }
+
     public void LoadWand(gesture.gestureTypes _gesture)
     {
-        foreach(GameObject go in spellRegistry.serverPrefabs)
+        foreach(GameObject go in spellRegistry.clientPrefabs)
         {
             if(go!=null)
             {
                 Spell s = go.GetComponent<Spell>();
                 if (s != null && s.Gesture == _gesture)
+                {
                     m_enumLoadedSpell = s.SpellType;
+                    if (s.LoadedFX() != null)
+                        m_loadedfx = GameObject.Instantiate<GameObject>(s.LoadedFX(), m_SpawnPoint.position, m_SpawnPoint.rotation, m_SpawnPoint);
+                }
 
             }
         }
