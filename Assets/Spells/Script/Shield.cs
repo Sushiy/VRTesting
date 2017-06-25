@@ -9,7 +9,7 @@ public class Shield : Spell
 
     public override void Deactivate()
     {
-        throw new NotImplementedException();
+        Destroy(gameObject);
     }
 
     public override void Fire(CastingData spelldata)
@@ -23,10 +23,14 @@ public class Shield : Spell
         Rigidbody rigidSpell = GetComponent<Rigidbody>();
         transform.position = transCastingHand.position;
         transform.rotation = transCastingHand.rotation;
-        FixedJoint fixJOffhand = transCastingHand.GetComponent<FixedJoint>();
-        if (fixJOffhand.connectedBody != null)
-            Destroy(fixJOffhand.connectedBody.gameObject);
-        fixJOffhand.connectedBody = rigidSpell;
+        if (spelldata._iCastingHandIndex == 1)
+            transform.rotation *= Quaternion.Euler(0, 0, 180);
+        FixedJoint fixJHand = transCastingHand.GetComponent<FixedJoint>();
+        if (fixJHand.connectedBody != null)
+            Destroy(fixJHand.connectedBody.gameObject);
+        fixJHand.connectedBody = rigidSpell;
+
+        Invoke("Deactivate", 3.0f);
 
     }
 

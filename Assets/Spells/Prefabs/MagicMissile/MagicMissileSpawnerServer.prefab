@@ -517,7 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8aed9b69d3a0734bb9cd110b4ca7967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_goLoadedFX: {fileID: 0}
+  m_goLoadedFX: {fileID: 1859803208148210, guid: b7556069abf8f2942a7d35fb03fa9064,
+    type: 2}
   m_spelltypeThis: 3
   m_gestureTypeThis: 1
   m_iChildrenDestroyed: 0

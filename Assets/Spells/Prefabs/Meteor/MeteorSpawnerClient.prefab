@@ -1069,7 +1069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984fd7aa76eb5ea4dbd7d43401e4b372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_goLoadedFX: {fileID: 0}
+  m_goLoadedFX: {fileID: 1548777840797678, guid: edd0883cfa96a524ea98cfd2ee120245,
+    type: 2}
   m_spelltypeThis: 4
   m_gestureTypeThis: 2
   m_meteorChild: {fileID: 114533055773628892}

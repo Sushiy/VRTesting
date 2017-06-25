@@ -121,16 +121,10 @@ public class MP_VR_PlayerController : NetworkBehaviour
         int spellIndex = (int)_magicwand.LoadedSpell;
         
         //2. Find out which hand is your wand hand which is your offhand
-        int iCastingHandIndex = FindCastingHand(_magicwand);
+        int iCastingHandIndex = FindWandHand(_magicwand);
         //3. Let the Server fire his version of the spell first
         //CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
         CmdServerFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex, gameObject);
-
-        /*//Client Spells are DISABLED FOR TESTING
-        
-        //4. Now Fire the Client version of the spell
-        ClientFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex);
-        */
         //Last unload the wand
         _magicwand.UnLoadWand();
     }
@@ -225,7 +219,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         }
     }
 
-    private int FindCastingHand(MagicWand _magicwand)
+    public int FindWandHand(MagicWand _magicwand)
     {
         if (_magicwand != null)
         {

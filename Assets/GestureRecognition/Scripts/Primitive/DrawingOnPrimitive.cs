@@ -160,6 +160,7 @@ namespace primitive
             while (m_psDrawing.IsAlive())
                 yield return null;
             m_psDrawing.GetComponent<particleAttractorMove>().active = false;
+
             yield return null;
         }
     }

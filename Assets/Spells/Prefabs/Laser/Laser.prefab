@@ -55,6 +55,7 @@ MonoBehaviour:
   uvAnimationTileX: 6
   uvAnimationTileY: 6
   framesPerSecond: 15
+  animateLineRendererMaterial: 0
 --- !u!120 &120678856355557526
 LineRenderer:
   m_ObjectHideFlags: 1
