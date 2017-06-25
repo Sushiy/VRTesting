@@ -84,6 +84,12 @@ public class MP_VR_PlayerController : NetworkBehaviour
             CheckHands();
             return;
         }
+        //Check if you have an opponent
+        if(m_mpvr_playerOpponent == null)
+        {
+            FindOpponent();
+        }
+
         //if you weren't ready yet and made it this far, get ready
         if(!m_bIsReady)
             m_bIsReady = true;
@@ -128,10 +134,10 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //Last unload the wand
         _magicwand.LoadWand(SpellType.NONE);
     }
-
-    void ClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
+    [ClientRpc]
+    void RpcClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
     {
-        GameObject goClient = Instantiate<GameObject>(spellregistry.serverPrefabs[_spellIndex]);
+        GameObject goClient = Instantiate<GameObject>(spellregistry.clientPrefabs[_spellIndex]);
         Spell.CastingData spelldata = new Spell.CastingData();
         spelldata._v3WandPos = spawnPosition;
         spelldata._qWandRot = spawnRotation;
@@ -158,6 +164,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
         spell.Fire(spelldata);
         // Spawn the spellObject on the Clients
         NetworkServer.Spawn(goServer);
+        RpcClientFireSpell(velocity, spawnPosition, spawnRotation, _spellIndex, _castingHandIndex);
+
     }
 
     //Find ForceRecorder and MagicWand Components
@@ -236,7 +244,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public void FindOpponent()
     {
-        MP_VR_PlayerRegistry.s_instance.FindOtherPlayer(this);
+        m_mpvr_playerOpponent =  MP_VR_PlayerRegistry.s_instance.FindOpponent(gameObject);
     }
 
     public Transform GetCastingHand(int _iCastingHandIndex)

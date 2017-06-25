@@ -40,7 +40,7 @@ public class MP_Health : NetworkBehaviour
                 currentHealth = MAX_HEALTH;
 
                 // called on the Server, invoked on the Clients
-                RpcRespawn();
+                CmdRespawnSvr();
             }
         }
     }
@@ -67,5 +67,15 @@ public class MP_Health : NetworkBehaviour
             // Set the player’s position to the chosen spawn point
             transform.position = spawnPoint;
         }
+    }
+
+    [Command]
+    void CmdRespawnSvr()
+    {
+        Transform spawn = NetworkManager.singleton.GetStartPosition();
+        GameObject newPlayer = (GameObject)Instantiate(NetworkManager.singleton.playerPrefab, spawn.position, spawn.rotation);
+        NetworkServer.Destroy(this.gameObject);
+        NetworkServer.ReplacePlayerForConnection(this.connectionToClient, newPlayer, this.playerControllerId);
+
     }
 }

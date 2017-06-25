@@ -7,40 +7,35 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
 {
     public static MP_VR_PlayerRegistry s_instance;
 
-    public List<MP_VR_PlayerController> m_list_mpvr_playerctrl;
-    public HomingTarget m_homingtargetDefault;
-
-    public GameObject prefab;
-
+    [SyncVar]
+    public GameObject m_goPlayer1;
+    [SyncVar]
+    public GameObject m_goPlayer2;
 	// Use this for initialization
 	void Start ()
     {
         s_instance = this;
-        m_list_mpvr_playerctrl = new List<MP_VR_PlayerController>();
     }
 
     public void AddPlayer(MP_VR_PlayerController _newPlayer)
     {
-        m_list_mpvr_playerctrl.Add(_newPlayer);
-        foreach (MP_VR_PlayerController player in m_list_mpvr_playerctrl)
-        {
-            if (player != _newPlayer)
-            {
-                player.SetOpponent(_newPlayer);
-            }
-        }
+        if (m_goPlayer1 == null)
+            m_goPlayer1 = _newPlayer.gameObject;
+        else if (m_goPlayer2 == null)
+            m_goPlayer2 = _newPlayer.gameObject;
+        else
+            Debug.LogWarning("Too many players");
+
     }
 
-    public MP_VR_PlayerController FindOtherPlayer(MP_VR_PlayerController _playerSelf)
+    public MP_VR_PlayerController FindOpponent(GameObject _playerSelf)
     {
-        foreach (MP_VR_PlayerController player in m_list_mpvr_playerctrl)
-        {
-            if (player != _playerSelf)
-            {
-                return player;
-            }
-        }
-        return null;
+        if (m_goPlayer1 == _playerSelf && m_goPlayer2 != null)
+            return m_goPlayer2.GetComponent<MP_VR_PlayerController>();
+        else if (m_goPlayer2 == _playerSelf && m_goPlayer1 != null)
+            return m_goPlayer1.GetComponent<MP_VR_PlayerController>();
+        else
+            return null;
     }
 
 }
