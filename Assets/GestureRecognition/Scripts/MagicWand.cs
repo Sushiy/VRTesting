@@ -77,7 +77,11 @@ public class MagicWand : MonoBehaviour {
                 {
                     m_enumLoadedSpell = s.SpellType;
                     if (s.LoadedFX() != null)
+                    {
+                        GameObject ps = m_loadedfx;
+                        Destroy(ps);
                         m_loadedfx = GameObject.Instantiate<GameObject>(s.LoadedFX(), m_SpawnPoint.position, m_SpawnPoint.rotation, m_SpawnPoint);
+                    }
                 }
 
             }

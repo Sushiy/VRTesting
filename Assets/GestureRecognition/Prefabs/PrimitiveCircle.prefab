@@ -401,7 +401,6 @@ MonoBehaviour:
   m_fRadiusFactor: 1.2
   m_iTries: 1
   debug_text: {fileID: 0}
-  m_fMaxTimeToCast: 2
   m_psDestruction: {fileID: 1022978586413546, guid: 5a48f6dbad10a494ebedcf7d11160603,
     type: 2}
 --- !u!120 &120767043455769406
@@ -556,7 +555,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1617284909
+  randomSeed: -748190601
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3591,7 +3590,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -852252364
+  randomSeed: -1646840255
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6717,7 +6716,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -349081761
+  randomSeed: -1327163803
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9764,14 +9763,14 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -312634824
+  randomSeed: -165827161
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -12871,7 +12870,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -352523158
+  randomSeed: -1416698330
   InitialModule:
     serializedVersion: 3
     enabled: 1
