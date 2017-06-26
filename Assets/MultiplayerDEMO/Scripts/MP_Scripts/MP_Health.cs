@@ -51,7 +51,6 @@ public class MP_Health : NetworkBehaviour
     void OnChangeHealth(int currentHealth)
     {
         this.currentHealth = currentHealth;
-        old_Healthbar.sizeDelta = new Vector2(currentHealth, old_Healthbar.sizeDelta.y);
         m_healthbar.UpdateHealth(currentHealth);
     }
 

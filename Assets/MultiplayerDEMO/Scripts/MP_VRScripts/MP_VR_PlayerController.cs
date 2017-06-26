@@ -62,7 +62,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         CheckHands();
         //Grab the forcerecorder and wand
         InitSpellComponents();
-        MP_VR_PlayerRegistry.s_instance.AddPlayer(this);
+        GetComponent<MP_VR_PlayerRegistry>().AddPlayer(this);
     }
 
     public void Start()
@@ -252,6 +252,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public void FindOpponent()
     {
+        m_mpvr_playerOpponent = GetComponent<MP_VR_PlayerRegistry>().FindOpponent(gameObject);
+        if(m_mpvr_playerOpponent == null)
         foreach(GameObject g in m_goPlayers)
         {
             if (g != gameObject)
