@@ -17,8 +17,7 @@ namespace primitive
         private int m_iTries = 1;
         [SerializeField]
         private TextMesh debug_text;
-        [SerializeField]
-        private float m_fMaxTimeToCast = 2.0f;
+        private float m_fMaxTimeToCast = 3.0f;
         private float m_fTimer = 0.0f;
 
         private Transform m_thisTransform;

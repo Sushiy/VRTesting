@@ -32,6 +32,9 @@ namespace primitive
         private GestureMatcher m_matcher;
 
         private ParticleSystem m_psDrawing;
+        private Collider trigger;
+        private bool m_bIsInTrigger = false;
+        private float m_fTriggerTimer = 0.0f;
 
         private SpellType[] m_gestureLUT = new SpellType[]
         {
@@ -82,6 +85,9 @@ namespace primitive
         /// <param name="c">Plane Collider</param>
         void OnTriggerStay(Collider c)
         {
+            m_bIsInTrigger = true;
+            m_fTriggerTimer = 0.0f;
+            trigger = c;
             // only for primitives
             if (!c.CompareTag("Primitive"))
                 return;
@@ -117,6 +123,7 @@ namespace primitive
         /// <param name="c"></param>
         void OnTriggerExit(Collider c)
         {
+            m_bIsInTrigger = false;
             // only for primitives
             if (!c.CompareTag("Primitive"))
                 return;
@@ -162,6 +169,18 @@ namespace primitive
                 line.positionCount = 0;
             }
         }
+
+        private void Update()
+        {
+            if(m_bIsInTrigger)
+            {
+                m_fTriggerTimer += Time.deltaTime;
+
+                if (m_fTriggerTimer > 0.25f)
+                    OnTriggerExit(trigger);
+            }
+        }
+
 
         IEnumerator SuckInParticles()
         {
