@@ -67,8 +67,10 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public void Start()
     {
+        Debug.Log("start called");
         if(!isServer)
         {
+            Debug.Log("...on not server");
             CmdAddMeToPlayerList(gameObject);
         }
     }
