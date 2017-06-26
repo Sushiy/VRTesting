@@ -21,6 +21,7 @@ public class MagicWand : MonoBehaviour {
     public Transform m_SpawnPoint;
     [SerializeField]
     private SpellType m_enumLoadedSpell = SpellType.NONE;
+    private SpellType m_enumLastSpell = SpellType.NONE;
     private GameObject m_loadedfx;
     public SpellType LoadedSpell { get { return m_enumLoadedSpell; } }
     public bool isMainHand;// { get; private set; }
@@ -33,6 +34,7 @@ public class MagicWand : MonoBehaviour {
     {
         Assert.IsNotNull(m_SpawnPoint);
         Assert.IsNotNull(spellRegistry);
+        LoadWand(m_enumLoadedSpell);
     }
 
     void Update()
@@ -45,13 +47,16 @@ public class MagicWand : MonoBehaviour {
             if (timer > offHandCastTimer)
             {
                 hasCasted = false;
+                LoadWand(m_enumLastSpell);
                 timer = 0.0f;
+                chargingParticles.Stop();
             }
         }
     }
 
     public void UnLoadWand()
     {
+        m_enumLastSpell = m_enumLoadedSpell;
         if(m_loadedfx != null)
         {
             GameObject go = m_loadedfx;

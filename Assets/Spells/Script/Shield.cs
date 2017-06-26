@@ -7,7 +7,7 @@ public class Shield : Spell
 {
     //private Rigidbody m_rigidThis;
     private float timer = 0.0f;
-    private static float maxShield = 3.0f;
+    private static float maxShield = 4.0f;
     public AnimationCurve curve;
     public override void Deactivate()
     {
@@ -25,8 +25,8 @@ public class Shield : Spell
         Rigidbody rigidSpell = GetComponent<Rigidbody>();
         transform.position = transCastingHand.position;
         transform.rotation = transCastingHand.rotation;
-        if (spelldata._iCastingHandIndex == 1)
-            transform.rotation *= Quaternion.Euler(0, 0, 180);
+        transform.rotation *= Quaternion.Euler(0, 90, 0);
+        transform.position += transform.right * -0.7f;
         FixedJoint fixJHand = transCastingHand.GetComponent<FixedJoint>();
         if (fixJHand.connectedBody != null)
             Destroy(fixJHand.connectedBody.gameObject);
@@ -48,7 +48,7 @@ public class Shield : Spell
 
     public override void Update()
     {
-        timer += Time.deltaTime;
+        timer += Time.deltaTime/maxShield;
         MeshRenderer m = GetComponent<MeshRenderer>();
 
         m.material.SetFloat("_SliceAmount", curve.Evaluate(timer));
