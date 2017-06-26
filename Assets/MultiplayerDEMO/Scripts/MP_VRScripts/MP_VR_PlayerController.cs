@@ -70,12 +70,13 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public void Start()
     {
+        targetPosition = transform.position + transform.forward * 32.0f;
         Debug.Log("start called");
-        if(isLocalPlayer)
+        CmdAddMeToPlayerList(gameObject);
+        if (isLocalPlayer)
         {
             Debug.Log("...on not server");
 
-            CmdAddMeToPlayerList(gameObject);
         }
     }
 
@@ -123,7 +124,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //If the forcerecorder wants us to fire spells, do it
         if (m_forcerecOff.isFiring())
         {
-            if (m_magicwandOff.IsWandLoaded())
+            if (m_magicwandOff.IsWandLoaded() && !m_magicwandOff.hasCasted)
             {
                 CastASpell(m_magicwandOff);
             }
@@ -143,7 +144,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
         CmdServerFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex, gameObject);
         //Last unload the wand
-        _magicwand.UnLoadWand();
+        if(_magicwand.isMainHand)
+            _magicwand.UnLoadWand();
     }
     [ClientRpc]
     void RpcClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)

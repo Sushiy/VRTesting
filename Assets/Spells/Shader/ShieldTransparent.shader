@@ -6,6 +6,11 @@
 		_TexColor("Texture Color", Color) = (1.0,1.0,1.0,1.0)
 		_RimColor("Rim Color", Color) = (1.0,1.0,1.0,1.0)
 		_Shine("Shine", Float) = 10
+		_SliceGuide("Slice Guide (RGB)", 2D) = "white" {}
+		_SliceAmount("Slice Amount", Range(0.0, 1.0)) = 0.5
+
+		_BurnSize("Burn Size", Range(0.0, 1.0)) = 0.15
+		_BurnRamp("Burn Ramp (RGB)", 2D) = "white" {}
 	}
 	
 	SubShader
@@ -32,6 +37,11 @@
 			uniform fixed4 _RimColor;
 			uniform fixed4 _TexColor;
 			uniform fixed _Shine;
+
+			sampler2D _SliceGuide;
+			float _SliceAmount;
+			sampler2D _BurnRamp;
+			float _BurnSize;
 
 
 			uniform float4 _LightColor0;
@@ -74,6 +84,8 @@
 
 			fixed4 frag(v2f i) : SV_Target
 			{
+				
+				clip(tex2D(_SliceGuide, i.uv).rgb - _SliceAmount);
 				fixed3 normalDirection = i.normalDir;
 				fixed3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
 				fixed3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
@@ -96,7 +108,14 @@
 				fixed alphaT = tex.a + _RimColor.a;
 				fixed alphaR = 1 -(rim * _TexColor.a);
 
-				return fixed4(lightFinal * tex, (alphaT / rim) * alphaR);
+				fixed4 output = fixed4(lightFinal * tex, (alphaT / rim) * alphaR);
+
+				half test = tex2D(_SliceGuide, i.uv).rgb - _SliceAmount;
+				if (test < _BurnSize && _SliceAmount > 0 && _SliceAmount < 1) {
+					output * tex2D(_BurnRamp, float2(test *(1 / _BurnSize), 0));
+				}
+				return output;
+
 			}
 
 			ENDCG

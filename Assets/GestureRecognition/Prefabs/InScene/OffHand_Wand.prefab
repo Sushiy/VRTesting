@@ -394,6 +394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellRegistry: {fileID: 11400000, guid: 3beecf07e91f5374d9b2c7e795a05173, type: 2}
   m_SpawnPoint: {fileID: 4168810401978288}
+  m_enumLoadedSpell: 2
   isMainHand: 0
 --- !u!114 &114854728039575588
 MonoBehaviour:

@@ -6,7 +6,9 @@ using UnityEngine;
 public class Shield : Spell
 {
     //private Rigidbody m_rigidThis;
-
+    private float timer = 0.0f;
+    private static float maxShield = 3.0f;
+    public AnimationCurve curve;
     public override void Deactivate()
     {
         Destroy(gameObject);
@@ -30,7 +32,7 @@ public class Shield : Spell
             Destroy(fixJHand.connectedBody.gameObject);
         fixJHand.connectedBody = rigidSpell;
 
-        Invoke("Deactivate", 3.0f);
+        Invoke("Deactivate", maxShield);
 
     }
 
@@ -42,5 +44,13 @@ public class Shield : Spell
     public override void SpellHit()
     {
         throw new NotImplementedException();
+    }
+
+    public override void Update()
+    {
+        timer += Time.deltaTime;
+        MeshRenderer m = GetComponent<MeshRenderer>();
+
+        m.material.SetFloat("_SliceAmount", curve.Evaluate(timer));
     }
 }

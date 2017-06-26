@@ -24,7 +24,7 @@ public class WandLoadOffhand : MonoBehaviour {
                 MagicWand offhandWand = other.GetComponentInChildren<MagicWand>();
                 Assert.IsNotNull(offhandWand);
                 offhandWand.LoadWand(m_wand.LoadedSpell);
-                m_wand.LoadWand(SpellType.NONE);
+                m_wand.UnLoadWand();
             }
         }
     }

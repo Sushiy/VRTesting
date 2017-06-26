@@ -43,8 +43,6 @@ public class MP_Health : NetworkBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            // play win particles for some seconds
-            m_winParticles.Play();
 
             currentHealth = MAX_HEALTH;
 
@@ -68,6 +66,13 @@ public class MP_Health : NetworkBehaviour
         this.currentHealth = currentHealth;
         //old_Healthbar.sizeDelta = new Vector2(currentHealth, old_Healthbar.sizeDelta.y);
         //m_healthbar.UpdateHealth(currentHealth);
+    }
+
+    [ClientRpc]
+    void RpcPlayParticles()
+    {
+        // play win particles for some seconds
+        m_winParticles.Play();
     }
 
     [ClientRpc]
