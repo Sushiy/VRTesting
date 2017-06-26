@@ -36,8 +36,8 @@ namespace gesture
         public int selectedGesture { private set; get; }
         public int selectedIndex { private set; get; }
 
-        char[] gestureCharPool = { 'q', 'w', 'e', 'r', 't', 'z', 'u', 'i' };
-        char[] indexCharPool = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+        char[] gestureCharPool = { 'q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p' };
+        char[] indexCharPool = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', };
 
         void Awake()
         {

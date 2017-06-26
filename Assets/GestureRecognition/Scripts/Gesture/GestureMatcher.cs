@@ -144,7 +144,7 @@ namespace gesture
             var nearestNeighbors = FindNearestNeighbors(input, m_k);
             if (nearestNeighbors == null)
             {
-                matchedType = gestureTypes.N_GESTURE;
+                matchedType = gestureTypes.FIRE_GESTURE_1;
                 return false;
             }
 

@@ -50,7 +50,7 @@ namespace gesture
             if (ui.selectedIndex < 0)
                 return;
 
-            int indexOffset = ui.selectedIndex * dataset.samplesPerGesture;
+            int indexOffset = ui.selectedIndex * dataset.pointsPerGesture;
 
             for (int i=0; i<dataset.pointsPerGesture; ++i)
             {
