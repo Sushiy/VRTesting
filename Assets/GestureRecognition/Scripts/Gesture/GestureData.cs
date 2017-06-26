@@ -9,11 +9,16 @@ namespace gesture
     /// </summary>
     public enum gestureTypes
     {
-        N_GESTURE,
-        Z_GESTURE,
-        MIRRORED_N_GESTURE,
-        TRIANGLE,
-        U_GESTURE
+        FIRE_GESTURE_1,
+        FIRE_GESTURE_2,
+        METEOR_GESTURE_1,
+        METEOR_GESTURE_2,
+        SHIELD_GESTURE_1,
+        SHIELD_GESTURE_2,
+        MISSILE_GESTURE_1,
+        MISSILE_GESTURE_2,
+        BEAM_GESTURE_1,
+        BEAM_GESTURE_2
     }
 
     /// <summary>
@@ -25,11 +30,16 @@ namespace gesture
     {
         public Vector2[][] gestures;
 
-        public Vector2[] n_gesture;
-        public Vector2[] z_gesture;
-        public Vector2[] mirrored_n_gesture;
-        public Vector2[] triangle;
-        public Vector2[] u_gesture;
+        public Vector2[] fire_gesture_1;
+        public Vector2[] fire_gesture_2;
+        public Vector2[] meteor_gesture_1;
+        public Vector2[] meteor_gesture_2;
+        public Vector2[] shield_gesture_1;
+        public Vector2[] shield_gesture_2;
+        public Vector2[] missile_gesture_1;
+        public Vector2[] missile_gesture_2;
+        public Vector2[] beam_gesture_1;
+        public Vector2[] beam_gesture_2;
 
         public int samplesPerGesture = 4; // how many samples of one gesture?
         public int pointsPerGesture = 4; // points per gesture
@@ -44,20 +54,30 @@ namespace gesture
         {
             gestures = new Vector2[NumberOfGestureTypes][];
 
-            gestures[0] = n_gesture;
-            gestures[1] = z_gesture;
-            gestures[2] = mirrored_n_gesture;
-            gestures[3] = triangle;
-            gestures[4] = u_gesture;
+            gestures[0] = fire_gesture_1;
+            gestures[1] = fire_gesture_2;
+            gestures[2] = meteor_gesture_1;
+            gestures[3] = meteor_gesture_2;
+            gestures[4] = shield_gesture_1;
+            gestures[5] = shield_gesture_2;
+            gestures[6] = missile_gesture_1;
+            gestures[7] = missile_gesture_2;
+            gestures[8] = beam_gesture_1;
+            gestures[9] = beam_gesture_2;
 
             if (!initialise)
                 return;
 
-            n_gesture = new Vector2[samplesPerGesture * pointsPerGesture];
-            z_gesture = new Vector2[samplesPerGesture * pointsPerGesture];
-            mirrored_n_gesture = new Vector2[samplesPerGesture * pointsPerGesture];
-            triangle = new Vector2[samplesPerGesture * pointsPerGesture];
-            u_gesture = new Vector2[samplesPerGesture * pointsPerGesture];
+            fire_gesture_1 = new Vector2[samplesPerGesture * pointsPerGesture];
+            fire_gesture_2 = new Vector2[samplesPerGesture * pointsPerGesture];
+            meteor_gesture_1 = new Vector2[samplesPerGesture * pointsPerGesture];
+            meteor_gesture_2 = new Vector2[samplesPerGesture * pointsPerGesture];
+            shield_gesture_1 = new Vector2[samplesPerGesture * pointsPerGesture];
+            shield_gesture_2 = new Vector2[samplesPerGesture * pointsPerGesture];
+            missile_gesture_1 = new Vector2[samplesPerGesture * pointsPerGesture];
+            missile_gesture_2 = new Vector2[samplesPerGesture * pointsPerGesture];
+            beam_gesture_1 = new Vector2[samplesPerGesture * pointsPerGesture];
+            beam_gesture_2 = new Vector2[samplesPerGesture * pointsPerGesture];
 
             initialise = false;
         }

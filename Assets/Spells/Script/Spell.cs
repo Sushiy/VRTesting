@@ -24,9 +24,9 @@ public abstract class Spell : MonoBehaviour
     [SerializeField]
     protected SpellType m_spelltypeThis;
     public SpellType SpellType { get { return m_spelltypeThis; } }
-    [SerializeField]
-    protected gestureTypes m_gestureTypeThis;
-    public gestureTypes Gesture{ get { return m_gestureTypeThis; } }
+    //[SerializeField]
+    //protected gestureTypes m_gestureTypeThis;
+    //public gestureTypes Gesture{ get { return m_gestureTypeThis; } }
 
     protected Transform m_transTarget;
     public Transform TargetTransform { get { return m_transTarget; } }

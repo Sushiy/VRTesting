@@ -33,28 +33,37 @@ namespace primitive
 
         private ParticleSystem m_psDrawing;
 
+        private SpellType[] m_gestureLUT = new SpellType[]
+        {
+            SpellType.FIREBALL, SpellType.FIREBALL,
+            SpellType.METEOR, SpellType.METEOR,
+            SpellType.SHIELD, SpellType.SHIELD,
+            SpellType.MAGICMISSILE, SpellType.MAGICMISSILE,
+            SpellType.LASERBEAM, SpellType.LASERBEAM
+        };
+
         void Awake()
         {
             m_transform = transform;
 
             m_transBeginning = m_transform.Find("beginningPoint");
-            Assert.IsNotNull<Transform>(m_transBeginning);
+            Assert.IsNotNull(m_transBeginning);
 
             m_transEnd = m_transform.Find("endPoint");
-            Assert.IsNotNull<Transform>(m_transEnd);
+            Assert.IsNotNull(m_transEnd);
 
             points = new FixedSizeQueue<Vector3>(m_iNumberOfPoints);
 
             m_v3LastPoint = Vector3.zero;
 
             m_converter = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureConverter>();
-            Assert.IsNotNull<GestureConverter>(m_converter);
+            Assert.IsNotNull(m_converter);
 
             m_matcher = m_converter.GetComponent<GestureMatcher>();
-            Assert.IsNotNull<GestureMatcher>(m_matcher);
+            Assert.IsNotNull(m_matcher);
 
             m_magicWand = GetComponent<MagicWand>();
-            Assert.IsNotNull<MagicWand>(m_magicWand);
+            Assert.IsNotNull(m_magicWand);
 
             m_psDrawing = GetComponentInChildren<ParticleSystem>();
         }
@@ -132,7 +141,7 @@ namespace primitive
             // charge wand if valid
             if (valid)
             {
-                m_magicWand.LoadWand(type);
+                m_magicWand.LoadWand(m_gestureLUT[(int)type]);
                 StartCoroutine(SuckInParticles());
             }
             m_psDrawing.Stop();
