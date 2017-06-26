@@ -269,8 +269,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
     [Command]
     public void CmdAddMeToPlayerList(GameObject me)
     {
-        if (!isLocalPlayer)
-            return;
         RpcAddToLocalList(me);
     }
 
