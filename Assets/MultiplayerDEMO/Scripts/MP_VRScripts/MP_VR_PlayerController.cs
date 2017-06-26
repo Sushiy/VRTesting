@@ -63,7 +63,14 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //Grab the forcerecorder and wand
         InitSpellComponents();
         //MP_VR_PlayerRegistry.s_instance.AddPlayer(this);
-        CmdAddMeToPlayerList(gameObject);
+    }
+
+    public void Start()
+    {
+        if(!isServer)
+        {
+            CmdAddMeToPlayerList(gameObject);
+        }
     }
 
     // Update is called once per frame
