@@ -53,14 +53,14 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
             Debug.LogWarning("Too many players");
     }
 
-    public void OnPlayer1()
+    public void OnPlayer1(GameObject g)
     {
         Debug.Log("player1 changed");
     }
 
-    public void OnPlayer2()
+    public void OnPlayer2(GameObject g)
     {
-        Debug.Log("player1 changed");
+        Debug.Log("player2 changed");
     }
 
 

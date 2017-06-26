@@ -289,7 +289,7 @@ MonoBehaviour:
   m_goLoadedFX: {fileID: 1548777840797678, guid: edd0883cfa96a524ea98cfd2ee120245,
     type: 2}
   m_spelltypeThis: 1
-  m_gestureTypeThis: 0
+  m_bIsServer: 1
   explosionPrefab: {fileID: 0}
   m_fVelocityMultiplier: 2.7
 --- !u!114 &114679251140253758

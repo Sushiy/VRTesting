@@ -68,9 +68,10 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public void Start()
     {
         Debug.Log("start called");
-        if(!isServer)
+        if(isLocalPlayer)
         {
             Debug.Log("...on not server");
+
             CmdAddMeToPlayerList(gameObject);
         }
     }
@@ -285,6 +286,5 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public void RpcAddToLocalList(GameObject go)
     {
         m_goPlayers.Add(go);
-
     }
 }

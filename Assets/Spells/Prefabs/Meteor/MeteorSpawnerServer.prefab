@@ -1202,7 +1202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 4
-  m_gestureTypeThis: 2
+  m_bIsServer: 0
   m_meteorChild: {fileID: 114740448699448666}
   m_transPortal: {fileID: 4729621584101956}
   m_transPortalParent: {fileID: 4024746501473502}
@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 4
-  m_gestureTypeThis: 2
+  m_bIsServer: 1
   explosionPrefab: {fileID: 1061799176022336, guid: 5e55fd296cc81f84fb6d254053f8eaa0,
     type: 2}
   m_fVelocityMultiplier: 0.3

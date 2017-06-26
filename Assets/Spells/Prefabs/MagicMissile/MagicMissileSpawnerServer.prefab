@@ -520,7 +520,7 @@ MonoBehaviour:
   m_goLoadedFX: {fileID: 1859803208148210, guid: b7556069abf8f2942a7d35fb03fa9064,
     type: 2}
   m_spelltypeThis: 3
-  m_gestureTypeThis: 1
+  m_bIsServer: 0
   m_iChildrenDestroyed: 0
 --- !u!114 &114135753162376626
 MonoBehaviour:
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
-  m_gestureTypeThis: 1
+  m_bIsServer: 1
   explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
     type: 2}
   m_fVelocityMultiplier: 3
@@ -656,7 +656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
-  m_gestureTypeThis: 1
+  m_bIsServer: 1
   explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
     type: 2}
   m_fVelocityMultiplier: 3
@@ -930,7 +930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
-  m_gestureTypeThis: 1
+  m_bIsServer: 1
   explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
     type: 2}
   m_fVelocityMultiplier: 3
