@@ -7,9 +7,9 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
 {
     public static MP_VR_PlayerRegistry s_instance;
     private short playerID = 0;
-    [SyncVar]
+    [SyncVar(hook = "OnPlayer1")]
     public GameObject m_goPlayer1;
-    [SyncVar]
+    [SyncVar(hook = "OnPlayer2")]
     public GameObject m_goPlayer2;
 	// Use this for initialization
 	void Start ()
@@ -19,6 +19,8 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
 
     public void AddPlayer(MP_VR_PlayerController _newPlayer)
     {
+        if (!isServer)
+            return;
         if (m_goPlayer1 == null)
             m_goPlayer1 = _newPlayer.gameObject;
         else if (m_goPlayer2 == null)
@@ -49,6 +51,16 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
             m_goPlayer2 = newPlayer.gameObject;
         else
             Debug.LogWarning("Too many players");
+    }
+
+    public void OnPlayer1()
+    {
+        Debug.Log("player1 changed");
+    }
+
+    public void OnPlayer2()
+    {
+        Debug.Log("player1 changed");
     }
 
 

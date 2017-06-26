@@ -62,7 +62,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         CheckHands();
         //Grab the forcerecorder and wand
         InitSpellComponents();
-        //MP_VR_PlayerRegistry.s_instance.AddPlayer(this);
+        MP_VR_PlayerRegistry.s_instance.AddPlayer(this);
     }
 
     public void Start()
