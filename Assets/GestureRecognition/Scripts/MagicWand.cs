@@ -35,11 +35,6 @@ public class MagicWand : MonoBehaviour {
     {
     }
 
-    public void LoadWand(SpellType spell)
-    {
-        m_enumLoadedSpell = spell;
-    }
-
     public void UnLoadWand()
     {
         if(m_loadedfx != null)
@@ -51,14 +46,14 @@ public class MagicWand : MonoBehaviour {
         m_enumLoadedSpell = SpellType.NONE;
     }
 
-    public void LoadWand(gesture.gestureTypes _gesture)
+    public void LoadWand(SpellType spell)
     {
         foreach(GameObject go in spellRegistry.clientPrefabs)
         {
             if(go!=null)
             {
                 Spell s = go.GetComponent<Spell>();
-                if (s != null && s.Gesture == _gesture)
+                if (s != null && s.SpellType == spell)
                 {
                     m_enumLoadedSpell = s.SpellType;
                     if (s.LoadedFX() != null)
