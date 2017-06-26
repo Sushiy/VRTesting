@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 114128807506764530}
   - component: {fileID: 54196510507033148}
   - component: {fileID: 114899743190477224}
+  - component: {fileID: 114356189401611258}
   m_Layer: 11
   m_Name: PlayerNetworkTransform
   m_TagString: Untagged
@@ -2597,6 +2598,19 @@ MonoBehaviour:
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.3
   m_InterpolateMovement: 0.3
+--- !u!114 &114356189401611258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322237559393726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20193638aeec10749ac29ea3fa5595e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_goPlayer1: {fileID: 0}
+  m_goPlayer2: {fileID: 0}
 --- !u!114 &114391452532219080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2821,7 +2835,7 @@ MonoBehaviour:
   destroyOnDeath: 0
   currentHealth: 100
   old_Healthbar: {fileID: 0}
-  m_healthbar: {fileID: 114600875555937790}
+  m_healthbar: {fileID: 0}
 --- !u!114 &114921534276301888
 MonoBehaviour:
   m_ObjectHideFlags: 1
