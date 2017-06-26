@@ -11,9 +11,12 @@ public class MP_Health : NetworkBehaviour
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = MAX_HEALTH;
 
-    public RectTransform healthBar;
+    public RectTransform old_Healthbar;
 
     private NetworkStartPosition[] spawnPoints;
+
+    [SerializeField]
+    private Healthbar m_healthbar;
 
     void Start()
     {
@@ -48,7 +51,8 @@ public class MP_Health : NetworkBehaviour
     void OnChangeHealth(int currentHealth)
     {
         this.currentHealth = currentHealth;
-        healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
+        old_Healthbar.sizeDelta = new Vector2(currentHealth, old_Healthbar.sizeDelta.y);
+        m_healthbar.UpdateHealth(currentHealth);
     }
 
     [ClientRpc]

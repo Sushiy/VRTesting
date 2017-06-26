@@ -21,10 +21,10 @@ public class Healthbar : MonoBehaviour {
         m_fFullScaleOfFire = m_arrFireTrans[0].localScale.x;
     }
 
-    void Update () {
+    public void UpdateHealth (int currentHealth) {
         if (m_MPhealth != null)
         {
-            m_fHealthfactor = (float)m_MPhealth.currentHealth / MP_Health.MAX_HEALTH;
+            m_fHealthfactor = (float)currentHealth / MP_Health.MAX_HEALTH;
         }
 
         float scale = Mathf.Lerp(0f, m_iNumFires, m_fHealthfactor);
