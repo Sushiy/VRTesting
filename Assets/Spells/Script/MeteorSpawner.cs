@@ -67,7 +67,10 @@ public class MeteorSpawner : SpawnerSpell
     {
         if(m_bFired)
         {
-            if (m_transTarget != null &&(m_rigidThis.transform.position - m_transTarget.position).magnitude <= m_fActivationRange)
+            Vector3 v3ToTarget = m_rigidThis.transform.position - Vector3.zero;
+            if (m_transTarget != null)
+                v3ToTarget = m_rigidThis.transform.position - m_transTarget.position;
+            if (v3ToTarget.magnitude <= m_fActivationRange)
             {
                 m_rigidThis.velocity = Vector3.zero;
                 m_rigidThis.angularVelocity = Vector3.zero;
@@ -128,7 +131,8 @@ public class MeteorSpawner : SpawnerSpell
 
     public void OnCollisionEnter(Collision collision)
     {
-        Instantiate(explosionPrefab, transform.position, transform.rotation);
+        if (explosionPrefab!= null)
+            Instantiate(explosionPrefab, transform.position, transform.rotation);
         Deactivate();
     }
 

@@ -57,7 +57,8 @@ public class MagicMissile : Spell
 
     public void OnCollisionEnter(Collision collision)
     {
-        Instantiate(explosionPrefab, transform.position, transform.rotation);
+        if (explosionPrefab != null)
+            Instantiate(explosionPrefab, transform.position, transform.rotation);
         GameObject goOther = collision.gameObject;
         if (goOther.layer == LayerMask.NameToLayer("Player"))
         {

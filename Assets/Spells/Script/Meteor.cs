@@ -37,13 +37,16 @@ public class Meteor : Spell
     {
         Debug.Log("Spell: Fire!");
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
+        Vector3 targetPosition = Vector3.zero;
         if (player.Opponent != null)
+        {
             m_transTarget = player.Opponent.GetComponentInChildren<HomingTarget>().transform;
+            targetPosition = m_transTarget.position;
+        }
 
         gameObject.transform.position = spelldata._v3WandPos;
-        gameObject.transform.LookAt(m_transTarget);
         m_rigidThis = GetComponent<Rigidbody>();
-        m_rigidThis.velocity = ((m_transTarget.position-transform.position) * m_fVelocityMultiplier);
+        m_rigidThis.velocity = ((targetPosition - transform.position) * m_fVelocityMultiplier);
     }
 
     public void OnCollisionEnter(Collision collision)
