@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114282891513102646}
   - component: {fileID: 108546160675712354}
   - component: {fileID: 114825400376490726}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: MeteorServer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4537882196196130}
   - component: {fileID: 198340744898079922}
   - component: {fileID: 199461342313245520}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: RocketTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 4854780983481064}
   - component: {fileID: 198877611933810784}
   - component: {fileID: 199511165806260386}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Flames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 0
-  m_gestureTypeThis: 2
+  m_bIsServer: 0
   explosionPrefab: {fileID: 0}
   m_fVelocityMultiplier: 2
 --- !u!135 &135908104215944614

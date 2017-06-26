@@ -71,11 +71,12 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public void Start()
     {
         Debug.Log("start called");
-        if(isLocalPlayer)
+        targetPosition = transform.position + transform.forward * 32.0f;
+        CmdAddMeToPlayerList(gameObject);
+        if (isLocalPlayer)
         {
             Debug.Log("...on not server");
 
-            CmdAddMeToPlayerList(gameObject);
         }
     }
 
