@@ -30,8 +30,8 @@ public abstract class Spell : MonoBehaviour
     //public gestureTypes Gesture{ get { return m_gestureTypeThis; } }
     public bool m_bIsServer = false;
 
-    protected Transform m_transTarget;
-    public Transform TargetTransform { get { return m_transTarget; } }
+    protected Vector3 m_v3Target;
+    public Vector3 TargetTransform { get { return m_v3Target; } }
     
     public abstract void Fire(CastingData spelldata);
     public abstract void PlayerHit(GameObject _goPlayer);

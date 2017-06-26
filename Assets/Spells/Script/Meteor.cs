@@ -37,11 +37,11 @@ public class Meteor : Spell
     {
         Debug.Log("Spell: Fire!");
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
-        Vector3 targetPosition = Vector3.zero;
+        Vector3 targetPosition = player.targetPosition;
         if (player.Opponent != null)
         {
-            m_transTarget = player.Opponent.GetComponentInChildren<HomingTarget>().transform;
-            targetPosition = m_transTarget.position;
+            m_v3Target = player.Opponent.GetComponentInChildren<HomingTarget>().transform.position;
+            targetPosition = m_v3Target;
         }
 
         gameObject.transform.position = spelldata._v3WandPos;

@@ -11,6 +11,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public MP_VR_PlayerController Opponent { get { return m_mpvr_playerOpponent; } }
     public bool m_bIsReady = false;
 
+    public Vector3 targetPosition;
+
     public List<GameObject> m_goPlayers;
 
 
@@ -63,6 +65,7 @@ public class MP_VR_PlayerController : NetworkBehaviour
         //Grab the forcerecorder and wand
         InitSpellComponents();
         GetComponent<MP_VR_PlayerRegistry>().AddPlayer(this);
+        targetPosition = transform.position + transform.forward * 32.0f;
     }
 
     public void Start()

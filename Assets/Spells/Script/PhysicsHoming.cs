@@ -11,7 +11,7 @@ public class PhysicsHoming : MonoBehaviour {
     //private float m_fConstantForce = 0.1f;
 
     private Rigidbody m_rigid;
-    private Transform m_transTarget;
+    private Vector3 m_v3Target;
 
     void Awake()
     {
@@ -22,16 +22,13 @@ public class PhysicsHoming : MonoBehaviour {
 	void Start ()
     {
         // find a target
-        m_transTarget = GetComponent<Spell>().TargetTransform;
-        if (m_transTarget == null) ;// Debug.LogWarning("Couldn't find no target y'all");
+        m_v3Target = GetComponent<Spell>().TargetTransform;
+        if (m_v3Target == null) ;// Debug.LogWarning("Couldn't find no target y'all");
     }
 
     void FixedUpdate () {
-        Vector3 v3TargetPos = Vector3.zero;
-        if (m_transTarget == null) ;//Debug.LogWarning("No Target, Firing at 0,0,0");
-        else v3TargetPos = m_transTarget.position;
 
-        Vector3 targetDelta = v3TargetPos + new Vector3(0, 0, 0) - transform.position;
+        Vector3 targetDelta = m_v3Target + new Vector3(0, 0, 0) - transform.position;
 
         //get the angle between transform.forward and target delta
         float angleDiff = Vector3.Angle(transform.forward, targetDelta);

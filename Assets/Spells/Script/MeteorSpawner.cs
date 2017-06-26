@@ -37,8 +37,9 @@ public class MeteorSpawner : SpawnerSpell
         m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
         if (player.Opponent != null)
-            m_transTarget = player.Opponent.GetComponentInChildren<HomingTarget>().transform;
-
+            m_v3Target = player.Opponent.GetComponentInChildren<HomingTarget>().transform.position;
+        else
+            m_v3Target = player.targetPosition;
         m_spelldata = spelldata;
         m_bFired = true;
 
@@ -68,8 +69,8 @@ public class MeteorSpawner : SpawnerSpell
         if(m_bFired)
         {
             Vector3 v3ToTarget = m_rigidThis.transform.position - Vector3.zero;
-            if (m_transTarget != null)
-                v3ToTarget = m_rigidThis.transform.position - m_transTarget.position;
+            if (m_v3Target != null)
+                v3ToTarget = m_rigidThis.transform.position - m_v3Target;
             if (v3ToTarget.magnitude <= m_fActivationRange)
             {
                 m_rigidThis.velocity = Vector3.zero;
@@ -77,7 +78,7 @@ public class MeteorSpawner : SpawnerSpell
                 GetComponent<PhysicsHoming>().enabled = false;
                 GetComponent<ConstantForce>().enabled = false;
                 m_transPortalParent.gameObject.SetActive(true);
-                m_transPortalParent.LookAt(m_transTarget);
+                m_transPortalParent.LookAt(m_v3Target);
                 GetComponent<MeshRenderer>().enabled = false;
                 m_transPortal.GetComponent<ParticleSystem>().Play();
                 

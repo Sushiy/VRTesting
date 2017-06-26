@@ -41,7 +41,9 @@ public class Fireball : Spell
         m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
         MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
         if (player.Opponent != null)
-            m_transTarget = player.Opponent.GetComponentInChildren<HomingTarget>().transform;
+            m_v3Target = player.Opponent.GetComponentInChildren<HomingTarget>().transform.position;
+        else
+            m_v3Target = player.targetPosition;
         Invoke("Deactivate", 5.0f);
     }
 
