@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Networking;
 
 public class MP_Health : NetworkBehaviour
@@ -18,6 +19,14 @@ public class MP_Health : NetworkBehaviour
     [SerializeField]
     private Healthbar m_healthbar;
 
+    private ParticleSystem m_winParticles;
+
+    private void Awake()
+    {
+        m_winParticles = transform.Find("WinParticles").GetComponent<ParticleSystem>();
+        Assert.IsNotNull(m_winParticles);
+    }
+
     void Start()
     {
         if (isLocalPlayer)
@@ -34,17 +43,23 @@ public class MP_Health : NetworkBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            if (destroyOnDeath)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                currentHealth = MAX_HEALTH;
+            // play win particles for some seconds
+            m_winParticles.Play();
 
-                // called on the Server, invoked on the Clients
-                CmdRespawnSvr();
-            }
+            currentHealth = MAX_HEALTH;
+
+            // actually detsroys and respawns them
+            //if (destroyOnDeath)
+            //{
+            //    Destroy(gameObject);
+            //}
+            //else
+            //{
+            //    currentHealth = MAX_HEALTH;
+
+            //    // called on the Server, invoked on the Clients
+            //    CmdRespawnSvr();
+            //}
         }
     }
 
