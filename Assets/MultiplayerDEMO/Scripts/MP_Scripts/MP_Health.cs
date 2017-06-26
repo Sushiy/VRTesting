@@ -5,11 +5,11 @@ using UnityEngine.Networking;
 
 public class MP_Health : NetworkBehaviour
 {
-    public const int maxHealth = 100;
+    public static readonly int MAX_HEALTH = 100;
     public bool destroyOnDeath;
 
     [SyncVar(hook = "OnChangeHealth")]
-    public int currentHealth = maxHealth;
+    public int currentHealth = MAX_HEALTH;
 
     public RectTransform healthBar;
 
@@ -37,7 +37,7 @@ public class MP_Health : NetworkBehaviour
             }
             else
             {
-                currentHealth = maxHealth;
+                currentHealth = MAX_HEALTH;
 
                 // called on the Server, invoked on the Clients
                 CmdRespawnSvr();
