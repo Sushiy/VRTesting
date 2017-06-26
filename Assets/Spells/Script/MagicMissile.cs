@@ -5,7 +5,7 @@ using UnityEngine;
 public class MagicMissile : Spell
 {
     private Rigidbody m_rigidThis;
-    private int m_iDamage = 4;
+    private int m_iDamage = 2;
     public GameObject explosionPrefab;
 
     public float m_fVelocityMultiplier = 4.0f;
@@ -60,7 +60,7 @@ public class MagicMissile : Spell
         if (explosionPrefab != null)
             Instantiate(explosionPrefab, transform.position, transform.rotation);
         GameObject goOther = collision.gameObject;
-        if (goOther.layer == LayerMask.NameToLayer("Player"))
+        if (m_bIsServer && goOther.layer == LayerMask.NameToLayer("Player"))
         {
             PlayerHit(goOther);
         }

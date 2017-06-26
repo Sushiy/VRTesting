@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class MP_VR_PlayerRegistry : NetworkBehaviour
 {
     public static MP_VR_PlayerRegistry s_instance;
-
+    private short playerID = 0;
     [SyncVar]
     public GameObject m_goPlayer1;
     [SyncVar]
@@ -25,8 +25,8 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
             m_goPlayer2 = _newPlayer.gameObject;
         else
             Debug.LogWarning("Too many players");
-
     }
+
 
     public MP_VR_PlayerController FindOpponent(GameObject _playerSelf)
     {
@@ -37,5 +37,20 @@ public class MP_VR_PlayerRegistry : NetworkBehaviour
         else
             return null;
     }
+
+    public void OnServerAddPlayer()
+    {
+        Debug.Log("blabla");
+        Transform spawn = NetworkManager.singleton.GetStartPosition();
+        GameObject newPlayer = (GameObject)Instantiate(NetworkManager.singleton.playerPrefab, spawn.position, spawn.rotation);
+        if (m_goPlayer1 == null)
+            m_goPlayer1 = newPlayer.gameObject;
+        else if (m_goPlayer2 == null)
+            m_goPlayer2 = newPlayer.gameObject;
+        else
+            Debug.LogWarning("Too many players");
+    }
+
+
 
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Meteor : Spell
 {
     private Rigidbody m_rigidThis;
-    private int m_iDamage = 20;
+    private int m_iDamage = 10;
     public GameObject explosionPrefab;
     public float m_fVelocityMultiplier = 2.0f;
 
@@ -51,9 +51,11 @@ public class Meteor : Spell
 
     public void OnCollisionEnter(Collision collision)
     {
-        Instantiate(explosionPrefab, transform.position, transform.rotation);
+        if (explosionPrefab != null)
+            Instantiate(explosionPrefab, transform.position, transform.rotation);
         GameObject goOther = collision.gameObject;
-        if (goOther.layer == LayerMask.NameToLayer("Player"))
+        
+        if (m_bIsServer && goOther.layer == LayerMask.NameToLayer("Player"))
         {
             PlayerHit(goOther);
         }

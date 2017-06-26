@@ -11,6 +11,9 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public MP_VR_PlayerController Opponent { get { return m_mpvr_playerOpponent; } }
     public bool m_bIsReady = false;
 
+    public List<GameObject> m_goPlayers;
+
+
     [SerializeField]
     private GameObject m_prefabVRStation;
 
@@ -59,7 +62,8 @@ public class MP_VR_PlayerController : NetworkBehaviour
         CheckHands();
         //Grab the forcerecorder and wand
         InitSpellComponents();
-        MP_VR_PlayerRegistry.s_instance.AddPlayer(this);
+        //MP_VR_PlayerRegistry.s_instance.AddPlayer(this);
+        CmdAddMeToPlayerList(gameObject);
     }
 
     // Update is called once per frame
@@ -238,7 +242,11 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public void FindOpponent()
     {
-        m_mpvr_playerOpponent =  MP_VR_PlayerRegistry.s_instance.FindOpponent(gameObject);
+        foreach(GameObject g in m_goPlayers)
+        {
+            if (g != gameObject)
+                SetOpponent(g.GetComponent<MP_VR_PlayerController>());
+        }
     }
 
     public Transform GetCastingHand(int _iCastingHandIndex)
@@ -256,9 +264,20 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public void SetOpponent(MP_VR_PlayerController _opponent)
     {
         m_mpvr_playerOpponent = _opponent;
-        if (_opponent.Opponent == null)
-        {
-            _opponent.SetOpponent(this);
-        }
+    }
+
+    [Command]
+    public void CmdAddMeToPlayerList(GameObject me)
+    {
+        if (!isLocalPlayer)
+            return;
+        RpcAddToLocalList(me);
+    }
+
+    [ClientRpc]
+    public void RpcAddToLocalList(GameObject go)
+    {
+        m_goPlayers.Add(go);
+
     }
 }
