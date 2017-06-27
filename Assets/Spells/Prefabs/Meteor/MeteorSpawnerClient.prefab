@@ -1172,7 +1172,7 @@ MonoBehaviour:
   m_psSpawn: {fileID: 198975859110169038}
   m_goMissile: {fileID: 1706911256366850}
   m_fActivationRange: 13
-  explosionPrefab: {fileID: 1061799176022336, guid: 5e55fd296cc81f84fb6d254053f8eaa0,
+  explosionPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
     type: 2}
   m_fVelocityMultiplier: 5
   m_animcurvePortalSize:

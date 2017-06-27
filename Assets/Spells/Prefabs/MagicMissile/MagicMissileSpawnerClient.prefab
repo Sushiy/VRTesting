@@ -864,7 +864,7 @@ MonoBehaviour:
   m_goLoadedFX: {fileID: 1859803208148210, guid: b7556069abf8f2942a7d35fb03fa9064,
     type: 2}
   m_spelltypeThis: 3
-  m_gestureTypeThis: 1
+  m_bIsServer: 0
   m_iChildrenDestroyed: 0
 --- !u!114 &114211810020086296
 MonoBehaviour:
@@ -879,8 +879,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
-  m_gestureTypeThis: 1
-  explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
+  m_bIsServer: 0
+  explosionPrefab: {fileID: 1924296179514564, guid: 5aa3a85cd705b3c49816a43798d3a9e0,
     type: 2}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5
@@ -928,8 +928,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
-  m_gestureTypeThis: 1
-  explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
+  m_bIsServer: 0
+  explosionPrefab: {fileID: 1924296179514564, guid: 5aa3a85cd705b3c49816a43798d3a9e0,
     type: 2}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5
@@ -1007,8 +1007,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
-  m_gestureTypeThis: 1
-  explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
+  m_bIsServer: 0
+  explosionPrefab: {fileID: 1924296179514564, guid: 5aa3a85cd705b3c49816a43798d3a9e0,
     type: 2}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5
