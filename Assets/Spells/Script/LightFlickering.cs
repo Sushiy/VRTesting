@@ -13,14 +13,16 @@ public class LightFlickering : MonoBehaviour
     public float Range = 0.4f;
 	public float maxRange = 4.4f;
 
+    //public float speed = 0.5f;
+
 	void Start()
     {
 		lt = GetComponent<Light>();
 	}
 	void FixedUpdate()
     {
-		lt.intensity = minIntensity + Mathf.PingPong(Time.time * Mathf.Round(Random.Range(minRange, maxRange)), maxIntensity);
-		lt.range =  minRange + Mathf.PingPong(Time.time * Mathf.PingPong(Time.time, maxIntensity), Range);
+		lt.intensity = minIntensity + Mathf.PingPong(/*Time.time */ Mathf.Round(Random.Range(minRange, maxRange)), (maxIntensity-minIntensity));
+		lt.range =  minRange + Mathf.PingPong(/*Time.time */ Mathf.PingPong(Time.time, maxIntensity), Range);
 		lt.color = lightColor;
 	}
 }
