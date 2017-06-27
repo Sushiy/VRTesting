@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23914304068625568}
   - component: {fileID: 114994217167229734}
   - component: {fileID: 54688540636233832}
-  - component: {fileID: 64087156198533058}
+  - component: {fileID: 64874214847039206}
   m_Layer: 10
   m_Name: ShieldClient
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1841176201615080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.555, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,7 +82,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1841176201615080}
-  m_Mesh: {fileID: 4300000, guid: e51d63c6144b45641b1adf4e1845fa52, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 05a2e84df509e6d4e935f8cb9d4f9152, type: 3}
 --- !u!54 &54688540636233832
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -98,7 +98,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!64 &64087156198533058
+--- !u!64 &64874214847039206
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -110,8 +110,8 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_InflateMesh: 1
-  m_SkinWidth: 0.03
-  m_Mesh: {fileID: 4300000, guid: e51d63c6144b45641b1adf4e1845fa52, type: 3}
+  m_SkinWidth: 0.06
+  m_Mesh: {fileID: 4300000, guid: 05a2e84df509e6d4e935f8cb9d4f9152, type: 3}
 --- !u!114 &114994217167229734
 MonoBehaviour:
   m_ObjectHideFlags: 1
