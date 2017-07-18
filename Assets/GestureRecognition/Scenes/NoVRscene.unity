@@ -140,7 +140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -50.75, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &598777840
@@ -593,7 +593,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1635931244
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68eb6dbcc859f4742b28f083bc8966bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataset: {fileID: 11400000, guid: 59f65b5dcc2670b4d8f9dc3d4fc44bd2, type: 2}
+  dataset: {fileID: 11400000, guid: d61362cf11ad6a7468b8fca5a3b07563, type: 2}
   ui: {fileID: 1664834765}
 --- !u!114 &2052047885
 MonoBehaviour:
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801a940db254b034eb9712ee9a195671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataObject: {fileID: 11400000, guid: d61362cf11ad6a7468b8fca5a3b07563, type: 2}
+  dataObject: {fileID: 11400000, guid: 59f65b5dcc2670b4d8f9dc3d4fc44bd2, type: 2}
   avgDistanceThreshold: 1
   m_k: 3
   debug_text: {fileID: 0}

@@ -9,13 +9,13 @@ namespace gesture
     {
         private GestureConverter drawer;
         private GestureMatcher matcher;
-
-        //private List<KeyValuePair<float, gesture>> testResult;
+        private LineRenderer line;
 
         void Awake()
         {
             drawer = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureConverter>();
             matcher = drawer.GetComponent<GestureMatcher>();
+            line = GetComponent<LineRenderer>();
 
             // assert refs
             Assert.IsNotNull<GestureConverter>(drawer);
