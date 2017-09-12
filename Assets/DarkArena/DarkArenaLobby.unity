@@ -12403,7 +12403,8 @@ Prefab:
       propertyPath: m_OfflineScene
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114389189008526874, guid: c9458441f1e278a4882537d924853d88, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c9458441f1e278a4882537d924853d88, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &638390414 stripped

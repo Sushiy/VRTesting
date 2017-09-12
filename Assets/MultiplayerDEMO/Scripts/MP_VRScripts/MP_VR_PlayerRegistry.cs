@@ -5,12 +5,19 @@ using UnityEngine.Networking;
 
 public class MP_VR_PlayerRegistry : NetworkBehaviour
 {
+    public static MP_VR_PlayerRegistry s_instance;
     private short playerID = 0;
     [SyncVar(hook = "OnPlayer1")]
     public GameObject m_goPlayer1;
     [SyncVar(hook = "OnPlayer2")]
     public GameObject m_goPlayer2;
-	// Use this for initialization
+    // Use this for initialization
+
+
+    private void Awake()
+    {
+        s_instance = this;
+    }
 
     public void AddPlayer(MP_VR_PlayerController _newPlayer)
     {
