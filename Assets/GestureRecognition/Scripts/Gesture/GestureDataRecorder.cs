@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections;
 
 namespace gesture
@@ -58,9 +57,9 @@ namespace gesture
                 Vector2[] list = dataset.gestures[ui.selectedGesture];
                 list[indexOffset + i] = value;
             }
-
-            EditorUtility.SetDirty(dataset);
-
+			#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(dataset);
+			#endif
             ui.setRecorded();
         }
     }

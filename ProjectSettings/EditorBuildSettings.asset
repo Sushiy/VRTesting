@@ -6,5 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/DarkArena/DarkArenaLobby.unity
+    guid: ae1af5920a74e164c84877392ac49358
+  - enabled: 1
     path: Assets/DarkArena/DarkArenaTest.unity
     guid: 4a3a2c82bd81bce4796884bff21036c6
