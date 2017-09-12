@@ -13,8 +13,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public Vector3 targetPosition;
 
-    public List<GameObject> m_goPlayers;
-
 
     [SerializeField]
     private GameObject m_prefabVRStation;
@@ -73,7 +71,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
     {
         targetPosition = transform.position + transform.forward * 32.0f;
         Debug.Log("start called");
-        CmdAddMeToPlayerList(gameObject);
         if (isLocalPlayer)
         {
             Debug.Log("...on not server");
@@ -89,8 +86,13 @@ public class MP_VR_PlayerController : NetworkBehaviour
         {
             return;
         }
+        //Check if you have an opponent
+        if (m_mpvr_playerOpponent == null)
+        {
+            CmdFindOpp(gameObject);
+        }
         //Check if you have found your ForceRecorder
-        if(m_forcerecMain == null)
+        if (m_forcerecMain == null)
         {
             m_bIsReady = false;
             InitSpellComponents();
@@ -102,11 +104,6 @@ public class MP_VR_PlayerController : NetworkBehaviour
             m_bIsReady = false;
             CheckHands();
             return;
-        }
-        //Check if you have an opponent
-        if(m_mpvr_playerOpponent == null)
-        {
-            FindOpponent();
         }
 
         //if you weren't ready yet and made it this far, get ready
@@ -258,10 +255,19 @@ public class MP_VR_PlayerController : NetworkBehaviour
 
     public void FindOpponent()
     {
+        MP_VR_NetworkManagerExtension manager = NetworkManager.singleton as MP_VR_NetworkManagerExtension;
+
+        Debug.Log("This is Player" + gameObject.GetComponent<NetworkIdentity>().netId + ". ManagerGO1 is: " + (manager.m_goPlayer1 != null ? manager.m_goPlayer1.GetComponent<NetworkIdentity>().netId.ToString() : "null") + " and ManagerGO2 is: " + (manager.m_goPlayer2 != null ? manager.m_goPlayer2.GetComponent<NetworkIdentity>().netId.ToString() : "null"));
+
+        if (manager.m_goPlayer1 == gameObject && manager.m_goPlayer2 != null)
+            SetOpponent(manager.m_goPlayer2.GetComponent<MP_VR_PlayerController>());
+        if (manager.m_goPlayer2 == gameObject && manager.m_goPlayer1 != null)
+            SetOpponent(manager.m_goPlayer1.GetComponent<MP_VR_PlayerController>());
+
         /*
         m_mpvr_playerOpponent = GetComponent<MP_VR_PlayerRegistry>().FindOpponent(gameObject);
         if(m_mpvr_playerOpponent == null)
-        */
+        
         Debug.Log("Try find player");
         m_goPlayers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
 
@@ -269,8 +275,32 @@ public class MP_VR_PlayerController : NetworkBehaviour
         {
             if (g != gameObject)
                 SetOpponent(g.GetComponent<MP_VR_PlayerController>());
+        }*/
+    }
+    [Command]
+    public void CmdFindOpp(GameObject me)
+    {
+        MP_VR_NetworkManagerExtension manager = NetworkManager.singleton as MP_VR_NetworkManagerExtension;
+        GameObject opp = null;
+        if (manager.m_goPlayer1 == gameObject && manager.m_goPlayer2 != null)
+            opp = manager.m_goPlayer2;
+        else if (manager.m_goPlayer2 == gameObject && manager.m_goPlayer1 != null)
+            opp = manager.m_goPlayer1;
+        else
+            Debug.Log("Could not find your opponent");
+
+        if(opp != null)
+        {
+            RpcSetOpp(me, opp);
         }
     }
+    [ClientRpc]
+    public void RpcSetOpp(GameObject me, GameObject opp)
+    {
+        if (gameObject == me)
+            SetOpponent(opp.GetComponent<MP_VR_PlayerController>());
+    }
+
 
     public Transform GetCastingHand(int _iCastingHandIndex)
     {
@@ -287,17 +317,5 @@ public class MP_VR_PlayerController : NetworkBehaviour
     public void SetOpponent(MP_VR_PlayerController _opponent)
     {
         m_mpvr_playerOpponent = _opponent;
-    }
-
-    [Command]
-    public void CmdAddMeToPlayerList(GameObject me)
-    {
-        RpcAddToLocalList(me);
-    }
-
-    [ClientRpc]
-    public void RpcAddToLocalList(GameObject go)
-    {
-        m_goPlayers.Add(go);
     }
 }

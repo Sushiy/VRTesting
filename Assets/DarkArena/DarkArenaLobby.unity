@@ -12405,6 +12405,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114389189008526874, guid: c9458441f1e278a4882537d924853d88, type: 2}
+    - {fileID: 114168782805361724, guid: c9458441f1e278a4882537d924853d88, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c9458441f1e278a4882537d924853d88, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &638390414 stripped
@@ -19838,6 +19839,100 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 910205435}
   m_Mesh: {fileID: 4300006, guid: 1917169f7f3d6a44b8587fb6ec2cb030, type: 3}
+--- !u!1 &924149630 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1144523005438070, guid: c9458441f1e278a4882537d924853d88,
+    type: 2}
+  m_PrefabInternal: {fileID: 638390413}
+--- !u!114 &924149631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 924149630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a558f453a0c181a4883c057d502d2e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NetworkPort: 7777
+  m_ServerBindToIP: 0
+  m_ServerBindAddress: 
+  m_NetworkAddress: localhost
+  m_DontDestroyOnLoad: 1
+  m_RunInBackground: 1
+  m_ScriptCRCCheck: 1
+  m_MaxDelay: 0.01
+  m_LogLevel: 2
+  m_PlayerPrefab: {fileID: 1322237559393726, guid: 2392aa3bd14b12646bb909a14b13fc15,
+    type: 2}
+  m_AutoCreatePlayer: 1
+  m_PlayerSpawnMethod: 1
+  m_OfflineScene: 
+  m_OnlineScene: DarkArenaTest
+  m_SpawnPrefabs:
+  - {fileID: 1611775661731242, guid: 759b9957794247d4bab49dc6bf2854e9, type: 2}
+  - {fileID: 1050107986345280, guid: 6177871d211b37a4fb5871220b83c6fa, type: 2}
+  - {fileID: 1075939588721284, guid: e6ba4053790b2de4293ee09a36216b3e, type: 2}
+  - {fileID: 1448137643041376, guid: 8244a9c3edda33d4e91e1f771aff298f, type: 2}
+  - {fileID: 1553247003943636, guid: 770429be4eb1af34e943ff3aa138fc0c, type: 2}
+  m_CustomConfig: 0
+  m_MaxConnections: 4
+  m_ConnectionConfig:
+    m_PacketSize: 1440
+    m_FragmentSize: 500
+    m_ResendTimeout: 1200
+    m_DisconnectTimeout: 2000
+    m_ConnectTimeout: 2000
+    m_MinUpdateTimeout: 10
+    m_PingTimeout: 500
+    m_ReducedPingTimeout: 100
+    m_AllCostTimeout: 20
+    m_NetworkDropThreshold: 5
+    m_OverflowDropThreshold: 5
+    m_MaxConnectionAttempt: 10
+    m_AckDelay: 33
+    m_SendDelay: 10
+    m_MaxCombinedReliableMessageSize: 100
+    m_MaxCombinedReliableMessageCount: 10
+    m_MaxSentMessageQueueSize: 512
+    m_AcksType: 1
+    m_UsePlatformSpecificProtocols: 0
+    m_InitialBandwidth: 0
+    m_BandwidthPeakFactor: 2
+    m_WebSocketReceiveBufferMaxSize: 0
+    m_UdpSocketReceiveBufferMaxSize: 0
+    m_SSLCertFilePath: 
+    m_SSLPrivateKeyFilePath: 
+    m_SSLCAFilePath: 
+    m_Channels: []
+  m_GlobalConfig:
+    m_ThreadAwakeTimeout: 1
+    m_ReactorModel: 0
+    m_ReactorMaximumReceivedMessages: 1024
+    m_ReactorMaximumSentMessages: 1024
+    m_MaxPacketSize: 2000
+    m_MaxHosts: 16
+    m_ThreadPoolSize: 1
+    m_MinTimerTimeout: 1
+    m_MaxTimerTimeout: 12000
+    m_MinNetSimulatorTimeout: 1
+    m_MaxNetSimulatorTimeout: 12000
+  m_Channels: 
+  m_UseWebSockets: 1
+  m_UseSimulator: 0
+  m_SimulatedLatency: 1
+  m_PacketLossPercentage: 0
+  m_MaxBufferedPackets: 16
+  m_AllowFragmentation: 1
+  m_MatchHost: mm.unet.unity3d.com
+  m_MatchPort: 443
+  matchName: default
+  matchSize: 4
+  isNetworkActive: 0
+  matchMaker: {fileID: 0}
+  m_goPlayer1: {fileID: 0}
+  m_goPlayer2: {fileID: 0}
 --- !u!1 &932565739
 GameObject:
   m_ObjectHideFlags: 0
