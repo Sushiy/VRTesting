@@ -30,11 +30,8 @@ public class MagicMissile : Spell
             MakeRandomDirection();
         Vector3 randomizedDir = m_qRandDir  * spelldata._v3WandVelocity;
         m_rigidThis.velocity = (randomizedDir * m_fVelocityMultiplier);
-        MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
-        if (player.Opponent != null)
-            m_v3Target = player.Opponent.GetComponentInChildren<HomingTarget>().transform.position;
-        else
-            m_v3Target = player.targetPosition;
+        IPlayerController player = spelldata._goPlayer.GetComponent<IPlayerController>();
+        m_v3Target = player.GetTargetPosition();
         Invoke("Deactivate", 5.0f);
     }
 

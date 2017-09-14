@@ -40,7 +40,7 @@ public class Fireball : Spell
         m_rigidThis = GetComponent<Rigidbody>();
         m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
         IPlayerController player = spelldata._goPlayer.GetComponent<IPlayerController>();
-        player.GetTargetPosition();
+        m_v3Target = player.GetTargetPosition();
         Invoke("Deactivate", 5.0f);
     }
 

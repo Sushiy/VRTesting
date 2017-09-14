@@ -62,8 +62,9 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnButtonClick()
 		{
-			onHandClick.Invoke( currentHand );
-		}
+            Debug.Log("OnButtonClick");
+            onHandClick.Invoke( currentHand );
+        }
 	}
 
 #if UNITY_EDITOR

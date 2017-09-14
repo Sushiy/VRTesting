@@ -22,8 +22,8 @@ public class PhysicsHoming : MonoBehaviour {
 	void Start ()
     {
         // find a target
-        m_v3Target = GetComponent<Spell>().TargetTransform;
-        if (m_v3Target == null) ;// Debug.LogWarning("Couldn't find no target y'all");
+        m_v3Target = GetComponent<Spell>().TargetPosition;
+        if (m_v3Target == null) ;
     }
 
     void FixedUpdate () {

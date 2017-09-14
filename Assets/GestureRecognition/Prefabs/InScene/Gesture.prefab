@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801a940db254b034eb9712ee9a195671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataObject: {fileID: 11400000, guid: 0a0179109fb29e34dbed3dda3aea8ffd, type: 2}
+  dataObject: {fileID: 11400000, guid: 59f65b5dcc2670b4d8f9dc3d4fc44bd2, type: 2}
   avgDistanceThreshold: 1
   m_k: 3
   debug_text: {fileID: 0}

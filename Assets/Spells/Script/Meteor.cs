@@ -36,14 +36,8 @@ public class Meteor : Spell
     public override void Fire(CastingData spelldata)
     {
         Debug.Log("Spell: Fire!");
-        MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
-        Vector3 targetPosition = player.targetPosition;
-        if (player.Opponent != null)
-        {
-            m_v3Target = player.Opponent.GetComponentInChildren<HomingTarget>().transform.position;
-            targetPosition = m_v3Target;
-        }
-
+        IPlayerController player = spelldata._goPlayer.GetComponent<IPlayerController>();
+        Vector3 targetPosition = player.GetTargetPosition();
         gameObject.transform.position = spelldata._v3WandPos;
         m_rigidThis = GetComponent<Rigidbody>();
         m_rigidThis.velocity = ((targetPosition - transform.position) * m_fVelocityMultiplier);

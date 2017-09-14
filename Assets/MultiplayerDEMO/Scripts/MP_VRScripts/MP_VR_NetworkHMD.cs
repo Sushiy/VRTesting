@@ -7,7 +7,7 @@ using UnityEngine;
 public class MP_VR_NetworkHMD : MonoBehaviour
 {
 
-    private MP_VR_PlayerController m_vrplayerctrlThis;
+    private IPlayerController m_vrplayerctrlThis;
     private Transform m_transVRHMD;
 
     private void Start()
@@ -17,9 +17,9 @@ public class MP_VR_NetworkHMD : MonoBehaviour
 
     private void Init()
     {
-        m_vrplayerctrlThis = GetComponentInParent<MP_VR_PlayerController>();
-        if (m_vrplayerctrlThis != null && m_vrplayerctrlThis.m_bIsReady)
-            m_transVRHMD = m_vrplayerctrlThis.ValvePlayer.hmdTransform;
+        m_vrplayerctrlThis = GetComponentInParent<IPlayerController>();
+        if (m_vrplayerctrlThis != null)
+            m_transVRHMD = m_vrplayerctrlThis.GetVRPlayer().hmdTransform;
     }
 
     private void Update()
@@ -29,9 +29,6 @@ public class MP_VR_NetworkHMD : MonoBehaviour
             Init();
             return;
         }
-        
-        if (!m_vrplayerctrlThis.m_bIsReady)
-            return;
 
         if (m_transVRHMD != null)
         {
@@ -40,7 +37,7 @@ public class MP_VR_NetworkHMD : MonoBehaviour
         }
         else
         {
-            m_transVRHMD = m_vrplayerctrlThis.ValvePlayer.hmdTransform;
+            m_transVRHMD = m_vrplayerctrlThis.GetVRPlayer().hmdTransform;
         }
     }
 }

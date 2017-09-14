@@ -29,7 +29,7 @@ namespace Valve.VR.InteractionSystem
 		{
 			if ( !particles.IsAlive() )
 			{
-				Destroy( this.transform.root.gameObject );
+				Destroy( this.gameObject );
 			}
 		}
 	}

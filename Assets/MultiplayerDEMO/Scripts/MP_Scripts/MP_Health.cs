@@ -19,14 +19,6 @@ public class MP_Health : NetworkBehaviour
     [SerializeField]
     private Healthbar m_healthbar;
 
-    private ParticleSystem m_winParticles;
-
-    private void Awake()
-    {
-        m_winParticles = transform.Find("WinParticles").GetComponent<ParticleSystem>();
-        Assert.IsNotNull(m_winParticles);
-    }
-
     void Start()
     {
         if (isLocalPlayer)
@@ -45,19 +37,7 @@ public class MP_Health : NetworkBehaviour
         {
 
             currentHealth = MAX_HEALTH;
-
-            // actually detsroys and respawns them
-            //if (destroyOnDeath)
-            //{
-            //    Destroy(gameObject);
-            //}
-            //else
-            //{
-            //    currentHealth = MAX_HEALTH;
-
-            //    // called on the Server, invoked on the Clients
-            //    CmdRespawnSvr();
-            //}
+            CmdRespawnSvr();
         }
     }
 
@@ -68,39 +48,18 @@ public class MP_Health : NetworkBehaviour
         //m_healthbar.UpdateHealth(currentHealth);
     }
 
-    [ClientRpc]
-    void RpcPlayParticles()
-    {
-        // play win particles for some seconds
-        m_winParticles.Play();
-    }
-
-    [ClientRpc]
-    void RpcRespawn()
-    {
-        if (isLocalPlayer)
-        {
-            // Set the spawn point to origin as a default value
-            Vector3 spawnPoint = Vector3.zero;
-
-            // If there is a spawn point array and the array is not empty, pick one at random
-            if (spawnPoints != null && spawnPoints.Length > 0)
-            {
-                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
-            }
-
-            // Set the player’s position to the chosen spawn point
-            transform.position = spawnPoint;
-        }
-    }
-
     [Command]
     void CmdRespawnSvr()
     {
+        NetworkManager manager = NetworkManager.singleton;
+
+        manager.StopHost();
+
+        /*
         Transform spawn = NetworkManager.singleton.GetStartPosition();
         GameObject newPlayer = (GameObject)Instantiate(NetworkManager.singleton.playerPrefab, spawn.position, spawn.rotation);
         NetworkServer.Destroy(this.gameObject);
         NetworkServer.ReplacePlayerForConnection(this.connectionToClient, newPlayer, this.playerControllerId);
-
+        */
     }
 }

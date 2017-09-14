@@ -56,6 +56,7 @@ public class MagicWand : MonoBehaviour {
 
     public void UnLoadWand()
     {
+        Debug.Log("Unload Wand");
         m_enumLastSpell = m_enumLoadedSpell;
         if(m_loadedfx != null)
         {

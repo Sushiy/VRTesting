@@ -1,34 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using Valve.VR;
 
-public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
+public class Offline_VR_PlayerController : MonoBehaviour, IPlayerController
 {
 
     public bool notSpawned = false;
-
-    [SerializeField]
-    private MP_VR_PlayerController m_mpvr_playerOpponent;
-    public MP_VR_PlayerController Opponent { get { return m_mpvr_playerOpponent; } }
+    
     public bool m_bIsReady = false;
 
     private Vector3 targetPosition;
 
     public Vector3 GetTargetPosition()
     {
-        if (Opponent != null)
-            return Opponent.transform.position;
-        else
-            return targetPosition;
-    }
+        return targetPosition;
+    }    
 
     [SerializeField]
     private GameObject m_prefabVRStation;
 
     public SpellRegistry spellregistry;
-    
+
     [SerializeField]
     private MP_VR_NetworkHand m_mpvrhand1;
     [SerializeField]
@@ -56,9 +49,9 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
     private ForceRecorder m_forcerecOff;
     private MagicWand m_magicwandOff;
 
-    //This is used instead of Start for Initialization (only called by local player)
-    public override void OnStartLocalPlayer()
+    public void Start()
     {
+        targetPosition = transform.position + transform.forward * 32.0f;
         //Spawn the SteamVR player prefab
         m_vrplayerThis = GameObject.Instantiate(m_prefabVRStation, transform.position, transform.rotation).GetComponent<Valve.VR.InteractionSystem.Player>();
         //Grab the SteamVR Hands
@@ -68,38 +61,11 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         CheckHands();
         //Grab the forcerecorder and wand
         InitSpellComponents();
-        //Try to find your opponent
-        CmdFindOpp(gameObject);
-        //if you couldn't find your opponent shoot the default location
-        if(Opponent == null)
-            targetPosition = transform.position + transform.forward * 32.0f;
-    }
-
-    public void Start()
-    {
-        //targetPosition = transform.position + transform.forward * 32.0f;
-        Debug.Log("start called");
-        if (isLocalPlayer)
-        {
-            Debug.Log("...on not server");
-
-        }
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        //Check if you are a local Player
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-        //Check if you have an opponent
-        if (m_mpvr_playerOpponent == null)
-        {
-            CmdFindOpp(gameObject);
-        }
-
         //Check if you have found your hands
         if (m_handLeft == null || m_handRight == null)
         {
@@ -117,11 +83,11 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         }
 
         //if you weren't ready yet and made it this far, get ready
-        if(!m_bIsReady)
+        if (!m_bIsReady)
             m_bIsReady = true;
-        
+
         //If the forcerecorder wants us to fire spells, do it
-        if(m_forcerecMain.isFiring())
+        if (m_forcerecMain.isFiring())
         {
             if (m_magicwandMain.IsWandLoaded())
             {
@@ -146,17 +112,17 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
 
         //1. grab the spellindex from the wands spelltype enum
         int spellIndex = (int)_magicwand.LoadedSpell;
-        
+
         //2. Find out which hand is your wand hand which is your offhand
         int iCastingHandIndex = FindWandHand(_magicwand);
         //3. Let the Server fire his version of the spell first
         //CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
-        CmdServerFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex, gameObject);
+        FireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex);
         //Last unload the wand
         _magicwand.UnLoadWand();
     }
-    [ClientRpc]
-    void RpcClientFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
+
+    void FireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex)
     {
         GameObject goClient = Instantiate<GameObject>(spellregistry.clientPrefabs[_spellIndex]);
         Spell.CastingData spelldata = new Spell.CastingData();
@@ -167,26 +133,6 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         spelldata._goPlayer = gameObject;
         Spell spell = goClient.GetComponent<Spell>();
         spell.Fire(spelldata);
-    }
-
-    [Command]
-    void CmdServerFireSpell(Vector3 velocity, Vector3 spawnPosition, Quaternion spawnRotation, int _spellIndex, int _castingHandIndex, GameObject _playerThis)
-    {
-        //GameObject goServer = Instantiate<GameObject>(m_prefabServerSpells[_spellIndex]);
-        GameObject goServer = Instantiate<GameObject>(spellregistry.serverPrefabs[_spellIndex]);
-        Spell.CastingData spelldata = new Spell.CastingData();
-        spelldata._v3WandPos = spawnPosition;
-        spelldata._qWandRot = spawnRotation;
-        spelldata._v3WandVelocity = velocity;
-        spelldata._iCastingHandIndex = _castingHandIndex;
-        spelldata._goPlayer = _playerThis;
-
-        Spell spell = goServer.GetComponent<Spell>();
-        spell.Fire(spelldata);
-        // Spawn the spellObject on the Clients
-        NetworkServer.Spawn(goServer);
-        RpcClientFireSpell(velocity, spawnPosition, spawnRotation, _spellIndex, _castingHandIndex);
-
     }
 
     //Find ForceRecorder and MagicWand Components
@@ -201,7 +147,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
             //Debug.LogError("There are not exactly 2 Forcerecorders on this player");
             return;
         }
-        foreach(ForceRecorder f in forceRecorders)
+        foreach (ForceRecorder f in forceRecorders)
         {
             if (f.MagicWand.isMainHand)
             {
@@ -215,12 +161,12 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
             }
         }
 
-        if(m_forcerecMain != null && m_forcerecOff != null)
+        if (m_forcerecMain != null && m_forcerecOff != null)
         {
             m_forcerecOff.RemoveFromParent();
             m_forcerecMain.RemoveFromParent();
         }
-    } 
+    }
 
     //Check if you currently have all the necessary handreferences
     private void CheckHands()
@@ -230,7 +176,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
             return;
         }
 
-        if(m_vrplayerThis.hands.Length > 1)
+        if (m_vrplayerThis.hands.Length > 1)
         {
             m_handRight = m_vrplayerThis.rightHand;
             m_handLeft = m_vrplayerThis.leftHand;
@@ -253,38 +199,14 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
             Valve.VR.InteractionSystem.Hand wandHand = _magicwand.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
             if (m_handRight == wandHand)
             {
-               return 1;
+                return 1;
             }
-            else if(m_handLeft == wandHand) 
+            else if (m_handLeft == wandHand)
             {
                 return 2;
             }
         }
         return 0;
-    }
-
-    [Command]
-    public void CmdFindOpp(GameObject me)
-    {
-        MP_VR_NetworkManagerExtension manager = NetworkManager.singleton as MP_VR_NetworkManagerExtension;
-        GameObject opp = null;
-        if (manager.m_goPlayer1 == gameObject && manager.m_goPlayer2 != null)
-            opp = manager.m_goPlayer2;
-        else if (manager.m_goPlayer2 == gameObject && manager.m_goPlayer1 != null)
-            opp = manager.m_goPlayer1;
-        else
-            Debug.Log("Could not find your opponent");
-
-        if(opp != null)
-        {
-            RpcSetOpp(me, opp);
-        }
-    }
-    [ClientRpc]
-    public void RpcSetOpp(GameObject me, GameObject opp)
-    {
-        if (gameObject == me)
-            SetOpponent(opp.GetComponent<MP_VR_PlayerController>());
     }
 
 
@@ -298,10 +220,5 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         if (_iCastingHandIndex == 2)
             castingHand = m_mpvrhand2.transform;
         return castingHand;
-    }
-
-    public void SetOpponent(MP_VR_PlayerController _opponent)
-    {
-        m_mpvr_playerOpponent = _opponent;
     }
 }

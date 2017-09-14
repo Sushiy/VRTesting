@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
+using UnityEngine.UI;
 
 public class NetworkHUD : MonoBehaviour
 {
     public static NetworkHUD s_instance;
     NetworkManager manager;
+
+    public GameObject StartPanel;
+    public GameObject Matchmakingpanel;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -47,10 +52,14 @@ public class NetworkHUD : MonoBehaviour
         manager.StartClient();
     }
 
+
     /******INTERNET MATCHMAKING******/
     public void StartMatchmaker()
     {
+        Debug.Log("Starting the Matchmaking System");
         manager.StartMatchMaker();
+        StartPanel.SetActive(false);
+        Matchmakingpanel.SetActive(true);
     }
 
     public void StopMatchmaker()
@@ -65,6 +74,7 @@ public class NetworkHUD : MonoBehaviour
 
     public void CreateMatch()
     {
+        Debug.Log("Creating a Match");
         manager.matchMaker.CreateMatch(manager.matchName, manager.matchSize, true, "", "", "", 0, 0, manager.OnMatchCreate);
     }
 

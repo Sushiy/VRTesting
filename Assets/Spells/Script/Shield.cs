@@ -18,7 +18,7 @@ public class Shield : Spell
     {
         Debug.Log("Shield: Fire");
         //Fetch the MPVRPlayerController
-        MP_VR_PlayerController player = spelldata._goPlayer.GetComponent<MP_VR_PlayerController>();
+        IPlayerController player = spelldata._goPlayer.GetComponent<IPlayerController>();
         //Get the transform of the currently casting hand
         Transform transCastingHand = player.GetCastingHand(spelldata._iCastingHandIndex);
         //Get rigidbody and the fixedjoint of the casting hand

@@ -31,7 +31,7 @@ public abstract class Spell : MonoBehaviour
     public bool m_bIsServer = false;
 
     protected Vector3 m_v3Target;
-    public Vector3 TargetTransform { get { return m_v3Target; } }
+    public Vector3 TargetPosition { get { return m_v3Target; } }
     
     public abstract void Fire(CastingData spelldata);
     public abstract void PlayerHit(GameObject _goPlayer);

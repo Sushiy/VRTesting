@@ -18,19 +18,21 @@ namespace Valve.VR.InteractionSystem
 
 		//-------------------------------------------------
 		public void ShowButtonHints( Hand hand )
-		{
-			if ( buttonHintCoroutine != null )
+        {
+            Debug.Log("ShowTextHints toggle");
+            if ( buttonHintCoroutine != null )
 			{
 				StopCoroutine( buttonHintCoroutine );
 			}
 			buttonHintCoroutine = StartCoroutine( TestButtonHints( hand ) );
-		}
+        }
 
 
 		//-------------------------------------------------
 		public void ShowTextHints( Hand hand )
-		{
-			if ( textHintCoroutine != null )
+        {
+            Debug.Log("ShowTextHints toggle");
+            if ( textHintCoroutine != null )
 			{
 				StopCoroutine( textHintCoroutine );
 			}
@@ -40,8 +42,9 @@ namespace Valve.VR.InteractionSystem
 
 		//-------------------------------------------------
 		public void DisableHints()
-		{
-			if ( buttonHintCoroutine != null )
+        {
+            Debug.Log("ShowTextHints toggle");
+            if ( buttonHintCoroutine != null )
 			{
 				StopCoroutine( buttonHintCoroutine );
 				buttonHintCoroutine = null;
