@@ -77,7 +77,7 @@ namespace gesture
                 m_arrPoints2D.Add(p);
 
                 // draw the line
-                line.positionCount = m_arrCharPoints.Count;
+                line.positionCount = m_arrPoints.Count;
                 line.SetPositions(m_arrPoints.ToArray());
             }
 
