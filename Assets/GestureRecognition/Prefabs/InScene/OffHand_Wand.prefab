@@ -462,6 +462,8 @@ MonoBehaviour:
   offHandCastTimer: 8
   hasCasted: 0
   chargingParticles: {fileID: 198688147957503866}
+  m_fMaxAmplitudeVibration: 500
+  m_fVibrationFreq: 5.5
 --- !u!114 &114776015494688436
 MonoBehaviour:
   m_ObjectHideFlags: 1
