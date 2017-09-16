@@ -1,15 +1,27 @@
 fileFormatVersion: 2
-guid: c57cf0750b039904d8ce1745b0cf7012
-timeCreated: 1498311820
+guid: 1c01ca4d520519d46854761ae52e6c2a
+timeCreated: 1505583605
 licenseType: Free
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 21
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cylinder
+    100000: Stone_1x0,5.222_MeshPart0
+    100002: Stone_1x0,5.222_MeshPart1
+    100004: Stone_1x0,5.222_MeshPart2
+    100006: //RootNode
+    400000: Stone_1x0,5.222_MeshPart0
+    400002: Stone_1x0,5.222_MeshPart1
+    400004: Stone_1x0,5.222_MeshPart2
+    400006: //RootNode
+    2300000: Stone_1x0,5.222_MeshPart0
+    2300002: Stone_1x0,5.222_MeshPart1
+    2300004: Stone_1x0,5.222_MeshPart2
+    3300000: Stone_1x0,5.222_MeshPart0
+    3300002: Stone_1x0,5.222_MeshPart1
+    3300004: Stone_1x0,5.222_MeshPart2
+    4300000: Stone_1x0,5.222_MeshPart0
+    4300002: Stone_1x0,5.222_MeshPart1
+    4300004: Stone_1x0,5.222_MeshPart2
   materials:
     importMaterials: 1
     materialName: 0
@@ -32,6 +44,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -39,7 +52,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 1
     importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -55,6 +71,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
