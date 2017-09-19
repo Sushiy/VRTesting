@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 4762283369049580}
   - component: {fileID: 114422904293631378}
   - component: {fileID: 114387737304788420}
+  - component: {fileID: 114055904821143364}
   m_Layer: 0
   m_Name: MP_VR_Player
   m_TagString: Untagged
@@ -452,7 +453,8 @@ GameObject:
   - component: {fileID: 114327138174427118}
   - component: {fileID: 92094481704336626}
   - component: {fileID: 124812369032614344}
-  - component: {fileID: 114197882322111624}
+  - component: {fileID: 114457412675256420}
+  - component: {fileID: 114366815628477788}
   m_Layer: 0
   m_Name: VRCamera
   m_TagString: MainCamera
@@ -1225,6 +1227,17 @@ MonoBehaviour:
   menuOffset: 40
   scaleLimits: {x: 0.1, y: 5}
   scaleRate: 0.5
+--- !u!114 &114055904821143364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198207902069624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3564c282bd4e24f4f8d9e867ae9484d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114067535184038600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1271,20 +1284,6 @@ MonoBehaviour:
   speed: 4
   shiftSpeed: 16
   showInstructions: 1
---- !u!114 &114197882322111624
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1877167534818124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _head: {fileID: 4686795205046120}
-  _ears: {fileID: 0}
-  wireframe: 0
 --- !u!114 &114217178988997984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1356,6 +1355,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highLightMaterial: {fileID: 2100000, guid: 7b939e5e799d98a469f594828ebab52e, type: 2}
   fireHapticsOnHightlight: 1
+--- !u!114 &114366815628477788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877167534818124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 0}
 --- !u!114 &114387737304788420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1449,6 +1460,20 @@ MonoBehaviour:
   controllerPrefab: {fileID: 168468, guid: 3f39fc63a93686e4a8e9168ee73f24d9, type: 2}
   showDebugText: 0
   spewDebugText: 0
+--- !u!114 &114457412675256420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877167534818124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head: {fileID: 4686795205046120}
+  _ears: {fileID: 0}
+  wireframe: 0
 --- !u!114 &114541575328349168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1666,6 +1691,8 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!138 &138722731624277502
 FixedJoint:
   m_ObjectHideFlags: 1
@@ -1677,3 +1704,5 @@ FixedJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
