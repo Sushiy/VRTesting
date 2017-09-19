@@ -33,6 +33,7 @@ public class MagicWand : MonoBehaviour {
     public bool hasCasted = false;
     public ParticleSystem chargingParticles;
     private Hand hand;
+    public bool m_bVibrateOn = true;
     [Range(1f,3999f)]
     public float m_fMaxAmplitudeVibration = 1000f;
     [Range(1f,10f)]
@@ -135,7 +136,7 @@ public class MagicWand : MonoBehaviour {
             float halfAmplitude = m_fMaxAmplitudeVibration / 2f;
             float pulse = Mathf.Cos(Time.time * m_fVibrationFreq) * halfAmplitude + halfAmplitude;
 
-            if (hand != null)
+            if (hand != null && m_bVibrateOn)
                 hand.controller.TriggerHapticPulse((ushort) Mathf.RoundToInt(pulse));
             yield return null;
         }

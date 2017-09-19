@@ -100,13 +100,17 @@ namespace gesture
         /// <param name="p">3D Point data of a gesture</param>
         /// <param name="normal">The normal of the plane the points are supposed to be drawn on</param>
         /// <returns>the gesture</returns>
-        public GestureObject CreateGestureFrom3DData(ref Vector3[] p, ref Vector3 normal)
+        public GestureObject CreateGestureFrom3DData(ref Vector3[] p, Vector3 normal)
         {
             GestureObject g = new GestureObject();
             Vector2[] points2D;
-            Transform3DData(ref p, ref normal, out points2D);
+            Transform3DData(ref p, -normal, out points2D);
             IdentifyCharPoints(ref points2D, out g.points, m_iRequiredNumber);
             MakeGestureUniform(ref g.points, m_fSize);
+            //debug
+            m_arrCharPoints.Clear();
+            m_arrCharPoints.AddRange(g.points);
+            //debugend
             return g;
         }
 
@@ -149,14 +153,14 @@ namespace gesture
         /// 3D Points will be projected onto this plane and then rotated to the XY Plane afterwards</param>
         /// <param name="gesturePoints">Out Parameter. There the gesturePoints will be stored. They can then be used
         /// to match and further process</param>
-        void Transform3DData(ref Vector3[] p, ref Vector3 normal, out Vector2[] gesturePoints)
+        public static void Transform3DData(ref Vector3[] p, Vector3 normal, out Vector2[] gesturePoints)
         {
-            ProjectOnPlane(ref p, ref normal);
-            RotateToXYPlane(ref p, ref normal);
+            ProjectOnPlane(ref p, normal);
+            RotateToXYPlane(ref p, normal);
             gesturePoints = new Vector2[p.Length];
             for (int i=0; i<p.Length; ++i)
             {
-                gesturePoints[i] = p[i];
+                gesturePoints[i] = new Vector2(p[i].x, p[i].y);
             }
         }
 
@@ -165,7 +169,7 @@ namespace gesture
         /// </summary>
         /// <param name="p">Array of Points to be projected</param>
         /// <param name="normal">The normal of the projection plane</param>
-        void ProjectOnPlane(ref Vector3[] p, ref Vector3 normal)
+        public static void ProjectOnPlane(ref Vector3[] p, Vector3 normal)
         {
             for (int i=0; i<p.Length; ++i)
             {
@@ -179,7 +183,7 @@ namespace gesture
         /// </summary>
         /// <param name="p"></param>
         /// <param name="normal"></param>
-        void RotateToXYPlane(ref Vector3[] p, ref Vector3 normal)
+        public static void RotateToXYPlane(ref Vector3[] p, Vector3 normal)
         {
             Quaternion rotation = Quaternion.FromToRotation(normal, Vector3.forward);
             for (int i=0; i<p.Length; ++i)
