@@ -9,6 +9,7 @@ TagManager:
   - Primitive
   - GestureObject
   - Hand
+  - lightshafts
   layers:
   - Default
   - TransparentFX
