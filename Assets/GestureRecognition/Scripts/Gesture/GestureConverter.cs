@@ -104,7 +104,7 @@ namespace gesture
         {
             GestureObject g = new GestureObject();
             Vector2[] points2D;
-            Transform3DData(ref p, -normal, out points2D);
+            Transform3DData(ref p, normal, out points2D);
             IdentifyCharPoints(ref points2D, out g.points, m_iRequiredNumber);
             MakeGestureUniform(ref g.points, m_fSize);
             //debug
@@ -198,7 +198,7 @@ namespace gesture
         /// </summary>
         /// <param name="p">The point list</param>
         /// <param name="charp">The returned characteristic points</param>
-        void IdentifyCharPoints(ref Vector2[] p, out Vector2[] charp, int requiredNr)
+        public void IdentifyCharPoints(ref Vector2[] p, out Vector2[] charp, int requiredNr)
         {
             if (p == null || p.Length < 1)
             {
@@ -362,25 +362,12 @@ namespace gesture
         /// </summary>
         /// <param name="p"></param>
         /// <param name="size"></param>
-        void MakeGestureUniform(ref Vector2[] p, float size)
+        public void MakeGestureUniform(ref Vector2[] p, float size)
         {
             if (p == null || p.Length < 1) return;
 
-            Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
-            Vector2 max = new Vector2(float.MinValue, float.MinValue);
-
-            // find min and max of the bounding box of this gesture
-            for (int i = 0; i < p.Length; ++i)
-            {
-                if (p[i].x < min.x)
-                    min.x = p[i].x;
-                if (p[i].x > max.x)
-                    max.x = p[i].x;
-                if (p[i].y < min.y)
-                    min.y = p[i].y;
-                if (p[i].y > max.y)
-                    max.y = p[i].y;
-            }
+            Vector2 min, max;
+            IdentifyMinMax(ref p, out min, out max);
 
             // scale to the right size
             Rect box = new Rect(min.x, min.y, max.x - min.x, max.y - min.y);
@@ -395,6 +382,58 @@ namespace gesture
                 // translate
                 p[i].x -= center.x;
                 p[i].y -= center.y;
+            }
+        }
+
+        /// <summary>
+        /// Identifies the minimum and maximum of a given point array by
+        /// iterating through the array once O(n)
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        public void IdentifyMinMax(ref Vector2[] p, out Vector2 min, out Vector2 max)
+        {
+            min = new Vector2(float.MaxValue, float.MaxValue);
+            max = new Vector2(float.MinValue, float.MinValue);
+
+            // find min and max of the bounding box of this gesture
+            for (int i = 0; i < p.Length; ++i)
+            {
+                if (p[i].x < min.x)
+                    min.x = p[i].x;
+                if (p[i].x > max.x)
+                    max.x = p[i].x;
+                if (p[i].y < min.y)
+                    min.y = p[i].y;
+                if (p[i].y > max.y)
+                    max.y = p[i].y;
+            }
+        }
+
+        public void IdentifyMinMax(ref Vector3[] p, out Vector3 min, out Vector3 max)
+        {
+            min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+            max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+
+            // find min and max of the bounding box of this gesture
+            for (int i = 0; i < p.Length; ++i)
+            {
+                // x coordinate
+                if (p[i].x < min.x)
+                    min.x = p[i].x;
+                if (p[i].x > max.x)
+                    max.x = p[i].x;
+                // y coordinate
+                if (p[i].y < min.y)
+                    min.y = p[i].y;
+                if (p[i].y > max.y)
+                    max.y = p[i].y;
+                // z coordinate
+                if (p[i].z < min.z)
+                    min.z = p[i].z;
+                if (p[i].z > max.z)
+                    max.z = p[i].z;
             }
         }
 

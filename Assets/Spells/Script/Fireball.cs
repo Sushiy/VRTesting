@@ -34,7 +34,7 @@ public class Fireball : Spell
 
     public override void Fire(CastingData spelldata)
     {
-        Debug.Log("Spell: Fire!");
+        //Debug.Log("Spell: Fire!");
         gameObject.transform.position = spelldata._v3WandPos;
         gameObject.transform.rotation = spelldata._qWandRot;
         m_rigidThis = GetComponent<Rigidbody>();

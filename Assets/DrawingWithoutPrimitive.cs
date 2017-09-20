@@ -20,11 +20,13 @@ namespace gesture
         private Vector3 lastPoint;
         private LineRenderer debugLine1;
         private LineRenderer debugLine2;
+        private LineRenderer debugLine3;
 
         private GestureConverter m_converter;
         private GestureMatcher m_matcher;
         private MagicWand m_wand;
 
+        private Transform m_debugTransform;
 
 
         private void Awake()
@@ -38,7 +40,9 @@ namespace gesture
             debugLine1 = transform.GetChild(0).GetComponent<LineRenderer>();
             Assert.IsNotNull(debugLine1);
             debugLine2 = transform.GetChild(1).GetComponent<LineRenderer>();
+            debugLine3 = transform.GetChild(2).GetComponent<LineRenderer>();
             Assert.IsNotNull(debugLine2);
+            Assert.IsNotNull(debugLine3);
 
             m_converter = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureConverter>();
             Assert.IsNotNull(m_converter);
@@ -46,6 +50,9 @@ namespace gesture
             Assert.IsNotNull(m_matcher);
             m_wand = transform.parent.GetComponent<MagicWand>();
             Assert.IsNotNull(m_wand);
+
+            m_debugTransform = GameObject.Find("debug_cube").transform;
+            Assert.IsNotNull(m_debugTransform);
         }
 
 	    // Update is called once per frame
@@ -87,34 +94,65 @@ namespace gesture
             }
         }
 
+        // post process the drawn thing to make a gesture and match
         void PostProcessPoints()
         {
-            // post process the drawn thing
+            // store points in array
             Vector3[] p = points.ToArray();
-            Vector3 normal = Camera.main.transform.forward;
-            Vector2[] gesturePoints;
 
-            GestureConverter.Transform3DData(ref p, normal, out gesturePoints);
-            for (int i=0; i<p.Length; ++i)
-            {
-                p[i] = new Vector3(gesturePoints[i].x, gesturePoints[i].y, 0f);
-            }
-            debugLine1.positionCount = p.Length;
-            debugLine1.SetPositions(p); // drawing the xy-plane-projected points to test the transform3ddata call
+            Vector3 center,normal, min, max;
+            m_converter.IdentifyMinMax(ref p, out min, out max);
+            center.x = min.x + 0.5f * (max.x - min.x);
+            center.y = min.y + 0.5f * (max.y - min.y);
+            center.z = min.z + 0.5f * (max.z - min.z);
+            /* next step: try ro rotate the gesture first on z-axis, then on y axis, use debug lines to see if it works */
+            //try1
+            //Quaternion q = Quaternion.LookRotation(center - Camera.main.transform.position);
+            //float z = q.eulerAngles.z;
+            //Quaternion r = Quaternion.Euler(new Vector3(0f, 0f, z));
+            //try2
+            //for (int i = 0; i < p.Length; ++i) p[i] = p[i] - Camera.main.transform.position;
+            //Vector3 from, to;
+            //from = center - Camera.main.transform.position;
+            //to = new Vector3(1f, 0f, 0f);
+            //Quaternion q = Quaternion.FromToRotation(from, to);
+            //debugLine2.positionCount = p.Length;
+            //debugLine2.SetPositions(p);
+            //q.eulerAngles = new Vector3(0f, 0f, q.eulerAngles.z);
+            //for (int i = 0; i < p.Length; ++i) p[i] = q * p[i];
+            //debugLine3.positionCount = p.Length;
+            //debugLine3.SetPositions(p);
+            //try3
+            for (int i = 0; i < p.Length; ++i) p[i] = p[i] - Camera.main.transform.position;
+            debugLine2.positionCount = p.Length;
+            debugLine2.SetPositions(p);
+            m_debugTransform.LookAt(center - Camera.main.transform.position);
+            Quaternion q = m_debugTransform.transform.localRotation;
+            Quaternion qi = Quaternion.Inverse(q);
+            qi.eulerAngles += new Vector3(0f, 90f, 0f);
+            for (int i = 0; i < p.Length; ++i) p[i] = qi * p[i];
+            debugLine3.positionCount = p.Length;
+            debugLine3.SetPositions(p);
 
-            // create gesture (debug, seems to not work yet, meh)
+            /* calculate the normal */
+            //Vector3 normal = Camera.main.transform.forward; // the old way
+            // the new way
+            normal = center - Camera.main.transform.position;
+            normal = new Vector3(normal.x, normal.y, 0f); // takes out the z-rotation, maybe can be neglected?
+            normal.Normalize();
+
+            // new normal!
+            normal = new Vector3(1f, 0f, 0f);
+
             GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal);
-            string s = "";
-            for (int i = 0; i<g.points.Length; ++i)
+
+            // draw the gesture points
+            debugLine1.positionCount = 0;
+            for (int i = 0; i < g.points.Length; ++i)
             {
-                s += g.points[i].ToString() + "\n";
+                debugLine1.positionCount++;
+                debugLine1.SetPosition(i, new Vector3(g.points[i].x, g.points[i].y + 1, 0f));
             }
-            print(s);
-            debugLine2.positionCount = g.points.Length;
-            debugLine2.SetPosition(0, new Vector3(g.points[0].x, g.points[0].y, 0f));
-            debugLine2.SetPosition(1, new Vector3(g.points[1].x, g.points[1].y, 0f));
-            debugLine2.SetPosition(2, new Vector3(g.points[2].x, g.points[2].y, 0f));
-            debugLine2.SetPosition(3, new Vector3(g.points[3].x, g.points[3].y, 0f));
 
             // match the gesture
             gestureTypes type;
