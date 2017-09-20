@@ -229,13 +229,20 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
     [Command]
     private void CmdSpawnNetworkWand(GameObject _prefabWand, int _castingHandIndex, GameObject _goPlayerThis)
     {
+        RpcSpawnNetworkWand(_prefabWand, _castingHandIndex, _goPlayerThis);
+    }
+
+    [RPC]
+    private void RpcSpawnNetworkWand(GameObject _prefabWand, int _castingHandIndex, GameObject _goPlayerThis)
+    {
         GameObject wand = Instantiate<GameObject>(_prefabWand);
         MP_VR_PlayerController player = _goPlayerThis.GetComponent<MP_VR_PlayerController>();
         Transform transCastingHand = player.GetCastingHand(_castingHandIndex);
         FixedJoint joint = transCastingHand.GetComponentsInChildren<FixedJoint>()[1];
         Rigidbody rigidWand = wand.GetComponent<Rigidbody>();
-        wand.transform.position = transCastingHand.position;
-        wand.transform.rotation = transCastingHand.rotation;
+        wand.transform.parent = joint.transform;
+        wand.transform.position = joint.transform.position;
+        wand.transform.rotation = joint.transform.rotation;
         wand.transform.rotation *= Quaternion.Euler(-90, 0, 0);
         joint.connectedBody = rigidWand;
     }
