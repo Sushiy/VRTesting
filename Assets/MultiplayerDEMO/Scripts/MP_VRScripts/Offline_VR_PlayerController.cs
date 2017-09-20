@@ -168,6 +168,7 @@ public class Offline_VR_PlayerController : MonoBehaviour, IPlayerController
         }
     }
 
+
     //Check if you currently have all the necessary handreferences
     private void CheckHands()
     {

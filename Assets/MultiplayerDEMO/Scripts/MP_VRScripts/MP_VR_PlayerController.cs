@@ -28,7 +28,9 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
     private GameObject m_prefabVRStation;
 
     public SpellRegistry spellregistry;
-    
+    [SerializeField]
+    private GameObject m_prefabNetworkWand;
+
     [SerializeField]
     private MP_VR_NetworkHand m_mpvrhand1;
     [SerializeField]
@@ -207,6 +209,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
             {
                 m_forcerecMain = f;
                 m_magicwandMain = f.MagicWand;
+                CmdSpawnNetworkWand(m_prefabNetworkWand, FindWandHand(f.MagicWand), gameObject);
             }
             else
             {
@@ -220,7 +223,22 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
             m_forcerecOff.RemoveFromParent();
             m_forcerecMain.RemoveFromParent();
         }
-    } 
+    }
+
+
+    [Command]
+    private void CmdSpawnNetworkWand(GameObject _prefabWand, int _castingHandIndex, GameObject _goPlayerThis)
+    {
+        GameObject wand = Instantiate<GameObject>(_prefabWand);
+        MP_VR_PlayerController player = _goPlayerThis.GetComponent<MP_VR_PlayerController>();
+        Transform transCastingHand = player.GetCastingHand(_castingHandIndex);
+        FixedJoint joint = transCastingHand.GetComponentsInChildren<FixedJoint>()[1];
+        Rigidbody rigidWand = wand.GetComponent<Rigidbody>();
+        wand.transform.position = transCastingHand.position;
+        wand.transform.rotation = transCastingHand.rotation;
+        wand.transform.rotation *= Quaternion.Euler(-90, 0, 0);
+        joint.connectedBody = rigidWand;
+    }
 
     //Check if you currently have all the necessary handreferences
     private void CheckHands()
