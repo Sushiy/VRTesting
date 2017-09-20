@@ -545,7 +545,7 @@ MonoBehaviour:
   hasCasted: 0
   chargingParticles: {fileID: 0}
   m_bVibrateOn: 1
-  m_fMaxAmplitudeVibration: 3999
+  m_fMaxAmplitudeVibration: 500
   m_fVibrationFreq: 5.5
 --- !u!114 &114182703530404256
 MonoBehaviour:
