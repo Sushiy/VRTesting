@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 431888cca363af04ca97f9974f5c41ed
+guid: b77e19c8d312da246a09dbc024d52409
 timeCreated: 1505915338
 licenseType: Free
 ModelImporter:
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Wall1.001
+    4300000: Wall3
   materials:
     importMaterials: 1
     materialName: 0
