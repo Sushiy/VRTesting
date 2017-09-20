@@ -32,9 +32,9 @@ namespace primitive
         private GestureMatcher m_matcher;
 
         private ParticleSystem m_psDrawing;
-        private float m_fTriggerTimer = 0.0f;
+        //private float m_fTriggerTimer = 0.0f;
 
-        private SpellType[] m_gestureLUT = new SpellType[]
+        public static SpellType[] m_gestureLUT = new SpellType[]
         {
             SpellType.FIREBALL, SpellType.FIREBALL,
             SpellType.METEOR, SpellType.METEOR,
