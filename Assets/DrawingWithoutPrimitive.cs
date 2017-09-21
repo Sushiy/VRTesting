@@ -145,7 +145,7 @@ namespace gesture
             /* set the normal */
             normal = new Vector3(0f, 0f, 1f);
 
-            GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal);
+            GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal,4);// TODO has to be not hardcoded!!!!
 
             // match the gesture
             gestureTypes type;

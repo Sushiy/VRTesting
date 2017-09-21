@@ -136,7 +136,7 @@ namespace primitive
             }
 
             // convert 2D points to a gesture
-            GestureObject g = m_converter.CreateGestureFrom2DData(ref points2D);
+            GestureObject g = m_converter.CreateGestureFrom2DData(ref points2D, 4);
 
             // match the gesture
             gestureTypes type;

@@ -100,12 +100,12 @@ namespace gesture
         /// <param name="p">3D Point data of a gesture</param>
         /// <param name="normal">The normal of the plane the points are supposed to be drawn on</param>
         /// <returns>the gesture</returns>
-        public GestureObject CreateGestureFrom3DData(ref Vector3[] p, Vector3 normal)
+        public GestureObject CreateGestureFrom3DData(ref Vector3[] p, Vector3 normal, int pointCount)
         {
             GestureObject g = new GestureObject();
             Vector2[] points2D;
             Transform3DData(ref p, normal, out points2D);
-            IdentifyCharPoints(ref points2D, out g.points, m_iRequiredNumber);
+            IdentifyCharPoints(ref points2D, out g.points, pointCount);
             MakeGestureUniform(ref g.points, m_fSize);
             //debug
             m_arrCharPoints.Clear();
@@ -119,10 +119,10 @@ namespace gesture
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public GestureObject CreateGestureFrom2DData(ref Vector2[] p)
+        public GestureObject CreateGestureFrom2DData(ref Vector2[] p, int pointCount)
         {
             GestureObject g = new GestureObject();
-            IdentifyCharPoints(ref p, out g.points, m_iRequiredNumber);
+            IdentifyCharPoints(ref p, out g.points, pointCount);
             MakeGestureUniform(ref g.points, m_fSize);
             //debug
             m_arrCharPoints.Clear();
