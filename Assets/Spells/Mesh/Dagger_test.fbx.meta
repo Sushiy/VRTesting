@@ -1,27 +1,32 @@
 fileFormatVersion: 2
-guid: 9191ef8a150dffb4883d684269c4d493
-timeCreated: 1506004864
+guid: c01df3aa70766cc4c982a19593788b09
+timeCreated: 1506007930
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: Cube
-    100002: Cube.001
-    100004: Cylinder
-    100006: //RootNode
+    100002: Cylinder
+    100004: //RootNode
+    100006: Daggertest
+    100008: Daggerv1.001
     400000: Cube
-    400002: Cube.001
-    400004: Cylinder
-    400006: //RootNode
+    400002: Cylinder
+    400004: //RootNode
+    400006: Daggertest
+    400008: Daggerv1.001
     2300000: Cube
-    2300002: Cube.001
-    2300004: Cylinder
+    2300002: Cylinder
+    2300004: Daggertest
+    2300006: Daggerv1.001
     3300000: Cube
-    3300002: Cube.001
-    3300004: Cylinder
-    4300000: Cube.001
-    4300002: Cylinder
-    4300004: Cube
+    3300002: Cylinder
+    3300004: Daggertest
+    3300006: Daggerv1.001
+    4300000: Daggerv1.001
+    4300002: Daggertest
+    4300004: Cylinder
+    4300006: Cube
   materials:
     importMaterials: 1
     materialName: 0
