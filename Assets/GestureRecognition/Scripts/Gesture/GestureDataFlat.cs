@@ -38,6 +38,7 @@ namespace gesture
                 spelltypes[i] = SpellType.NONE;
             }
 
+            initialise = false;
         }
 
         /// <summary>
