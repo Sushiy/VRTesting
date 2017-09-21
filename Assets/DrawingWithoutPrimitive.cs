@@ -20,9 +20,6 @@ namespace gesture
         private bool recording = false;
         private Transform endPoint;
         private Vector3 lastPoint;
-        //private LineRenderer debugLine1;
-        //private LineRenderer debugLine2;
-        //private LineRenderer debugLine3;
         private Transform m_transHelper;
 
         private GestureConverter m_converter;
@@ -37,14 +34,6 @@ namespace gesture
             Assert.IsNotNull(line);
             endPoint = transform.parent.GetChild(1);
             Assert.IsNotNull(endPoint);
-
-            // debug lines
-            //debugLine1 = transform.GetChild(0).GetComponent<LineRenderer>();
-            //Assert.IsNotNull(debugLine1);
-            //debugLine2 = transform.GetChild(1).GetComponent<LineRenderer>();
-            //debugLine3 = transform.GetChild(2).GetComponent<LineRenderer>();
-            //Assert.IsNotNull(debugLine2);
-            //Assert.IsNotNull(debugLine3);
 
             m_converter = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureConverter>();
             Assert.IsNotNull(m_converter);
@@ -110,27 +99,15 @@ namespace gesture
 
             // reposition gesture through rotation to align on z axis
             for (int i = 0; i < p.Length; ++i) p[i] = p[i] - Camera.main.transform.position;
-            //debugLine2.positionCount = p.Length;
-            //debugLine2.SetPositions(p);
             m_transHelper.LookAt(center - Camera.main.transform.position);
             Quaternion q = m_transHelper.transform.localRotation;
             Quaternion qi = Quaternion.Inverse(q);
             for (int i = 0; i < p.Length; ++i) p[i] = qi * p[i];
-            //debugLine3.positionCount = p.Length;
-            //debugLine3.SetPositions(p);
 
             /* set the normal */
             normal = new Vector3(0f, 0f, 1f);
 
             GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal);
-
-            //// draw the gesture points
-            //debugLine1.positionCount = 0;
-            //for (int i = 0; i < g.points.Length; ++i)
-            //{
-            //    debugLine1.positionCount++;
-            //    debugLine1.SetPosition(i, new Vector3(g.points[i].x, g.points[i].y + 1, 0f));
-            //}
 
             // match the gesture
             gestureTypes type;
