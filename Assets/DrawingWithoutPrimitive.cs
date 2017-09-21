@@ -11,6 +11,8 @@ namespace gesture
 
         [SerializeField]
         private float m_fMinimumDistance = 0.1f;
+        [SerializeField]
+        private float m_fTriggerThreshold = 0.1f;
 
         private Hand hand;
         private LineRenderer line;
@@ -58,7 +60,7 @@ namespace gesture
             float trigger = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
 
             // when trigger is pushed
-            if (trigger > 0f)
+            if (trigger > m_fTriggerThreshold)
             {
                 // new recording?
                 if (!recording)
@@ -75,6 +77,7 @@ namespace gesture
                 recording = false;
                 AddPoint();
                 PostProcessPoints();
+                line.positionCount = 0;
             }
 
 	    }
