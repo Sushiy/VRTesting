@@ -30,8 +30,13 @@ namespace gesture
         private int m_k = 3;
         [SerializeField]
         private TextMesh debug_text; //debug
+        [SerializeField]
+        private GestureDataFlat[] flatDatasets;
+        [SerializeField]
+        private bool useFlatDatasets = false;
 
         private GestureObject[] Dataset; // has to be filled now
+        private GestureSpellObject[][] gestureObjectArray;
 
         /// <summary>
         /// takes the data from the GestureData-dataObject and converts it into
@@ -71,6 +76,16 @@ namespace gesture
                     Dataset[typeIndex * dataObject.samplesPerGesture + sampleIndex] = g;
                 }
             }
+
+            if (useFlatDatasets)
+            {
+                gestureObjectArray = new GestureSpellObject[flatDatasets.Length][];
+                for(int i=0; i<flatDatasets.Length; ++i)
+                {
+                    flatDatasets[i].Init(); // init first
+                    flatDatasets[i].createGestureDataset(out gestureObjectArray[i]);
+                }
+            }
         }
 
         /// <summary>
@@ -98,6 +113,30 @@ namespace gesture
                     print("The gestures to compare have different counts of points! Make sure both gestures have the same number of points");
                 }
                 neighbors.Add(new KeyValuePair<float, GestureObject>(distance, g));
+            }
+            return neighbors.OrderBy(n => n.Key).Take(k).ToList();
+        }
+
+        // flatdataset version
+        private List<KeyValuePair<float, GestureSpellObject>> FindNearestNeighbors(GestureSpellObject input, int k, int datasetIndex)
+        {
+            // check for traps
+            if (input.points.Length != dataObject.pointsPerGesture)
+            {
+                Debug.LogWarning("The gestures to compare have different counts of points! Make sure both gestures have the same number of points." +
+                    "Input length: " + input.points.Length + "; needed nr of points: " + dataObject.pointsPerGesture);
+                return null;
+            }
+
+            var neighbors = new List<KeyValuePair<float, GestureSpellObject>>();
+            foreach (GestureSpellObject g in gestureObjectArray[datasetIndex])
+            {
+                float distance = GestureSimilarity.CompareGestures(input.points, g.points, MeasureType.EUKLIDIAN_MEASURE, false);
+                if (distance == -1)
+                {
+                    print("The gestures to compare have different counts of points! Make sure both gestures have the same number of points");
+                }
+                neighbors.Add(new KeyValuePair<float, GestureSpellObject>(distance, g));
             }
             return neighbors.OrderBy(n => n.Key).Take(k).ToList();
         }

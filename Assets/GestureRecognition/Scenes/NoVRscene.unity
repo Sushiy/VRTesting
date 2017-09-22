@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_fSphereRadius: 0.3
   m_iMaxAngle: 20
   m_fMinimalDistance: 1.214
-  m_iRequiredNumber: 4
+  m_iRequiredNumber: 6
   m_fSize: 1
   m_bDrawWithMouse: 1
   m_textCharPntNr: {fileID: 598777840}
@@ -1124,6 +1124,10 @@ MonoBehaviour:
   avgDistanceThreshold: 1
   m_k: 3
   debug_text: {fileID: 0}
+  flatDatasets:
+  - {fileID: 11400000, guid: d5264b7670b489346a034f92e386c21d, type: 2}
+  - {fileID: 11400000, guid: f77f8d94339488d4ab9165286a77ffe4, type: 2}
+  useFlatDatasets: 1
 --- !u!114 &2052047886
 MonoBehaviour:
   m_ObjectHideFlags: 0
