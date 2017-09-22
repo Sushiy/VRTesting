@@ -8,6 +8,7 @@ public class Fireball : Spell
     private Rigidbody m_rigidThis;
     private int m_iDamage = 5;
     public GameObject explosionPrefab;
+    public GameObject absorptionPrefab;
     public float m_fVelocityMultiplier = 2.0f;
 
     // Use this for initialization
@@ -46,7 +47,14 @@ public class Fireball : Spell
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (explosionPrefab != null)
+        Vector3 normal = collision.contacts[0].normal;
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Shield") && absorptionPrefab != null)
+        {
+            GameObject absorbtion = Instantiate(absorptionPrefab, transform.position, transform.rotation);
+            absorbtion.transform.forward = normal;
+        }
+
+        else if (explosionPrefab != null)
             Instantiate(explosionPrefab, transform.position, transform.rotation);
 
         GameObject goOther = collision.gameObject;

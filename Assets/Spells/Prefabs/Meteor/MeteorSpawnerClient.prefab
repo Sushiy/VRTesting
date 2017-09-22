@@ -1234,6 +1234,8 @@ MonoBehaviour:
   m_bIsServer: 0
   explosionPrefab: {fileID: 1061799176022336, guid: 5e55fd296cc81f84fb6d254053f8eaa0,
     type: 2}
+  absorptionPrefab: {fileID: 1310379005169162, guid: 122a66c3db0de9645ac33ee576c884ca,
+    type: 2}
   m_fVelocityMultiplier: 0.3
 --- !u!114 &114605086559202990
 MonoBehaviour:
@@ -1287,7 +1289,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135824660245352416
 SphereCollider:

@@ -1092,6 +1092,8 @@ MonoBehaviour:
   m_bIsServer: 0
   explosionPrefab: {fileID: 1924296179514564, guid: 5aa3a85cd705b3c49816a43798d3a9e0,
     type: 2}
+  absorptionPrefab: {fileID: 1436034892100540, guid: 74f1e7e3e7e78834ba196fe9a6fc283c,
+    type: 2}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5
   m_fMaxAngle: 30
@@ -1140,6 +1142,8 @@ MonoBehaviour:
   m_spelltypeThis: 3
   m_bIsServer: 0
   explosionPrefab: {fileID: 1924296179514564, guid: 5aa3a85cd705b3c49816a43798d3a9e0,
+    type: 2}
+  absorptionPrefab: {fileID: 1436034892100540, guid: 74f1e7e3e7e78834ba196fe9a6fc283c,
     type: 2}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5
@@ -1218,6 +1222,8 @@ MonoBehaviour:
   m_spelltypeThis: 3
   m_bIsServer: 0
   explosionPrefab: {fileID: 1924296179514564, guid: 5aa3a85cd705b3c49816a43798d3a9e0,
+    type: 2}
+  absorptionPrefab: {fileID: 1436034892100540, guid: 74f1e7e3e7e78834ba196fe9a6fc283c,
     type: 2}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5

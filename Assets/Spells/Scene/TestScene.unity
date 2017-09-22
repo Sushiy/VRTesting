@@ -3632,57 +3632,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114778440371967352, guid: 6da72db9bc006d04383f5659de196665,
+        type: 2}
+      propertyPath: postshockwave
+      value: 
+      objectReference: {fileID: 1454367078}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6da72db9bc006d04383f5659de196665, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1398965558 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1496227337875998, guid: 6da72db9bc006d04383f5659de196665,
-    type: 2}
-  m_PrefabInternal: {fileID: 1398965557}
---- !u!114 &1398965559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1398965558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce1a197b64865c41bbc7e73ba8361d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  postshockwave: {fileID: 1454367078}
-  m_animcurvePortalSize:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: -0.001411438
-      value: 0.9996338
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.4811933
-      value: 1.1375983
-      inSlope: -0.0864711
-      outSlope: -0.0864711
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.6929962
-      value: 0.80190223
-      inSlope: -3.070056
-      outSlope: -3.070056
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.7520752
-      value: 0.0065307617
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  m_fPortalSpawnTime: 1
 --- !u!1 &1428016576
 GameObject:
   m_ObjectHideFlags: 0
@@ -4010,11 +3967,6 @@ Prefab:
     - target: {fileID: 4980829190679520, guid: 122a66c3db0de9645ac33ee576c884ca, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114917422322726934, guid: 122a66c3db0de9645ac33ee576c884ca,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 122a66c3db0de9645ac33ee576c884ca, type: 2}
