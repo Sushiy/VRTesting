@@ -25,7 +25,7 @@ namespace gesture
     /// Gesture Data
     /// Ist ein Scriptable Object und enthält die Trainingsdaten, nach denen dann gematched wird
     /// </summary>
-    [CreateAssetMenu(fileName = "GestureDataset_", menuName = " Gesture/Dataset", order = 1)]
+    [CreateAssetMenu(fileName = "GestureDataset_", menuName = "Gesture/Dataset", order = 1)]
     public class GestureData : ScriptableObject
     {
         public Vector2[][] gestures;

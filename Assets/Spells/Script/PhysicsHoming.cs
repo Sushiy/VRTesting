@@ -7,7 +7,7 @@ public class PhysicsHoming : MonoBehaviour {
 
     [SerializeField]
     private float m_fTorqueForce = 0.1f;
-    [SerializeField]
+    //[SerializeField]
     //private float m_fConstantForce = 0.1f;
 
     private Rigidbody m_rigid;

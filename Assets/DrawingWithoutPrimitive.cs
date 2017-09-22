@@ -11,6 +11,10 @@ namespace gesture
 
         [SerializeField]
         private float m_fMinimumDistance = 0.1f;
+        [SerializeField]
+        private float m_fTriggerThreshold = 0.1f;
+        [SerializeField]
+        private float m_fGravityMultiplierParticles = 0.8f;
 
         private Hand hand;
         private LineRenderer line;
@@ -18,14 +22,17 @@ namespace gesture
         private bool recording = false;
         private Transform endPoint;
         private Vector3 lastPoint;
-        //private LineRenderer debugLine1;
-        //private LineRenderer debugLine2;
-        //private LineRenderer debugLine3;
         private Transform m_transHelper;
 
         private GestureConverter m_converter;
         private GestureMatcher m_matcher;
         private MagicWand m_wand;
+        private ParticleSystem m_psDrawing;
+
+        private Coroutine m_coroutine_clearLine;
+        private Coroutine m_coroutine_particleReaction;
+
+        private bool m_bValidGesture = false;
 
         private void Awake()
         {
@@ -36,14 +43,6 @@ namespace gesture
             endPoint = transform.parent.GetChild(1);
             Assert.IsNotNull(endPoint);
 
-            // debug lines
-            //debugLine1 = transform.GetChild(0).GetComponent<LineRenderer>();
-            //Assert.IsNotNull(debugLine1);
-            //debugLine2 = transform.GetChild(1).GetComponent<LineRenderer>();
-            //debugLine3 = transform.GetChild(2).GetComponent<LineRenderer>();
-            //Assert.IsNotNull(debugLine2);
-            //Assert.IsNotNull(debugLine3);
-
             m_converter = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureConverter>();
             Assert.IsNotNull(m_converter);
             m_matcher = m_converter.GetComponent<GestureMatcher>();
@@ -51,6 +50,8 @@ namespace gesture
             m_wand = transform.parent.GetComponent<MagicWand>();
             Assert.IsNotNull(m_wand);
             m_transHelper = m_converter.transform;
+            m_psDrawing = endPoint.GetComponentInChildren<ParticleSystem>();
+            Assert.IsNotNull(m_psDrawing);
         }
 
 	    // Update is called once per frame
@@ -58,23 +59,52 @@ namespace gesture
             float trigger = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
 
             // when trigger is pushed
-            if (trigger > 0f)
+            if (trigger > m_fTriggerThreshold)
             {
+                // is a line still vanishing? reset!
+                if (m_coroutine_clearLine != null)
+                {
+                    StopCoroutine(m_coroutine_clearLine);
+                    m_coroutine_clearLine = null;
+                    line.positionCount = 0;
+                }
+
+                // are not all the particles gone yet (from previuos drawing)?
+                if (m_coroutine_particleReaction != null)
+                {
+                    StopCoroutine(m_coroutine_particleReaction);
+                    m_coroutine_particleReaction = null;
+                    if (m_bValidGesture)
+                        m_psDrawing.GetComponent<particleAttractorMove>().active = false;
+                    else
+                    {
+                        var main = m_psDrawing.main;
+                        main.gravityModifier = 0f;
+                    }
+                }
+
                 // new recording?
                 if (!recording)
                 {
                     recording = true;
                     points.Clear();
                     line.positionCount = 0;
+                    m_psDrawing.Play();
                 }
 
                 AddPoint();
             }
+            // one gesture is just finished
             else if (recording)
             {
                 recording = false;
                 AddPoint();
                 PostProcessPoints();
+                m_psDrawing.Stop();
+
+                // make the line vanish and suck in the particles
+                m_coroutine_clearLine = StartCoroutine(coroutine_clearLine());
+                m_coroutine_particleReaction = StartCoroutine(coroutine_particleReaction(m_bValidGesture));
             }
 
 	    }
@@ -107,27 +137,15 @@ namespace gesture
 
             // reposition gesture through rotation to align on z axis
             for (int i = 0; i < p.Length; ++i) p[i] = p[i] - Camera.main.transform.position;
-            //debugLine2.positionCount = p.Length;
-            //debugLine2.SetPositions(p);
             m_transHelper.LookAt(center - Camera.main.transform.position);
             Quaternion q = m_transHelper.transform.localRotation;
             Quaternion qi = Quaternion.Inverse(q);
             for (int i = 0; i < p.Length; ++i) p[i] = qi * p[i];
-            //debugLine3.positionCount = p.Length;
-            //debugLine3.SetPositions(p);
 
             /* set the normal */
             normal = new Vector3(0f, 0f, 1f);
 
-            GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal);
-
-            //// draw the gesture points
-            //debugLine1.positionCount = 0;
-            //for (int i = 0; i < g.points.Length; ++i)
-            //{
-            //    debugLine1.positionCount++;
-            //    debugLine1.SetPosition(i, new Vector3(g.points[i].x, g.points[i].y + 1, 0f));
-            //}
+            GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal,4);// TODO has to be not hardcoded!!!!
 
             // match the gesture
             gestureTypes type;
@@ -138,6 +156,43 @@ namespace gesture
             if (valid)
             {
                 m_wand.LoadWand(DrawingOnPrimitive.m_gestureLUT[(int)type]);
+            }
+
+            m_bValidGesture = valid;
+        }
+
+        // is called when the gesture is done
+        IEnumerator coroutine_clearLine()
+        {
+            while (points.Count > 0)
+            {
+                AddPoint(); // stay connected to the wand
+                points.RemoveAt(0);
+                line.positionCount = points.Count;
+                line.SetPositions(points.ToArray());
+                yield return null;
+            }
+        }
+
+        // Is Called after a finished gesture
+        IEnumerator coroutine_particleReaction(bool validGesture)
+        {
+            // if its a valid gesture, suck in the particles
+            if (validGesture)
+            {
+                m_psDrawing.GetComponent<particleAttractorMove>().active = true;
+                while (m_psDrawing.IsAlive())
+                    yield return null;
+                m_psDrawing.GetComponent<particleAttractorMove>().active = false;
+            }
+            // else, just drop the particles on the floor
+            else
+            {
+                var main = m_psDrawing.main;
+                main.gravityModifier = m_fGravityMultiplierParticles;
+                while (m_psDrawing.IsAlive())
+                    yield return null;
+                main.gravityModifier = 0f;
             }
         }
     }

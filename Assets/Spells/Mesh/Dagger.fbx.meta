@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: c5843cf3067e3e644aa28f4b8bd70800
-timeCreated: 1505999222
+guid: 8af8d6e64e6a74b43ac1e6207ac8d701
+timeCreated: 1506013320
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Temple_MeshPart0
-    100004: Temple_MeshPart1
-    400000: //RootNode
-    400002: Temple_MeshPart0
-    400004: Temple_MeshPart1
-    2300000: Temple_MeshPart0
-    2300002: Temple_MeshPart1
-    3300000: Temple_MeshPart0
-    3300002: Temple_MeshPart1
-    4300000: Temple_MeshPart0
-    4300002: Temple_MeshPart1
+    100000: Cube
+    100002: Cylinder
+    100004: //RootNode
+    400000: Cube
+    400002: Cylinder
+    400004: //RootNode
+    2300000: Cube
+    2300002: Cylinder
+    3300000: Cube
+    3300002: Cylinder
+    4300000: Cylinder
+    4300002: Cube
   materials:
     importMaterials: 1
     materialName: 0
