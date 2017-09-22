@@ -45,6 +45,15 @@ namespace gesture
         private GestureObject[] Dataset; // has to be filled now
         private GestureSpellObject[][] gestureObjectArray;
 
+        public int NumberOfDatasets { get { return flatDatasets.Length; } }
+        public int[] RequiredPointCounts { get
+            {
+                var n = new int[NumberOfDatasets];
+                for (int i = 0; i < NumberOfDatasets; ++i) n[i] = flatDatasets[i].pointsPerSample;
+                return n;
+            }
+        }
+
         /// <summary>
         /// takes the data from the GestureData-dataObject and converts it into
         /// a gesture-Array "Dataset" so its easier to access for the kNN algorithm

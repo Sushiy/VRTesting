@@ -145,17 +145,25 @@ namespace gesture
             /* set the normal */
             normal = new Vector3(0f, 0f, 1f);
 
-            GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal,4);// TODO has to be not hardcoded!!!!
+            GestureSpellObject[] g = new GestureSpellObject[m_matcher.NumberOfDatasets];
+            for (int i=0; i<m_matcher.NumberOfDatasets; ++i)
+            {
+                g[i] = m_converter.CreateGestureFrom3DData(ref p, normal, m_matcher.RequiredPointCounts[i]);
+            }
+            //GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal,4);// TODO has to be not hardcoded!!!!
 
             // match the gesture
-            gestureTypes type;
-            bool valid = m_matcher.Match(g, out type);
-            print("Gesture is vald=" + valid.ToString() + " and " + type.ToString());
+            //gestureTypes type;
+            //bool valid = m_matcher.Match(g, out type);
+            //print("Gesture is vald=" + valid.ToString() + " and " + type.ToString());
+            SpellType type;
+            bool valid = m_matcher.MultiMatch(g, out type);
+            print("Gesture is valid = " + valid.ToString() + " and " + type.ToString());
 
             // charge wand if valid
             if (valid)
             {
-                m_wand.LoadWand(DrawingOnPrimitive.m_gestureLUT[(int)type]);
+                m_wand.LoadWand(type);
             }
 
             m_bValidGesture = valid;
