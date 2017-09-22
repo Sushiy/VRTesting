@@ -60,7 +60,7 @@ namespace gesture
         {
             // check if gesture is too long
             if (samplePoints.Length != flatDataset.pointsPerSample)
-                print("Careful! The gesture index count differs from the index cound needed from the dataset");
+                Debug.LogError("Careful! The gesture index count differs from the index cound needed from the dataset");
 
             if (ui.selectedIndex < 0)
                 return;
@@ -84,7 +84,7 @@ namespace gesture
         {
             // check if the gesture is too long
             if (g.points.Length != dataset.pointsPerGesture)
-                print("Careful! The gesture index count differs from the index count needed from the dataset");
+                Debug.LogError("Careful! The gesture index count differs from the index count needed from the dataset");
 
             if (ui.selectedIndex < 0)
                 return;
