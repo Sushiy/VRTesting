@@ -121,10 +121,10 @@ namespace gesture
         private List<KeyValuePair<float, GestureSpellObject>> FindNearestNeighbors(GestureSpellObject input, int k, int datasetIndex)
         {
             // check for traps
-            if (input.points.Length != dataObject.pointsPerGesture)
+            if (input.points.Length != flatDatasets[datasetIndex].pointsPerSample)
             {
                 Debug.LogWarning("The gestures to compare have different counts of points! Make sure both gestures have the same number of points." +
-                    "Input length: " + input.points.Length + "; needed nr of points: " + dataObject.pointsPerGesture);
+                    "Input length: " + input.points.Length + "; needed nr of points: " + flatDatasets[datasetIndex].pointsPerSample);
                 return null;
             }
 
@@ -194,6 +194,7 @@ namespace gesture
             // Get in the votes
             foreach (KeyValuePair<float, GestureObject> neighbor in nearestNeighbors)
             {
+                
                 votes[(int)neighbor.Value.type].x++;
                 votes[(int)neighbor.Value.type].y += neighbor.Key;
             }
@@ -222,6 +223,124 @@ namespace gesture
             if (debug_text != null) debug_text.text = "This gesture is: " + matchedType.ToString() + " and it is valid: " + valid;
 
             return valid;
+        }
+
+        public bool Match(GestureSpellObject input, out SpellType matchedType, int datasetIndex, out float avgDistance)
+        {
+            var nearestNeighbors = FindNearestNeighbors(input, m_k, datasetIndex);
+            if (nearestNeighbors == null)
+            {
+                matchedType = SpellType.NONE;
+                avgDistance = -1f;
+                return false;
+            }
+
+            int gestureCount = flatDatasets[datasetIndex].numberOfGestures;
+
+            Vector2[] votes = new Vector2[gestureCount];
+
+            // Get in the votes
+            foreach (KeyValuePair<float, GestureSpellObject> neighbor in nearestNeighbors)
+            {
+                // cannot use the neighbor value type thing anymore! needs some kind of index
+                //
+                //
+                //
+                // first make sure that is actually the error
+                // next maybe try to save the gesture index in the gesturespell object or something?
+                // or calculate it somehow. but you need to know which neighbor has which gesture index
+                //
+                //
+                //
+                //
+                //
+                ///////////////////////
+                votes[(int)neighbor.Value.type].x++;
+                votes[(int)neighbor.Value.type].y += neighbor.Key;
+            }
+
+            // Get the best match
+            int matchIndex = -1;
+            float highestMatchValue = float.MinValue;
+            for (int i = 0; i < gestureCount; ++i)
+            {
+                votes[i].y /= votes[i].x;
+                votes[i].x /= nearestNeighbors.Count;
+
+                if (votes[i].x > highestMatchValue)
+                {
+                    matchIndex = i;
+                    highestMatchValue = votes[i].x;
+                }
+            }
+
+            // set the matched type
+            matchedType = flatDatasets[datasetIndex].spelltypes[matchIndex];
+            // is the average distance low enough?
+            avgDistance = votes[matchIndex].y;
+            bool valid = (avgDistance <= avgDistanceThreshold) ? true : false;
+
+            return valid;
+        }
+
+        public bool MultiMatch(GestureSpellObject[] input, out SpellType matchedSpell)
+        {
+            int numberOfDatasets = flatDatasets.Length;
+            matchedSpell = SpellType.NONE;
+            var matches = new SpellType[numberOfDatasets];
+            var validations = new bool[numberOfDatasets];
+            var avgDistances = new float[numberOfDatasets];
+
+            // collect a match for every dataset
+            for (int datasetIndex = 0; datasetIndex < numberOfDatasets; ++datasetIndex)
+            {
+                validations[datasetIndex] = Match(input[datasetIndex], out matches[datasetIndex], datasetIndex, out avgDistances[datasetIndex]);
+            }
+
+            // compare the matches and beware of special cases
+            int validCount = 0; // counts how many datasets are valid
+            foreach (bool b in validations) if (b) validCount++;
+
+            // case 1: no valid match, stop right here
+            if (validCount == 0) return false;
+
+            // case 2: only 1 valid match, easy. just take that, no reason to compare the matches
+            else if (validCount == 1)
+            {
+                for (int i=0; i<numberOfDatasets; ++i)
+                {
+                    if (validations[i]) // found the lucky one
+                    {
+                        matchedSpell = matches[i];
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // case 3: worst, theres several valid matches. now you have to compare the avgDistances
+            else
+            {
+                int bestMatchIndex = 0;
+                float bestAvgDistance = float.MaxValue;
+                // go through every match, check if it is valid
+                // then find the one with the lowest avg distance
+                for (int i = 0; i < numberOfDatasets; ++i)
+                {
+                    if (validations[i]) // valid
+                    {
+                        float avgDist = avgDistances[i];
+                        if (avgDist < bestAvgDistance) // better avg dist found
+                        {
+                            bestAvgDistance = avgDist;
+                            bestMatchIndex = i;
+                        }
+                    }
+                }
+
+                matchedSpell = matches[bestMatchIndex];
+                return true;
+            }
         }
     }
 }

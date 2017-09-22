@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f696c2b4fe702bc46b06957192948194, type: 3}
   m_Name: flat_dataset_6points
   m_EditorClassIdentifier: 
-  spelltypes: 00000000
+  spelltypes: 04000000
   gestures:
   - {x: -0.3949204, y: -0.47911584}
   - {x: 0.19672069, y: 0.49999988}
