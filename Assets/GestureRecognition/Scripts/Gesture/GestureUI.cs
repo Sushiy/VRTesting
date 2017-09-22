@@ -28,6 +28,7 @@ namespace gesture
         private Transform typePanel;
         private GestureDataRecorder recorder;
         private GestureData dataset;
+        private GestureDataFlat flatDataset;
 
         private Image[] gesturePanels;
         private Image[] indexPanels;
@@ -48,35 +49,59 @@ namespace gesture
             typePanel = transform.GetChild(1);
             recorder = GameObject.FindGameObjectWithTag("GestureObject").GetComponent<GestureDataRecorder>();
             dataset = recorder.Dataset;
+            flatDataset = recorder.FlatDataset;
 
             // assert
             Assert.IsNotNull(indexPanel);
             Assert.IsNotNull(typePanel);
             Assert.IsNotNull(recorder);
-            Assert.IsNotNull(dataset);
+            if (recorder.UseFlatDataset)
+                Assert.IsNotNull(flatDataset);
+            else
+                Assert.IsNotNull(dataset);
         }
 
         void Start()
         {
-            gesturesRecorded = new int[dataset.NumberOfGestureTypes];
+            int numberOfGestures, samplesPerGesture;
+            if (recorder.UseFlatDataset)
+            {
+                numberOfGestures = flatDataset.numberOfGestures;
+                samplesPerGesture = flatDataset.samplesPerGesture;
+            }
+            else
+            {
+                numberOfGestures = dataset.NumberOfGestureTypes;
+                samplesPerGesture = dataset.samplesPerGesture;
+            }
 
-            indexPanels = new Image[dataset.samplesPerGesture];
-            gesturePanels = new Image[dataset.NumberOfGestureTypes];
+            gesturesRecorded = new int[numberOfGestures];
+            indexPanels = new Image[samplesPerGesture];
+            gesturePanels = new Image[numberOfGestures];
 
             // create indexpanel
-            for (int i=0; i<dataset.samplesPerGesture; ++i)
+            for (int i = 0; i < samplesPerGesture; ++i)
             {
                 Transform b = Instantiate(buttonPrefab).transform;
                 b.name = "index_" + i;
                 b.SetParent(indexPanel);
-                b.GetChild(0).GetComponent<Text>().text = "Index " + i + "["+indexCharPool[i]+"]";
+                b.GetChild(0).GetComponent<Text>().text = "Index " + i + "[" + indexCharPool[i] + "]";
                 b.GetComponent<Image>().color = indexColor;
                 indexPanels[i] = b.GetComponent<Image>();
             }
 
             // create gesture panel buttons
-            string[] names = System.Enum.GetNames(typeof(gestureTypes));
-            for (int i = 0; i < dataset.NumberOfGestureTypes; ++i)
+            string[] names;
+            if (recorder.UseFlatDataset)
+            {
+                names = new string[flatDataset.numberOfGestures];
+                for (int i = 0; i < names.Length; ++i) names[i] = flatDataset.spelltypes.ToString();
+            }
+            else
+            {
+                names = System.Enum.GetNames(typeof(gestureTypes));
+            }
+            for (int i = 0; i < numberOfGestures; ++i)
             {
                 Transform b = Instantiate(buttonPrefab).transform;
                 b.name = "type_" + i;
@@ -171,9 +196,11 @@ namespace gesture
 
         void UpdateIndices()
         {
+            int samplesPerGesture = (recorder.UseFlatDataset) ? flatDataset.samplesPerGesture : dataset.samplesPerGesture;
+
             int n = gesturesRecorded[selectedGesture];
             // check, which of them is full
-            for (int i=0; i<dataset.samplesPerGesture; ++i)
+            for (int i=0; i<samplesPerGesture; ++i)
             {
                 int number = (int)Mathf.Pow(2, i+1);
                 if ((n & number) == number)

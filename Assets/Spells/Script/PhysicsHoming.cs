@@ -23,7 +23,6 @@ public class PhysicsHoming : MonoBehaviour {
     {
         // find a target
         m_v3Target = GetComponent<Spell>().TargetPosition;
-        if (m_v3Target == null) ;
     }
 
     void FixedUpdate () {

@@ -11,10 +11,16 @@ namespace gesture
         [SerializeField]
         private GestureData dataset;
         [SerializeField]
+        private GestureDataFlat flatDataset;
+        [SerializeField]
         private GestureUI ui;
+        [SerializeField]
+        private bool useFlatDataset = false;
 
         private GestureConverter drawer;
         public GestureData Dataset {get { return dataset; } }
+        public GestureDataFlat FlatDataset { get { return flatDataset; } }
+        public bool UseFlatDataset { get { return useFlatDataset; } }
 
         void Awake()
         {
@@ -23,7 +29,10 @@ namespace gesture
 
         void Start()
         {
-            dataset.Init();
+            if (!useFlatDataset)
+                dataset.Init();
+            else
+                flatDataset.Init();
         }
 
         /// <summary>
@@ -33,11 +42,42 @@ namespace gesture
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                GestureObject g = new GestureObject();
-                g.type = (gestureTypes)ui.selectedGesture;
-                g.points = drawer.getCurrentGesture(); //TODO sollte sich das woanders herholen!
-                SetGesture(g);
+                if (!useFlatDataset)
+                {
+                    GestureObject g = new GestureObject();
+                    g.type = (gestureTypes)ui.selectedGesture;
+                    g.points = drawer.getCurrentGesture(); //TODO sollte sich das woanders herholen!
+                    SetGesture(g);
+                }
+                else
+                {
+                    SetGesture(drawer.getCurrentGesture());
+                }
             }
+        }
+
+        void SetGesture(Vector2[] samplePoints)
+        {
+            // check if gesture is too long
+            if (samplePoints.Length != flatDataset.pointsPerSample)
+                print("Careful! The gesture index count differs from the index cound needed from the dataset");
+
+            if (ui.selectedIndex < 0)
+                return;
+
+            // copy the available points
+            int indexOffset = (ui.selectedGesture * flatDataset.samplesPerGesture * flatDataset.pointsPerSample) +
+                (ui.selectedIndex * flatDataset.pointsPerSample);
+            for (int i=0; i<flatDataset.pointsPerSample; ++i)
+            {
+                flatDataset.gestures[indexOffset + i] = samplePoints[i];
+            }
+
+            // set dirty to save the data
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(flatDataset);
+#endif
+            ui.setRecorded();
         }
 
         void SetGesture(GestureObject g)
