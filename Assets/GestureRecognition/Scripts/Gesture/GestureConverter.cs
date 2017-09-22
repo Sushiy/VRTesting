@@ -23,9 +23,6 @@ namespace gesture
         [Range(0f, 2f)]
         private float m_fMinimalDistance = 0.2f;
         [SerializeField]
-        [Range(1, 10)]
-        private int[] m_iRequiredNumbers = new int[] { 4, 6 };
-        [SerializeField]
         private float m_fSize = 1f;
         [SerializeField]
         private bool m_bDrawWithMouse = false;

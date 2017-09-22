@@ -10,6 +10,13 @@ namespace gesture
         public Vector2[] points;
     }
 
+    public struct Neighbor
+    {
+        public float distance;
+        public GestureSpellObject gesture;
+        public int gestureIndex;
+    }
+
     /// <summary>
     /// GestureMatch
     /// 
@@ -118,7 +125,7 @@ namespace gesture
         }
 
         // flatdataset version
-        private List<KeyValuePair<float, GestureSpellObject>> FindNearestNeighbors(GestureSpellObject input, int k, int datasetIndex)
+        private List<Neighbor> FindNearestNeighbors(GestureSpellObject input, int k, int datasetIndex)
         {
             // check for traps
             if (input.points.Length != flatDatasets[datasetIndex].pointsPerSample)
@@ -128,17 +135,22 @@ namespace gesture
                 return null;
             }
 
-            var neighbors = new List<KeyValuePair<float, GestureSpellObject>>();
-            foreach (GestureSpellObject g in gestureObjectArray[datasetIndex])
+            var neighbors = new List<Neighbor>();
+            for (int i=0; i<gestureObjectArray[datasetIndex].Length; ++i)
             {
+                GestureSpellObject g = gestureObjectArray[datasetIndex][i];
                 float distance = GestureSimilarity.CompareGestures(input.points, g.points, MeasureType.EUKLIDIAN_MEASURE, false);
                 if (distance == -1)
                 {
                     print("The gestures to compare have different counts of points! Make sure both gestures have the same number of points");
                 }
-                neighbors.Add(new KeyValuePair<float, GestureSpellObject>(distance, g));
+                Neighbor n = new Neighbor();
+                n.distance = distance;
+                n.gesture = g;
+                n.gestureIndex = i / flatDatasets[datasetIndex].samplesPerGesture;
+                neighbors.Add(n);
             }
-            return neighbors.OrderBy(n => n.Key).Take(k).ToList();
+            return neighbors.OrderBy(n => n.distance).Take(k).ToList();
         }
 
         /// <summary>
@@ -240,23 +252,10 @@ namespace gesture
             Vector2[] votes = new Vector2[gestureCount];
 
             // Get in the votes
-            foreach (KeyValuePair<float, GestureSpellObject> neighbor in nearestNeighbors)
+            foreach (Neighbor neighbor in nearestNeighbors)
             {
-                // cannot use the neighbor value type thing anymore! needs some kind of index
-                //
-                //
-                //
-                // first make sure that is actually the error
-                // next maybe try to save the gesture index in the gesturespell object or something?
-                // or calculate it somehow. but you need to know which neighbor has which gesture index
-                //
-                //
-                //
-                //
-                //
-                ///////////////////////
-                votes[(int)neighbor.Value.type].x++;
-                votes[(int)neighbor.Value.type].y += neighbor.Key;
+                votes[neighbor.gestureIndex].x++;
+                votes[neighbor.gestureIndex].y += neighbor.distance;
             }
 
             // Get the best match
@@ -273,6 +272,10 @@ namespace gesture
                     highestMatchValue = votes[i].x;
                 }
             }
+
+            string s = "Dataset " + datasetIndex + "\n";
+            for (int i = 0; i < votes.Length; ++i) s += "Votes[" + i + "].x=" + votes[0].x + "; Votes[" + i + "].y = " + votes[0].y + "\n";
+            print(s);
 
             // set the matched type
             matchedType = flatDatasets[datasetIndex].spelltypes[matchIndex];
