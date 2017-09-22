@@ -36,7 +36,7 @@ public class MeteorSpawner : SpawnerSpell
         m_rigidThis = GetComponent<Rigidbody>();
         m_rigidThis.velocity = (spelldata._v3WandVelocity * m_fVelocityMultiplier);
         IPlayerController player = spelldata._goPlayer.GetComponent<IPlayerController>();
-        player.GetTargetPosition();
+        m_v3Target = player.GetTargetPosition();
         m_spelldata = spelldata;
         m_bFired = true;
 
@@ -88,7 +88,7 @@ public class MeteorSpawner : SpawnerSpell
 
     IEnumerator SpawnPortal()
     {
-        Debug.Log("Portal Spawned");
+        //Debug.Log("Portal Spawned");
 
         float delta = 0.0f;
         while(delta < 1.0f)
@@ -111,7 +111,7 @@ public class MeteorSpawner : SpawnerSpell
 
     IEnumerator DespawnPortal()
     {
-        Debug.Log("Portal Despawning");
+        //Debug.Log("Portal Despawning");
         float delta = 0.0f;
         while (delta < 1.0f)
         {

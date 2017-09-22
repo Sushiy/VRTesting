@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/DarkArena/DarkArenaLobby.unity
     guid: ae1af5920a74e164c84877392ac49358
   - enabled: 1
-    path: Assets/DarkArena/DarkArenaTest.unity
-    guid: 4a3a2c82bd81bce4796884bff21036c6
+    path: Assets/DarkArena/Canyon_Arena_Online.unity
+    guid: 4a4be91e6e8423b4e9b694f7346ddabb

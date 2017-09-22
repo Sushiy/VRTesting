@@ -25,8 +25,8 @@ public class Shield : Spell
         Rigidbody rigidSpell = GetComponent<Rigidbody>();
         transform.position = transCastingHand.position;
         transform.rotation = transCastingHand.rotation;
-        transform.rotation *= Quaternion.Euler(0, 90, 0);
-        transform.position += transform.right * -0.7f;
+        transform.rotation *= Quaternion.Euler(0, 0, 0);
+        transform.position += transform.forward * 0.4f;
         FixedJoint fixJHand = transCastingHand.GetComponent<FixedJoint>();
         if (fixJHand.connectedBody != null)
             Destroy(fixJHand.connectedBody.gameObject);
