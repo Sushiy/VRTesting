@@ -213,7 +213,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
             {
                 m_forcerecMain = f;
                 m_magicwandMain = f.MagicWand;
-                CmdSpawnNetworkWand(m_prefabNetworkWand, FindWandHand(f.MagicWand), gameObject);
+                //CmdSpawnNetworkWand(m_prefabNetworkWand, FindWandHand(f.MagicWand), gameObject);
             }
             else
             {
@@ -236,7 +236,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         RpcSpawnNetworkWand(_prefabWand, _castingHandIndex, _goPlayerThis);
     }
 
-    [RPC]
+    [ClientRpc]
     private void RpcSpawnNetworkWand(GameObject _prefabWand, int _castingHandIndex, GameObject _goPlayerThis)
     {
         GameObject wand = Instantiate<GameObject>(_prefabWand);
