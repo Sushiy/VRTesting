@@ -16,10 +16,12 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
 
     private Vector3 targetPosition;
 
+    private MP_VR_NetworkHMD head;
+
     public Vector3 GetTargetPosition()
     {
         if (Opponent != null)
-            return Opponent.transform.position;
+            return Opponent.transform.position + new Vector3(0, 1.5f, 0);
         else
             return targetPosition;
     }
@@ -75,6 +77,8 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         //if you couldn't find your opponent shoot the default location
         if(Opponent == null)
             targetPosition = transform.position + transform.forward * 32.0f;
+
+        head = GetComponentInChildren<MP_VR_NetworkHMD>();
     }
 
     public void Start()
@@ -209,7 +213,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
             {
                 m_forcerecMain = f;
                 m_magicwandMain = f.MagicWand;
-                CmdSpawnNetworkWand(m_prefabNetworkWand, FindWandHand(f.MagicWand), gameObject);
+                //CmdSpawnNetworkWand(m_prefabNetworkWand, FindWandHand(f.MagicWand), gameObject);
             }
             else
             {
@@ -232,7 +236,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         RpcSpawnNetworkWand(_prefabWand, _castingHandIndex, _goPlayerThis);
     }
 
-    [RPC]
+    [ClientRpc]
     private void RpcSpawnNetworkWand(GameObject _prefabWand, int _castingHandIndex, GameObject _goPlayerThis)
     {
         GameObject wand = Instantiate<GameObject>(_prefabWand);

@@ -37,7 +37,8 @@ public class MP_VR_NetworkHMD : MonoBehaviour
         }
         else
         {
-            m_transVRHMD = m_vrplayerctrlThis.GetVRPlayer().hmdTransform;
+            if(m_vrplayerctrlThis.GetVRPlayer()!= null)
+                m_transVRHMD = m_vrplayerctrlThis.GetVRPlayer().hmdTransform;
         }
     }
 }
