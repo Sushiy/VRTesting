@@ -21,7 +21,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
     public Vector3 GetTargetPosition()
     {
         if (Opponent != null)
-            return Opponent.head.transform.position;
+            return Opponent.transform.position + new Vector3(0, 1.5f, 0);
         else
             return targetPosition;
     }
