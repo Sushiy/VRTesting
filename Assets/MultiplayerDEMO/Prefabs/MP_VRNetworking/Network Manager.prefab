@@ -19,10 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4968931038215544}
-  - component: {fileID: 114168782805361724}
   - component: {fileID: 114265747739690992}
   - component: {fileID: 114749029001930028}
-  - component: {fileID: 114389189008526874}
+  - component: {fileID: 114057844479739342}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -43,7 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114168782805361724
+--- !u!114 &114057844479739342
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -51,7 +50,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1144523005438070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -822479833, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Script: {fileID: 11500000, guid: a558f453a0c181a4883c057d502d2e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
@@ -59,7 +58,7 @@ MonoBehaviour:
   m_ServerBindAddress: 
   m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
-  m_RunInBackground: 0
+  m_RunInBackground: 1
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
@@ -70,11 +69,13 @@ MonoBehaviour:
   m_OfflineScene: DarkArenaLobby
   m_OnlineScene: DarkArenaTest
   m_SpawnPrefabs:
-  - {fileID: 1795373394105846, guid: 636582d522f15544095c369e6f155a6e, type: 2}
-  - {fileID: 1906751736766586, guid: c33493e41b2371d4d9ecce07af731d45, type: 2}
   - {fileID: 1611775661731242, guid: 759b9957794247d4bab49dc6bf2854e9, type: 2}
   - {fileID: 1050107986345280, guid: 6177871d211b37a4fb5871220b83c6fa, type: 2}
   - {fileID: 1075939588721284, guid: e6ba4053790b2de4293ee09a36216b3e, type: 2}
+  - {fileID: 1448137643041376, guid: 8244a9c3edda33d4e91e1f771aff298f, type: 2}
+  - {fileID: 1553247003943636, guid: 770429be4eb1af34e943ff3aa138fc0c, type: 2}
+  - {fileID: 1322237559393726, guid: 2392aa3bd14b12646bb909a14b13fc15, type: 2}
+  - {fileID: 1691872808913834, guid: 2133fc6d837796948903e5ad0295a811, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -130,6 +131,8 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
+  m_goPlayer1: {fileID: 0}
+  m_goPlayer2: {fileID: 0}
 --- !u!114 &114265747739690992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,19 +148,6 @@ MonoBehaviour:
   showGUI: 1
   offsetX: 0
   offsetY: 0
---- !u!114 &114389189008526874
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1144523005438070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20193638aeec10749ac29ea3fa5595e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_list_mpvr_playerctrl: []
-  m_homingtargetDefault: {fileID: 0}
 --- !u!114 &114749029001930028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,3 +159,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb39617cd0bc16478c61b8a374bfc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartPanel: {fileID: 0}
+  Matchmakingpanel: {fileID: 0}
