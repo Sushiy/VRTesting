@@ -42,7 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -87,7 +87,7 @@ LightmapSettings:
     m_PVRFilteringAtrousNormalSigma: 1
     m_PVRFilteringAtrousPositionSigma: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -265,7 +265,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 933875985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1060,6 +1060,7 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
+    generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!4 &2052047882
@@ -1089,7 +1090,7 @@ MonoBehaviour:
   m_fSphereRadius: 0.3
   m_iMaxAngle: 20
   m_fMinimalDistance: 1.214
-  m_iRequiredNumber: 4
+  m_iRequiredNumber: 6
   m_fSize: 1
   m_bDrawWithMouse: 1
   m_textCharPntNr: {fileID: 598777840}
@@ -1104,8 +1105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68eb6dbcc859f4742b28f083bc8966bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataset: {fileID: 11400000, guid: d61362cf11ad6a7468b8fca5a3b07563, type: 2}
+  dataset: {fileID: 0}
+  flatDataset: {fileID: 11400000, guid: f77f8d94339488d4ab9165286a77ffe4, type: 2}
   ui: {fileID: 1664834765}
+  useFlatDataset: 1
 --- !u!114 &2052047885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1121,6 +1124,10 @@ MonoBehaviour:
   avgDistanceThreshold: 1
   m_k: 3
   debug_text: {fileID: 0}
+  flatDatasets:
+  - {fileID: 11400000, guid: d5264b7670b489346a034f92e386c21d, type: 2}
+  - {fileID: 11400000, guid: f77f8d94339488d4ab9165286a77ffe4, type: 2}
+  useFlatDatasets: 1
 --- !u!114 &2052047886
 MonoBehaviour:
   m_ObjectHideFlags: 0

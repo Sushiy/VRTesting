@@ -16,12 +16,11 @@ namespace gesture
     public class GestureDataFlat : ScriptableObject
     {
         public SpellType[] spelltypes;
-        [SerializeField]
-        private Vector2[] gestures;
+        public Vector2[] gestures;
 
         public int samplesPerGesture = 4;
         public int pointsPerSample = 4;
-        public int numberOfGestures = 5;
+        public int numberOfGestures = 10;
         public bool initialise = true;
 
         public void Init()
@@ -31,9 +30,8 @@ namespace gesture
 
             // init the arrays
             gestures = new Vector2[samplesPerGesture * pointsPerSample * numberOfGestures];
-            int numberOfSpells = System.Enum.GetValues(typeof(SpellType)).Length;
-            spelltypes = new SpellType[numberOfSpells];
-            for (int i=0; i<numberOfSpells; ++i)
+            spelltypes = new SpellType[numberOfGestures];
+            for (int i=0; i< numberOfGestures; ++i)
             {
                 spelltypes[i] = SpellType.NONE;
             }
