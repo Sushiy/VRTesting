@@ -16,10 +16,12 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
 
     private Vector3 targetPosition;
 
+    private MP_VR_NetworkHMD head;
+
     public Vector3 GetTargetPosition()
     {
         if (Opponent != null)
-            return Opponent.transform.position;
+            return Opponent.head.transform.position;
         else
             return targetPosition;
     }
@@ -75,6 +77,8 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         //if you couldn't find your opponent shoot the default location
         if(Opponent == null)
             targetPosition = transform.position + transform.forward * 32.0f;
+
+        head = GetComponentInChildren<MP_VR_NetworkHMD>();
     }
 
     public void Start()
