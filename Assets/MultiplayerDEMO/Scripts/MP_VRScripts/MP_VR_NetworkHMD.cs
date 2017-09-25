@@ -18,7 +18,7 @@ public class MP_VR_NetworkHMD : MonoBehaviour
     private void Init()
     {
         m_vrplayerctrlThis = GetComponentInParent<IPlayerController>();
-        if (m_vrplayerctrlThis != null)
+        if (m_vrplayerctrlThis != null && m_vrplayerctrlThis.GetVRPlayer()!= null)
             m_transVRHMD = m_vrplayerctrlThis.GetVRPlayer().hmdTransform;
     }
 
