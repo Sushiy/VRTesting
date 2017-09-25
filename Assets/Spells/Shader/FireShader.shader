@@ -51,6 +51,7 @@
 			half4 _Color;
 			half4 _EmissionColor;
 			float _Intensity;
+			//Bubble Intensity
 			float _Bubble1;
 			float _Bubble2;
 			//Multiplies Speed of Bubbling over Time
