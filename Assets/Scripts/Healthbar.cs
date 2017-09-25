@@ -9,16 +9,19 @@ public class Healthbar : MonoBehaviour {
     private float m_fHealthfactor = 1f;
     [SerializeField]
     private MP_Health m_MPhealth;
+    [Range(0.1f,3f)]
+    [SerializeField]
+    private float m_fFullScaleOfFire = 1f;
 
     private Transform[] m_arrFireTrans;
     private int m_iNumFires;
-    private float m_fFullScaleOfFire;
 
     private void Awake()
     {
         m_arrFireTrans = GetComponentsInChildren<Transform>();
-        m_iNumFires = m_arrFireTrans.Length -1;
-        m_fFullScaleOfFire = m_arrFireTrans[0].localScale.x;
+        m_iNumFires = m_arrFireTrans.Length - 1;
+        //m_fFullScaleOfFire = m_arrFireTrans[0].lossyScale.x;
+        //print("local scale is " + m_fFullScaleOfFire);
     }
 
     private void Update() { 
@@ -44,6 +47,7 @@ public class Healthbar : MonoBehaviour {
     void setFactorInFire(int index, float factor)
     {
         float scaleFactor = Mathf.Lerp(0f, m_fFullScaleOfFire, factor);
+        //print("scale factor index " + index + " is " + scaleFactor + "and factor is " + factor);
         Vector3 newScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         m_arrFireTrans[index].localScale = newScale;
     }
