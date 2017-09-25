@@ -20,7 +20,6 @@ public class WandLoadOffhand : MonoBehaviour {
         {
             if (m_wand.IsWandLoaded())
             {
-                print("Loaded offhand Wand mit mainhand spell");
                 MagicWand offhandWand = other.GetComponentInChildren<MagicWand>();
                 Assert.IsNotNull(offhandWand);
                 offhandWand.LoadWand(m_wand.LoadedSpell);

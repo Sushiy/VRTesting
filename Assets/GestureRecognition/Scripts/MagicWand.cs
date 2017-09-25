@@ -88,7 +88,16 @@ public class MagicWand : MonoBehaviour {
 
     public void LoadWand(SpellType spell)
     {
-        foreach(GameObject go in spellRegistry.clientPrefabs)
+        // if the offhand is charging right now and the
+        // current spell gets overwritten, only change the
+        // "lastSpell"
+        if (!isMainHand && hasCasted)
+        {
+            m_enumLastSpell = spell;
+            return;
+        }
+
+        foreach (GameObject go in spellRegistry.clientPrefabs)
         {
             if(go!=null)
             {
