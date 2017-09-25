@@ -10,6 +10,7 @@
 		_Bubble1("Bubbling Value 1", float) = 1.0
 		_Bubble2("Bubbling Value 2", float) = 1.0
 		_Bubble3("Bubbling Value 3", float) = 1.0
+		_TexSpeed("ScrollingSpeed", float) = 2.0
 	}
 	SubShader
 	{
@@ -50,9 +51,13 @@
 			half4 _Color;
 			half4 _EmissionColor;
 			float _Intensity;
+			//Bubble Intensity
 			float _Bubble1;
 			float _Bubble2;
+			//Multiplies Speed of Bubbling over Time
 			float _Bubble3;
+			//Speed of Texture scrolling
+			float _TexSpeed;
 
 			half3 GetEmission (VertexInput i) 
 			{
@@ -77,7 +82,7 @@
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
 				// Moving Texture
-				o.uv += _Time.xx * 2;
+				o.uv += _Time.xx * _TexSpeed;
 
 				
 				o.vertex = UnityObjectToClipPos(v.vertex);
