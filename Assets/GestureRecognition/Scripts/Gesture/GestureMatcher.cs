@@ -282,9 +282,10 @@ namespace gesture
                 }
             }
 
-            string s = "Dataset " + datasetIndex + "\n";
-            for (int i = 0; i < votes.Length; ++i) s += "Votes[" + i + "].x=" + votes[0].x + "; Votes[" + i + "].y = " + votes[0].y + "\n";
-            print(s);
+            // DEBUG AUSGABEN
+            //string s = "Dataset " + datasetIndex + "\n";
+            //for (int i = 0; i < votes.Length; ++i) s += "Votes[" + i + "].x=" + votes[0].x + "; Votes[" + i + "].y = " + votes[0].y + "\n";
+            //print(s);
 
             // set the matched type
             matchedType = flatDatasets[datasetIndex].spelltypes[matchIndex];

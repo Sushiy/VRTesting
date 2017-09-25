@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataObject: {fileID: 11400000, guid: 59f65b5dcc2670b4d8f9dc3d4fc44bd2, type: 2}
-  avgDistanceThreshold: 1
-  m_k: 3
+  avgDistanceThreshold: 1.1
+  m_k: 5
   debug_text: {fileID: 0}
   flatDatasets:
   - {fileID: 11400000, guid: d5264b7670b489346a034f92e386c21d, type: 2}
