@@ -28,9 +28,20 @@ namespace gesture
             {
                 //testResult = null;
                 GestureObject g = new GestureObject();
-                g.points = drawer.getCurrentGesture();
+                g.points = drawer.getCurrentGesture(4);
                 gestureTypes type;
                 bool valid = matcher.Match(g, out type);
+                print("This gesture is: " + type.ToString() + " and it is valid: " + valid);
+            }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                GestureSpellObject g4 = new GestureSpellObject();
+                GestureSpellObject g6 = new GestureSpellObject();
+                g4.points = drawer.getCurrentGesture(4);
+                g6.points = drawer.getCurrentGesture(6);
+                SpellType type;
+                bool valid = matcher.MultiMatch(new GestureSpellObject[]{g4,g6}, out type);
                 print("This gesture is: " + type.ToString() + " and it is valid: " + valid);
             }
         }

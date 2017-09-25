@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 
 namespace gesture
@@ -27,6 +28,8 @@ namespace gesture
         public static float CompareGestures(Vector2[] g1, Vector2[] g2, MeasureType type, bool rootIt)
         {
             // Check for traps
+            Assert.IsNotNull(g1);
+            Assert.IsNotNull(g2);
             int n = g1.Length;
             if (n != g2.Length)
             {

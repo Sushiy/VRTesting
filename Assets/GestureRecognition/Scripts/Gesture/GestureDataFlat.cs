@@ -52,6 +52,7 @@ namespace gesture
                 // go through every sample
                 int numberOfSamples = samplesPerGesture * numberOfGestures;
                 int pointIndex = 0;
+                int dataIndex = 0;
                 for (int sampleIndex = 0; sampleIndex < numberOfSamples; ++sampleIndex)
                 {
                     GestureSpellObject g = new GestureSpellObject();
@@ -62,6 +63,8 @@ namespace gesture
                     {
                         g.points[i] = gestures[pointIndex++]; // copy next point
                     }
+
+                    dataset[dataIndex++] = g;
                 }
             }
             // in case there is not every point recorded in this dataset

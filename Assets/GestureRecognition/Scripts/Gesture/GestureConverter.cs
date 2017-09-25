@@ -23,9 +23,6 @@ namespace gesture
         [Range(0f, 2f)]
         private float m_fMinimalDistance = 0.2f;
         [SerializeField]
-        [Range(1, 10)]
-        private int m_iRequiredNumber = 5;
-        [SerializeField]
         private float m_fSize = 1f;
         [SerializeField]
         private bool m_bDrawWithMouse = false;
@@ -37,8 +34,6 @@ namespace gesture
         private List<Vector3> m_arrPoints = new List<Vector3>(); // just for the line renderer
         private List<Vector2> m_arrPoints2D = new List<Vector2>();
         private List<Vector2> m_arrCharPoints = new List<Vector2>();
-        //private List<Vector2> m_arrAddedPoints = new List<Vector2>(); // debug
-        //private List<Vector2> m_arrRemovedPoints = new List<Vector2>(); // debug
 
         private LineRenderer line;
         private bool newLine = true;
@@ -83,15 +78,23 @@ namespace gesture
 
             if (Input.GetMouseButtonUp(0))
             {
-                // Calculate characteristic points of gesture
-                Vector2[] charp;
-                Vector2[] p = m_arrPoints2D.ToArray();
-                IdentifyCharPoints(ref p, out charp, m_iRequiredNumber);
-                // Make it Uniform
-                MakeGestureUniform(ref charp, 1f);
-                m_arrCharPoints.AddRange(charp);
                 newLine = true;
             }
+        }
+
+        //TODO should be removed!
+        public Vector2[] getCurrentGesture(int numberOfPoints)
+        {
+            // Calculate characteristic points of gesture
+            Vector2[] charp;
+            Vector2[] p = m_arrPoints2D.ToArray();
+            IdentifyCharPoints(ref p, out charp, numberOfPoints);
+            // Make it Uniform
+            MakeGestureUniform(ref charp, 1f);
+            m_arrCharPoints.Clear();
+            m_arrCharPoints.AddRange(charp);
+
+            return m_arrCharPoints.ToArray();
         }
 
         /// <summary>
@@ -100,9 +103,9 @@ namespace gesture
         /// <param name="p">3D Point data of a gesture</param>
         /// <param name="normal">The normal of the plane the points are supposed to be drawn on</param>
         /// <returns>the gesture</returns>
-        public GestureObject CreateGestureFrom3DData(ref Vector3[] p, Vector3 normal, int pointCount)
+        public GestureSpellObject CreateGestureFrom3DData(ref Vector3[] p, Vector3 normal, int pointCount)
         {
-            GestureObject g = new GestureObject();
+            GestureSpellObject g = new GestureSpellObject();
             Vector2[] points2D;
             Transform3DData(ref p, normal, out points2D);
             IdentifyCharPoints(ref points2D, out g.points, pointCount);
@@ -131,11 +134,7 @@ namespace gesture
             return g;
         }
 
-        //TODO should be removed!
-        public Vector2[] getCurrentGesture()
-        {
-            return m_arrCharPoints.ToArray();
-        }
+
 
         void Debug()
         {

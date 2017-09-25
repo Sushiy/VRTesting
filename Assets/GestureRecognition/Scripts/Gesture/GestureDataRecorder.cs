@@ -46,12 +46,12 @@ namespace gesture
                 {
                     GestureObject g = new GestureObject();
                     g.type = (gestureTypes)ui.selectedGesture;
-                    g.points = drawer.getCurrentGesture(); //TODO sollte sich das woanders herholen!
+                    g.points = drawer.getCurrentGesture(dataset.pointsPerGesture); //TODO sollte sich das woanders herholen!
                     SetGesture(g);
                 }
                 else
                 {
-                    SetGesture(drawer.getCurrentGesture());
+                    SetGesture(drawer.getCurrentGesture(flatDataset.pointsPerSample));
                 }
             }
         }
