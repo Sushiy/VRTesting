@@ -30,6 +30,8 @@ public abstract class Spell : MonoBehaviour
     //public gestureTypes Gesture{ get { return m_gestureTypeThis; } }
     public bool m_bIsServer = false;
 
+    protected CastingData thisCastingData;
+
     protected Vector3 m_v3Target;
     public Vector3 TargetPosition { get { return m_v3Target; } }
     
@@ -37,6 +39,7 @@ public abstract class Spell : MonoBehaviour
     public abstract void PlayerHit(GameObject _goPlayer);
     public abstract void SpellHit();
     public abstract void Deactivate();
+
     public GameObject LoadedFX()
     {
         return m_goLoadedFX;

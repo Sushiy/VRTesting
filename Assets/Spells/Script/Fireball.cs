@@ -36,6 +36,7 @@ public class Fireball : Spell
     public override void Fire(CastingData spelldata)
     {
         //Debug.Log("Spell: Fire!");
+        thisCastingData = spelldata;
         gameObject.transform.position = spelldata._v3WandPos;
         gameObject.transform.rotation = spelldata._qWandRot;
         m_rigidThis = GetComponent<Rigidbody>();
@@ -47,21 +48,25 @@ public class Fireball : Spell
 
     public void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.collider.gameObject.ToString());
         Vector3 normal = collision.contacts[0].normal;
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Shield") && absorptionPrefab != null)
+
+        GameObject goOther = collision.gameObject;
+        bool hitSelf = goOther == thisCastingData._goPlayer ? true : false;
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Shield") && absorptionPrefab != null)
         {
             GameObject absorbtion = Instantiate(absorptionPrefab, transform.position, transform.rotation);
             absorbtion.transform.forward = normal;
         }
-
-        else if (explosionPrefab != null)
+        else if (explosionPrefab != null && !hitSelf)
             Instantiate(explosionPrefab, transform.position, transform.rotation);
 
-        GameObject goOther = collision.gameObject;
-        if (m_bIsServer && goOther.layer == LayerMask.NameToLayer("Player"))
+        if (goOther.layer == LayerMask.NameToLayer("Player") && hitSelf)
         {
             PlayerHit(goOther);
         }
+
         Destroy(gameObject);
     }
 
