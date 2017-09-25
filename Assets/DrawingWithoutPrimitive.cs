@@ -150,15 +150,11 @@ namespace gesture
             {
                 g[i] = m_converter.CreateGestureFrom3DData(ref p, normal, m_matcher.RequiredPointCounts[i]);
             }
-            //GestureObject g = m_converter.CreateGestureFrom3DData(ref p, normal,4);// TODO has to be not hardcoded!!!!
 
             // match the gesture
-            //gestureTypes type;
-            //bool valid = m_matcher.Match(g, out type);
-            //print("Gesture is vald=" + valid.ToString() + " and " + type.ToString());
             SpellType type;
             bool valid = m_matcher.MultiMatch(g, out type);
-            print("Gesture is valid = " + valid.ToString() + " and " + type.ToString());
+            //print("Gesture is valid = " + valid.ToString() + " and " + type.ToString());
 
             // charge wand if valid
             if (valid)
