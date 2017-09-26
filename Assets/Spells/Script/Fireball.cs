@@ -52,7 +52,7 @@ public class Fireball : Spell
         Vector3 normal = collision.contacts[0].normal;
 
         GameObject goOther = collision.gameObject;
-        bool hitSelf = goOther == thisCastingData._goPlayer ? true : false;
+        bool hitSelf = goOther.transform.root.gameObject == thisCastingData._goPlayer ? true : false;
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Shield") && absorptionPrefab != null)
         {
