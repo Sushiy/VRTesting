@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 4736725642138930}
   - component: {fileID: 33693686765066024}
   - component: {fileID: 23743546916095002}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 4850783224534172}
   - component: {fileID: 33996782379243352}
   - component: {fileID: 23086906245627660}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: tree_MeshPart0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 4656189775181314}
   - component: {fileID: 33838958517475044}
   - component: {fileID: 23137158341493662}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: tree_MeshPart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1361,7 +1361,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4587890893051398}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: atree3 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1727,7 +1727,7 @@ GameObject:
   - component: {fileID: 4244597846955034}
   - component: {fileID: 33533730926307934}
   - component: {fileID: 23887724714914624}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2226,7 +2226,7 @@ GameObject:
   - component: {fileID: 4772189934227780}
   - component: {fileID: 33274266931161976}
   - component: {fileID: 23077995321983898}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: tree_MeshPart0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2348,12 +2348,12 @@ GameObject:
   - component: {fileID: 4154414653323706}
   - component: {fileID: 33242412988211720}
   - component: {fileID: 23016808568593810}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1903240643180868
 GameObject:
@@ -2485,7 +2485,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4068078551801386}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: atree3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2601,7 +2601,7 @@ GameObject:
   - component: {fileID: 4371128652048440}
   - component: {fileID: 33159755946990230}
   - component: {fileID: 23630950411184998}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: tree_MeshPart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10983,25 +10983,25 @@ MonoBehaviour:
   m_Cameras:
   - {fileID: 0}
   m_CurrentCamera: {fileID: 0}
-  m_Size: {x: 45, y: 30, z: 30}
+  m_Size: {x: 45, y: 30, z: 20}
   m_SpotNear: 0.1
   m_SpotFar: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967279
   m_ColorFilterMask:
     serializedVersion: 2
     m_Bits: 0
-  m_Brightness: 0.5
+  m_Brightness: 1
   m_BrightnessColored: 5
-  m_Extinction: 0.5
+  m_Extinction: 6
   m_MinDistFromCamera: 0
-  m_ShadowmapRes: 512
+  m_ShadowmapRes: 1024
   m_DepthShader: {fileID: 4800000, guid: 7e188a1e08ecfae4785bed08b1013219, type: 3}
   m_ColorFilterShader: {fileID: 4800000, guid: 78da0b5fc3a6e8a469d047d71187e7ef, type: 3}
   m_Colored: 0
   m_ColorBalance: 1
-  m_EpipolarLines: 256
+  m_EpipolarLines: 512
   m_EpipolarSamples: 512
   m_CoordShader: {fileID: 4800000, guid: 170533b360a07f945b98b5d9d11bff19, type: 3}
   m_DepthBreaksShader: {fileID: 4800000, guid: 8675ad07e6cda494d977506a7a2a8fbd, type: 3}
@@ -11012,7 +11012,7 @@ MonoBehaviour:
     type: 3}
   m_FinalInterpolationShader: {fileID: 4800000, guid: 3fe6f8dd2066bc741806972899aa82f6,
     type: 3}
-  m_DepthThreshold: 0.5
+  m_DepthThreshold: 0.1
   m_InterpolationStep: 32
   m_ShowSamples: 0
   m_ShowInterpolatedSamples: 0
