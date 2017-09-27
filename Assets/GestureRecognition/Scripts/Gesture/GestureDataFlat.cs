@@ -78,5 +78,28 @@ namespace gesture
 
             return true;
         }
+
+        public Vector2[] getPointsFromSample(int gestureIndex, int sampleIndex)
+        {
+            // check for traps
+            if (gestureIndex < 0 || gestureIndex >= numberOfGestures)
+            {
+                Debug.LogError("The Gesture Index in this call is invalid!");
+                return new Vector2[0];
+            }
+            if (sampleIndex < 0 || sampleIndex >= samplesPerGesture)
+            {
+                Debug.LogError("The Sample Index in this call is invalid!");
+                return new Vector2[0];
+            }
+
+            Vector2[] result = new Vector2[pointsPerSample];
+            for (int i=0; i<pointsPerSample; ++i)
+            {
+                result[i] = gestures[(gestureIndex * samplesPerGesture * pointsPerSample) +
+                    (sampleIndex * pointsPerSample) + i];
+            }
+            return result;
+        }
     }
 }
