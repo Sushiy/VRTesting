@@ -16,6 +16,8 @@ public class MP_Health : NetworkBehaviour
 
     private NetworkStartPosition[] spawnPoints;
 
+    public ParticleSystem m_psPlayerDeadExplosion;
+
     [SerializeField]
     private Healthbar m_healthbar;
 
@@ -37,7 +39,7 @@ public class MP_Health : NetworkBehaviour
         {
 
             currentHealth = MAX_HEALTH;
-            CmdRespawnSvr();
+            StartCoroutine(DelayExit(1.5f));
         }
     }
 
@@ -46,6 +48,15 @@ public class MP_Health : NetworkBehaviour
         this.currentHealth = currentHealth;
         //old_Healthbar.sizeDelta = new Vector2(currentHealth, old_Healthbar.sizeDelta.y);
         //m_healthbar.UpdateHealth(currentHealth);
+    }
+
+    IEnumerator DelayExit(float seconds)
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        m_psPlayerDeadExplosion.Play();
+        yield return new WaitForSeconds(seconds);
+        CmdRespawnSvr();
     }
 
     [Command]
