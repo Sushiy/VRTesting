@@ -34,7 +34,7 @@ public class MP_Health : NetworkBehaviour
         if (!isServer)
             return;
 
-        Debug.Log("Take " + amount + "damage");
+        //Debug.Log("Take " + amount + "damage");
 
         currentHealth -= amount;
         if (currentHealth <= 0)
@@ -54,11 +54,15 @@ public class MP_Health : NetworkBehaviour
 
     IEnumerator DelayExit(float seconds)
     {
-        //yield return new WaitForSeconds(0.25f);
+        //CmdExplode(gameObject);
+        RpcExplode(gameObject);
 
-        CmdExplode(gameObject);
         yield return new WaitForSeconds(seconds);
-        CmdRespawnSvr();
+
+        NetworkManager manager = NetworkManager.singleton;
+        manager.StopHost();
+
+        //CmdRespawnSvr();
     }
 
     [Command]

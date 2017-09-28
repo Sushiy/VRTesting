@@ -505,7 +505,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fTorqueForce: 10
-  m_rigid: {fileID: 0}
 --- !u!114 &114022046395065434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -534,7 +533,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fTorqueForce: 10
-  m_rigid: {fileID: 0}
 --- !u!114 &114153488345534690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,9 +568,10 @@ MonoBehaviour:
   lightColor: {r: 1, g: 0.83823526, b: 1, a: 1}
   minIntensity: 1
   maxIntensity: 2
+  IntSpeed: 1
   minRange: 2
-  Range: 0.4
   maxRange: 3
+  RangeSpeed: 0.4
 --- !u!114 &114194134963612854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -606,8 +605,8 @@ MonoBehaviour:
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
   m_bIsServer: 1
-  explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
-    type: 2}
+  explosionPrefab: {fileID: 0}
+  absorptionPrefab: {fileID: 0}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5
   m_fMaxAngle: 30
@@ -657,8 +656,8 @@ MonoBehaviour:
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
   m_bIsServer: 1
-  explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
-    type: 2}
+  explosionPrefab: {fileID: 0}
+  absorptionPrefab: {fileID: 0}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5
   m_fMaxAngle: 30
@@ -687,9 +686,10 @@ MonoBehaviour:
   lightColor: {r: 1, g: 0.83823526, b: 1, a: 1}
   minIntensity: 1
   maxIntensity: 2
+  IntSpeed: 1
   minRange: 2
-  Range: 0.4
   maxRange: 3
+  RangeSpeed: 0.4
 --- !u!114 &114536820181689136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -704,9 +704,10 @@ MonoBehaviour:
   lightColor: {r: 1, g: 0.83823526, b: 1, a: 1}
   minIntensity: 1
   maxIntensity: 2
+  IntSpeed: 1
   minRange: 2
-  Range: 0.4
   maxRange: 3
+  RangeSpeed: 0.4
 --- !u!114 &114552414373959412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -852,7 +853,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fTorqueForce: 10
-  m_rigid: {fileID: 0}
 --- !u!114 &114884896682714616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -931,8 +931,8 @@ MonoBehaviour:
   m_goLoadedFX: {fileID: 0}
   m_spelltypeThis: 3
   m_bIsServer: 1
-  explosionPrefab: {fileID: 1642338304932932, guid: 340bc3c158a97f049bdf074546e6eb58,
-    type: 2}
+  explosionPrefab: {fileID: 0}
+  absorptionPrefab: {fileID: 0}
   m_fVelocityMultiplier: 3
   m_fMinAngle: 5
   m_fMaxAngle: 30
