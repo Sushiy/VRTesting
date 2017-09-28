@@ -54,6 +54,12 @@ public class Fireball : Spell
 
         GameObject goOther = collision.gameObject;
         bool hitSelf = goOther.transform.root.gameObject == thisCastingData._goPlayer ? true : false;
+        
+        if (goOther.layer == LayerMask.NameToLayer("Player") && !hitSelf)
+        {
+            PlayerHit(goOther);
+            destroy = true;
+        }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Shield") && absorptionPrefab != null)
         {
@@ -67,13 +73,11 @@ public class Fireball : Spell
             destroy = true;
         }
 
-        if (goOther.layer == LayerMask.NameToLayer("Player") && !hitSelf)
-        {
-            PlayerHit(goOther);
-        }
-
         if(destroy)
+        {
+            Debug.Log("Detroy Fireball");
             Destroy(gameObject);
+        }
 
     }
 
