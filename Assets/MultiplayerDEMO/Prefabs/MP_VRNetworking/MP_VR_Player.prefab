@@ -1601,6 +1601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba4e0cca1a160542ab34cd11c0d4c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RenderScale: 1.5
 --- !u!114 &114927846470331004
 MonoBehaviour:
   m_ObjectHideFlags: 1
