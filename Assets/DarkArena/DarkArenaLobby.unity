@@ -738,7 +738,7 @@ Prefab:
     - target: {fileID: 114057844479739342, guid: c9458441f1e278a4882537d924853d88,
         type: 2}
       propertyPath: m_OnlineScene
-      value: 
+      value: Canyon_Arena_Online
       objectReference: {fileID: 0}
     - target: {fileID: 114265747739690992, guid: c9458441f1e278a4882537d924853d88,
         type: 2}
