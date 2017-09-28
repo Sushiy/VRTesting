@@ -38,7 +38,7 @@ public class MP_Health : NetworkBehaviour
         if (currentHealth <= 0)
         {
 
-            currentHealth = MAX_HEALTH;
+            //currentHealth = MAX_HEALTH;
             StartCoroutine(DelayExit(1.5f));
         }
     }
@@ -52,7 +52,7 @@ public class MP_Health : NetworkBehaviour
 
     IEnumerator DelayExit(float seconds)
     {
-        yield return new WaitForSeconds(0.25f);
+        //yield return new WaitForSeconds(0.25f);
 
         m_psPlayerDeadExplosion.Play();
         yield return new WaitForSeconds(seconds);
