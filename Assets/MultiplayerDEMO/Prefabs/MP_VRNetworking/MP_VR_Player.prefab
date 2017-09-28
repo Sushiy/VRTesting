@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 114422904293631378}
   - component: {fileID: 114387737304788420}
   - component: {fileID: 114055904821143364}
+  - component: {fileID: 114891781761468354}
   m_Layer: 0
   m_Name: MP_VR_Player
   m_TagString: Untagged
@@ -453,8 +454,8 @@ GameObject:
   - component: {fileID: 114327138174427118}
   - component: {fileID: 92094481704336626}
   - component: {fileID: 124812369032614344}
-  - component: {fileID: 114457412675256420}
   - component: {fileID: 114366815628477788}
+  - component: {fileID: 114485370549150534}
   m_Layer: 0
   m_Name: VRCamera
   m_TagString: MainCamera
@@ -1024,7 +1025,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4160749567
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -1460,7 +1461,7 @@ MonoBehaviour:
   controllerPrefab: {fileID: 168468, guid: 3f39fc63a93686e4a8e9168ee73f24d9, type: 2}
   showDebugText: 0
   spewDebugText: 0
---- !u!114 &114457412675256420
+--- !u!114 &114485370549150534
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1589,6 +1590,17 @@ MonoBehaviour:
   controllerPrefab: {fileID: 0}
   showDebugText: 0
   spewDebugText: 0
+--- !u!114 &114891781761468354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198207902069624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba4e0cca1a160542ab34cd11c0d4c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114927846470331004
 MonoBehaviour:
   m_ObjectHideFlags: 1
