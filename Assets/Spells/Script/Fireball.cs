@@ -62,7 +62,7 @@ public class Fireball : Spell
         else if (explosionPrefab != null && !hitSelf)
             Instantiate(explosionPrefab, transform.position, transform.rotation);
 
-        if (goOther.layer == LayerMask.NameToLayer("Player") && hitSelf)
+        if (goOther.layer == LayerMask.NameToLayer("Player") && !hitSelf)
         {
             PlayerHit(goOther);
         }
