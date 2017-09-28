@@ -6,7 +6,7 @@ using UnityEngine;
 public class Meteor : Spell
 {
     private Rigidbody m_rigidThis;
-    private int m_iDamage = 10;
+    private int m_iDamage = 20;
     public GameObject explosionPrefab;
     public GameObject absorptionPrefab;
     public float m_fVelocityMultiplier = 2.0f;

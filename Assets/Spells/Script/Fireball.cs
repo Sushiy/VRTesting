@@ -6,7 +6,7 @@ using UnityEngine;
 public class Fireball : Spell
 {
     private Rigidbody m_rigidThis;
-    private int m_iDamage = 5;
+    private int m_iDamage = 15;
     public GameObject explosionPrefab;
     public GameObject absorptionPrefab;
     public float m_fVelocityMultiplier = 2.0f;

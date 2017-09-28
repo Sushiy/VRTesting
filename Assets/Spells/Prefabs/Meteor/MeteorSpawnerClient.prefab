@@ -1251,9 +1251,10 @@ MonoBehaviour:
   lightColor: {r: 0.17647058, g: 0.7247599, b: 0.9960785, a: 1}
   minIntensity: 1.5
   maxIntensity: 2
+  IntSpeed: 1
   minRange: 3
-  Range: 0.4
   maxRange: 4
+  RangeSpeed: 0.4
 --- !u!114 &114707050895113034
 MonoBehaviour:
   m_ObjectHideFlags: 1
