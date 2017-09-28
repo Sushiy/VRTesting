@@ -493,7 +493,7 @@ MonoBehaviour:
   m_fVelocityThreshold: 17
   m_fTimeBetweenFlicks: 1
   m_MagicWand: {fileID: 114575299375472264}
-  m_typeFlick: 0
+  m_typeFlick: 5
   m_fFlickDelay: 0.25
   m_v3WandForward: {x: 0, y: -1, z: 0}
   m_fWandVelocityThreshold: 10

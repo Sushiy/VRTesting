@@ -40,7 +40,7 @@ public class ForceRecorder : MonoBehaviour {
 
     private enum enumFlickDetectingType
     {
-        STANDARD, DELAYED, POINTER, DELAYED_POINTER, POINTER_NO_WAND_VELO
+        STANDARD, DELAYED, POINTER, DELAYED_POINTER, POINTER_NO_WAND_VELO, DELAYED_POINT_NO_VELO
     }
 
     void Awake()
@@ -70,10 +70,17 @@ public class ForceRecorder : MonoBehaviour {
             velocity /= Time.deltaTime;
             //if (m_rigidWand.velocity.sqrMagnitude < m_fWandVelocityThreshold)
             if (velocity.sqrMagnitude < m_fWandVelocityThreshold)
+            {
+                if (m_typeFlick == enumFlickDetectingType.POINTER_NO_WAND_VELO)
                 {
-                //print("Wand velo: " + velocity.sqrMagnitude);
-                FlickDetected();
-                m_bWaitingToFlick = false;
+                    FlickDetected();
+                    m_bWaitingToFlick = false;
+                }
+                else if (m_typeFlick == enumFlickDetectingType.DELAYED_POINT_NO_VELO)
+                {
+                    Invoke("DelayedFlick", m_fFlickDelay);
+                    m_bWaitingToFlick = false;
+                }
             }
         }
 
@@ -111,6 +118,10 @@ public class ForceRecorder : MonoBehaviour {
             {
                 m_bWaitingToFlick = true;
             }
+            else if (m_typeFlick == enumFlickDetectingType.DELAYED_POINT_NO_VELO)
+            {
+                m_bWaitingToFlick = true;
+            }
         }
 
         m_lastWandPosition = m_MagicWand.m_SpawnPoint.transform.position;
@@ -143,6 +154,7 @@ public class ForceRecorder : MonoBehaviour {
             || m_typeFlick == enumFlickDetectingType.POINTER_NO_WAND_VELO)
         {
             m_v3velocity = m_MagicWand.transform.localToWorldMatrix * m_v3WandForward;
+            m_v3velocity = m_v3velocity.normalized * 10f;
         }
 
         // set the fire variable so the networking can fetch the flick-status
