@@ -16,12 +16,12 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
 
     private Vector3 targetPosition;
 
-    private MP_VR_NetworkHMD head;
+    public MP_VR_NetworkHMD head;
 
     public Vector3 GetTargetPosition()
     {
         if (Opponent != null)
-            return Opponent.transform.position + new Vector3(0, 1.5f, 0);
+            return Opponent.head.transform.position;// + new Vector3(0, 2.0f, 0);
         else
             return targetPosition;
     }
@@ -156,7 +156,6 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         //2. Find out which hand is your wand hand which is your offhand
         int iCastingHandIndex = FindWandHand(_magicwand);
         //3. Let the Server fire his version of the spell first
-        //CmdFireSpell(spelldata, spellIndex, iCastingHandIndex);
         CmdServerFireSpell(forceRec.m_v3velocity, _magicwand.m_SpawnPoint.position, _magicwand.m_SpawnPoint.rotation, spellIndex, iCastingHandIndex, gameObject);
         //Last unload the wand
         _magicwand.UnLoadWand();

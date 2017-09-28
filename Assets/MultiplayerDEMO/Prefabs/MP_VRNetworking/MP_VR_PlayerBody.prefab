@@ -3534,7 +3534,7 @@ MonoBehaviour:
   destroyOnDeath: 0
   currentHealth: 100
   old_Healthbar: {fileID: 0}
-  m_psPlayerDeadExplosion: {fileID: 0}
+  m_psPlayerDeadExplosion: {fileID: 198161697990051492}
   m_healthbar: {fileID: 0}
 --- !u!114 &114921534276301888
 MonoBehaviour:
