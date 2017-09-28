@@ -48,36 +48,31 @@ public class Fireball : Spell
 
     public void OnCollisionEnter(Collision collision)
     {
-        bool destroy = false;
         //Debug.Log(collision.collider.gameObject.ToString());
         Vector3 normal = collision.contacts[0].normal;
 
         GameObject goOther = collision.gameObject;
         bool hitSelf = goOther.transform.root.gameObject == thisCastingData._goPlayer ? true : false;
+        if (hitSelf)
+            return;
         
-        if (goOther.layer == LayerMask.NameToLayer("Player") && !hitSelf)
+        if (goOther.layer == LayerMask.NameToLayer("Player"))
         {
             PlayerHit(goOther);
-            destroy = true;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Shield") && absorptionPrefab != null)
         {
             GameObject absorbtion = Instantiate(absorptionPrefab, transform.position, transform.rotation);
             absorbtion.transform.forward = normal;
-            destroy = true;
         }
-        else if (explosionPrefab != null && !hitSelf)
+        else if (explosionPrefab != null)
         {
+
             Instantiate(explosionPrefab, transform.position, transform.rotation);
-            destroy = true;
         }
 
-        if(destroy)
-        {
-            Debug.Log("Detroy Fireball");
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
 
     }
 
