@@ -82,8 +82,7 @@ public class MP_Health : NetworkBehaviour
     void CmdRespawnSvr()
     {
         NetworkManager manager = NetworkManager.singleton;
-
-        Application.
+        
         manager.StopHost();
         /*
         Transform spawn = NetworkManager.singleton.GetStartPosition();
