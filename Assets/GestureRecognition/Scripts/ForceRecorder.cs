@@ -151,7 +151,8 @@ public class ForceRecorder : MonoBehaviour {
         m_v3velocity = m_rigid.velocity;
         if (m_typeFlick == enumFlickDetectingType.POINTER
             || m_typeFlick == enumFlickDetectingType.DELAYED_POINTER
-            || m_typeFlick == enumFlickDetectingType.POINTER_NO_WAND_VELO)
+            || m_typeFlick == enumFlickDetectingType.POINTER_NO_WAND_VELO
+            || m_typeFlick == enumFlickDetectingType.DELAYED_POINT_NO_VELO)
         {
             m_v3velocity = m_MagicWand.transform.localToWorldMatrix * m_v3WandForward;
             m_v3velocity = m_v3velocity.normalized * 10f;
