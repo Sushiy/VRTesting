@@ -9,6 +9,7 @@ public class MP_VR_NetworkHMD : MonoBehaviour
 
     private IPlayerController m_vrplayerctrlThis;
     private Transform m_transVRHMD;
+    public Vector3 m_v3offset;
 
     private void Start()
     {
@@ -32,7 +33,7 @@ public class MP_VR_NetworkHMD : MonoBehaviour
 
         if (m_transVRHMD != null)
         {
-            transform.position = m_transVRHMD.position;
+            transform.position = m_transVRHMD.position + m_v3offset;
             transform.rotation = m_transVRHMD.rotation;
         }
         else
