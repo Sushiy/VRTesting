@@ -34,6 +34,8 @@ public class MP_Health : NetworkBehaviour
         if (!isServer)
             return;
 
+        Debug.Log("Take " + amount + "damage");
+
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
