@@ -20,7 +20,7 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
 
     public Vector3 GetTargetPosition()
     {
-        if (Opponent != null)
+        if (Opponent != null&& Opponent.head != null)
             return Opponent.head.transform.position;// + new Vector3(0, 2.0f, 0);
         else
             return targetPosition;
@@ -111,6 +111,13 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         {
             m_bIsReady = false;
             CheckHands();
+            return;
+        }
+
+        if(head == null)
+        {
+            m_bIsReady = false;
+            CheckHead();
             return;
         }
 
@@ -248,6 +255,14 @@ public class MP_VR_PlayerController : NetworkBehaviour, IPlayerController
         wand.transform.rotation = joint.transform.rotation;
         wand.transform.rotation *= Quaternion.Euler(-90, 0, 0);
         joint.connectedBody = rigidWand;
+    }
+
+    private void CheckHead()
+    {
+        if (head != null)
+            return;
+
+        head = GetComponentInChildren<MP_VR_NetworkHMD>();
     }
 
     //Check if you currently have all the necessary handreferences

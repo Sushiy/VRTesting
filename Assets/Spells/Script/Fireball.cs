@@ -49,7 +49,7 @@ public class Fireball : Spell
     public void OnCollisionEnter(Collision collision)
     {
         bool destroy = false;
-        Debug.Log(collision.collider.gameObject.ToString());
+        //Debug.Log(collision.collider.gameObject.ToString());
         Vector3 normal = collision.contacts[0].normal;
 
         GameObject goOther = collision.gameObject;
