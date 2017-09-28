@@ -84,7 +84,7 @@ public class MP_Health : NetworkBehaviour
         NetworkManager manager = NetworkManager.singleton;
 
         manager.StopHost();
-
+        manager.StopMatchMaker();
         /*
         Transform spawn = NetworkManager.singleton.GetStartPosition();
         GameObject newPlayer = (GameObject)Instantiate(NetworkManager.singleton.playerPrefab, spawn.position, spawn.rotation);
