@@ -129,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1302643816489002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.802793, y: 4.5546083, z: -8.202866}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4634259355986074}
@@ -332,9 +332,10 @@ MonoBehaviour:
   lightColor: {r: 1, g: 0.5882353, b: 0.18431373, a: 1}
   minIntensity: 1.5
   maxIntensity: 2
+  IntSpeed: 1
   minRange: 3
-  Range: 0.4
   maxRange: 5
+  RangeSpeed: 0.4
 --- !u!114 &114581237223313456
 MonoBehaviour:
   m_ObjectHideFlags: 1

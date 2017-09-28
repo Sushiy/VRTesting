@@ -56,9 +56,22 @@ public class MP_Health : NetworkBehaviour
     {
         //yield return new WaitForSeconds(0.25f);
 
-        m_psPlayerDeadExplosion.Play();
+        CmdExplode(gameObject);
         yield return new WaitForSeconds(seconds);
         CmdRespawnSvr();
+    }
+
+    [Command]
+    void CmdExplode(GameObject g)
+    {
+        RpcExplode(g);
+    }
+
+    [ClientRpc]
+    void RpcExplode(GameObject g)
+    {
+
+        g.GetComponent<MP_Health>().m_psPlayerDeadExplosion.Play();
     }
 
     [Command]

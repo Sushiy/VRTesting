@@ -118,14 +118,14 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611775661731242}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b56a43b8cdfbf7945b3a43d921a5baa8, type: 2}
+  - {fileID: 2100000, guid: b8a2fa3f160ffab4483c30a34dad07e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -271,9 +271,10 @@ MonoBehaviour:
   lightColor: {r: 0.9960785, g: 0.5137255, b: 0.1764706, a: 1}
   minIntensity: 1.5
   maxIntensity: 2
+  IntSpeed: 1
   minRange: 3
-  Range: 0.4
   maxRange: 5
+  RangeSpeed: 0.4
 --- !u!114 &114496908468504358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,6 +291,7 @@ MonoBehaviour:
   m_spelltypeThis: 1
   m_bIsServer: 1
   explosionPrefab: {fileID: 0}
+  absorptionPrefab: {fileID: 0}
   m_fVelocityMultiplier: 4
 --- !u!114 &114679251140253758
 MonoBehaviour:
