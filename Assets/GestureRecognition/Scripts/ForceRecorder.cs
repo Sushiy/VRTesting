@@ -147,6 +147,9 @@ public class ForceRecorder : MonoBehaviour {
 
         // set the fire variable so the networking can fetch the flick-status
         m_bFire = true;
+
+        // notify the tutorial thingy
+        if (GestureTutorial.s_instance != null) GestureTutorial.s_instance.WandFired();
     }
 
     public bool isFiring()

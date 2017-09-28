@@ -45,7 +45,7 @@ public class MagicWand : MonoBehaviour {
     {
         Assert.IsNotNull(m_SpawnPoint);
         Assert.IsNotNull(spellRegistry);
-        LoadWand(m_enumLoadedSpell);
+        //LoadWand(m_enumLoadedSpell);
         hand = transform.parent.GetComponent<Hand>();
         Assert.IsNotNull(hand);
     }
@@ -69,7 +69,6 @@ public class MagicWand : MonoBehaviour {
 
     public void UnLoadWand()
     {
-        //Debug.Log("Unload Wand");
         m_enumLastSpell = m_enumLoadedSpell;
         if(m_loadedfx != null)
         {
@@ -104,13 +103,19 @@ public class MagicWand : MonoBehaviour {
                 Spell s = go.GetComponent<Spell>();
                 if (s != null && s.SpellType == spell)
                 {
+                    // load the wand
                     m_enumLoadedSpell = s.SpellType;
+                    vibrate_coroutine = StartCoroutine(VibrateLoadedCoroutine());
+
+                    // notify the tutorial
+                    if (isMainHand && GestureTutorial.s_instance != null) GestureTutorial.s_instance.WandLoaded(m_enumLoadedSpell);
+
+                    // start the loaded fx particlesystem
                     if (s.LoadedFX() != null)
                     {
                         GameObject ps = m_loadedfx;
                         Destroy(ps);
                         m_loadedfx = Instantiate(s.LoadedFX(), m_SpawnPoint.position, m_SpawnPoint.rotation, m_SpawnPoint);
-                        vibrate_coroutine = StartCoroutine(VibrateLoadedCoroutine());
                     }
                 }
 
