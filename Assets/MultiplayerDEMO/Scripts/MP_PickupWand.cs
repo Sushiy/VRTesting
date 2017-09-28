@@ -48,6 +48,13 @@ public class MP_PickupWand : MonoBehaviour
             if (m_bDestroyMainHandColliderAfterUse) Destroy(other);
             if (m_bDestroyOffHandColliderAfterUse) Destroy(offhand.GetComponent<Collider>());
 
+            // Turn on the Tutorial Dagger
+            if (GestureTutorial.s_instance != null)
+            {
+                GestureTutorial.s_instance.gameObject.SetActive(true);
+                GestureTutorial.s_instance.InvokeStart(1.5f);
+            }
+
             Destroy(gameObject);
         }
     }
