@@ -35,7 +35,7 @@ public class Fireball : Spell
 
     public override void Fire(CastingData spelldata)
     {
-        Debug.Log("Spell: Fireball!");
+        //Debug.Log("Spell: Fireball!");
         thisCastingData = spelldata;
         gameObject.transform.position = spelldata._v3WandPos;
         gameObject.transform.rotation = spelldata._qWandRot;

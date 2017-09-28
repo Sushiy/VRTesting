@@ -106,7 +106,7 @@ public class LaserBeam : Spell {
 
     public override void Fire(CastingData spelldata)
     {
-        Debug.Log("LaserBeam: Fire");
+        //Debug.Log("LaserBeam: Fire");
         //Fetch the MPVRPlayerController
         IPlayerController player = spelldata._goPlayer.GetComponent<IPlayerController>();
         //Get the transform of the currently casting hand

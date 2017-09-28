@@ -16,7 +16,7 @@ public class Shield : Spell
 
     public override void Fire(CastingData spelldata)
     {
-        Debug.Log("Shield: Fire");
+        //Debug.Log("Shield: Fire");
         //Fetch the MPVRPlayerController
         IPlayerController player = spelldata._goPlayer.GetComponent<IPlayerController>();
         //Get the transform of the currently casting hand
