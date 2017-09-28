@@ -45,7 +45,8 @@ public class MagicWand : MonoBehaviour {
     {
         Assert.IsNotNull(m_SpawnPoint);
         Assert.IsNotNull(spellRegistry);
-        //LoadWand(m_enumLoadedSpell);
+        if (!isMainHand)
+            LoadWand(m_enumLoadedSpell);
         hand = transform.parent.GetComponent<Hand>();
         Assert.IsNotNull(hand);
     }
