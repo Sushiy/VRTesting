@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4051879420597698}
   - component: {fileID: 198354366183146760}
   - component: {fileID: 199814797751885718}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: particle_charged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4082984369238114}
   - component: {fileID: 54646008386407156}
   - component: {fileID: 114575299375472264}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: OffHand_Wand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 54958681632518800}
   - component: {fileID: 145921199229011806}
   - component: {fileID: 114854728039575588}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Flick_offhand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 33074039402806324}
   - component: {fileID: 135221431179987256}
   - component: {fileID: 23584105875063034}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4362282630185276}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: beginningPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4168810401978288}
   - component: {fileID: 54835432634795218}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: endPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 4621283835030080}
   - component: {fileID: 198562543551310096}
   - component: {fileID: 199562721981345912}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: FlickExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 4982117417148068}
   - component: {fileID: 199939664667236910}
   - component: {fileID: 198688147957503866}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Particle revolver 002 Eternal charge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 198228075189392012}
   - component: {fileID: 199352317222407526}
   - component: {fileID: 114776015494688436}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Particle revolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4629056535441992}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

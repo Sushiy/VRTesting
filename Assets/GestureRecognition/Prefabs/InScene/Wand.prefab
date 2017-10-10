@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4921845669055292}
   - component: {fileID: 33915162662206636}
   - component: {fileID: 23640190389310350}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4782760544388598}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Mesh2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 54526245866609734}
   - component: {fileID: 114077566674071448}
   - component: {fileID: 114342116934308944}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Wand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 114212480126459432}
   - component: {fileID: 120185024212358560}
   - component: {fileID: 114261850565723174}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TriggerDrawing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4601935459456922}
   - component: {fileID: 54207661600349958}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: endPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 54504939468275830}
   - component: {fileID: 145234302654894820}
   - component: {fileID: 114807003828382196}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Flick_mainhand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 4378026217994492}
   - component: {fileID: 198462247985254098}
   - component: {fileID: 199035369793136056}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: FlickExplosion (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 114182703530404256}
   - component: {fileID: 120575688805017820}
   - component: {fileID: 114214105311812944}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PrimitiveDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 4395407442552650}
   - component: {fileID: 33626626774453818}
   - component: {fileID: 23907076079855598}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4180488671630820}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: beginningPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 198132340204067306}
   - component: {fileID: 199713482658042608}
   - component: {fileID: 114472516398445686}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: particle_charged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
