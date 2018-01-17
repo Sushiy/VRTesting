@@ -51,7 +51,7 @@ public class Offline_VR_PlayerController : MonoBehaviour, IPlayerController
 
     public void Start()
     {
-        targetPosition = transform.position + transform.forward * 32.0f;
+		targetPosition = transform.position + transform.forward * 32.0f + transform.up * 2.0f;
         //Spawn the SteamVR player prefab
         m_vrplayerThis = GameObject.Instantiate(m_prefabVRStation, transform.position, transform.rotation).GetComponent<Valve.VR.InteractionSystem.Player>();
         //Grab the SteamVR Hands
