@@ -10,6 +10,6 @@ public class RenderScale : MonoBehaviour
 
     void Start()
     {
-        VRSettings.renderScale = m_RenderScale;
+        UnityEngine.XR.XRSettings.eyeTextureResolutionScale = m_RenderScale;
     }
 }

@@ -23,10 +23,10 @@ public class Shield : Spell
         Transform transCastingHand = player.GetCastingHand(spelldata._iCastingHandIndex);
         //Get rigidbody and the fixedjoint of the casting hand
         Rigidbody rigidSpell = GetComponent<Rigidbody>();
-        transform.position = transCastingHand.position;
-        transform.rotation = transCastingHand.rotation;
-        transform.rotation *= Quaternion.Euler(0, 0, 0);
-        transform.position += transform.forward * 0.4f;
+		transform.position = spelldata._v3WandPos;
+		transform.rotation = spelldata._qWandRot;
+        transform.rotation *= Quaternion.Euler(90, 0, 0);
+        transform.position += transform.forward * 0.3f;
         FixedJoint fixJHand = transCastingHand.GetComponent<FixedJoint>();
         if (fixJHand.connectedBody != null)
             Destroy(fixJHand.connectedBody.gameObject);
